@@ -1,0 +1,32 @@
+*{
+    box-sizing: border-box;
+}
+
+body { 
+    margin: 0; 
+}
+
+header{
+    color: black;
+    background-color: yellow;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+main{
+    display: flex;
+    flex-flow: row, wrap;
+    width: 100vw;
+}
+
+main canvas{
+    width: 60%;
+    height: calc(100vh - 40px);
+}
+
+main aside{
+    width: 40%;
+    height: calc(100vh - 40px);
+    background-color: greenyellow;
+}
