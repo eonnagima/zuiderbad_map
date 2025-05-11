@@ -69,11 +69,13 @@ class locationPin{
 
 scene.background = new THREE.Color(0xfef8e8); //set the background color of the scene
 
-const loader = new GLTFLoader();
 
-loader.load('./assets/models/MapZuiderbadV2.glb', function (gtlf){
+//
+const loader = new GLTFLoader();
+loader.load('./assets/models/MapZuiderbadV3.glb', function (gtlf){
     //scale model down to fit in the scene
     gtlf.scene.scale.set(0.2, 0.2, 0.2); //scale the model down to fit in the scene
+    //gtlf.scene.rotation.x = Math.PI / 4;
     mapGroup.add(gtlf.scene); //add the loaded model to the scene
 }, undefined, function (error) {
     console.error(error);
@@ -84,9 +86,9 @@ loader.load('./assets/models/MapZuiderbadV2.glb', function (gtlf){
 const firstAidPin = new locationPin(
     0,
     "firstaid",
-    new THREE.Vector3(0, 0.1, 0),
+    new THREE.Vector3(0.4, 0.08, 0.25),
     "./assets/models/firstAidPin.glb",
-    true,
+    false,
     0.3,
     {
         name: "EHBO",
@@ -100,9 +102,9 @@ await firstAidPin.initialize(mapGroup, pins);
 const zuiderbadPin = new locationPin(
     1, 
     "food", 
-    new THREE.Vector3(0, 0.1, 0.2), 
+    new THREE.Vector3(0.5, 0.08, 0.1),
     "./assets/models/zuiderbadPin.glb", 
-    true, 
+    false, 
     0.3,
     {
         name: "Zuiderbad Strandbar",
@@ -161,6 +163,8 @@ canvas.addEventListener('click', function(e){
         -((e.clientY - rect.top) / rect.height) * 2 + 1
     );
 
+    console.log(mouse);
+
     raycaster.setFromCamera(mouse, camera); //set the raycaster to the mouse position
     const intersects = raycaster.intersectObjects(
         pins.flatMap(pin => {
@@ -205,7 +209,7 @@ function displayLocationInfo(pin){
     let openingHours = document.querySelector('.infoDesktop .openingHours');
 
     if(pin.info.openingHours){
-        openingHours.innerHTML = pin.info.openingHours;
+        openingHours.innerHTML = pin.info.openingHours.monday;
         openingHours.classList.remove('hidden');
     }else{
         openingHours.innerHTML = "";

@@ -58,8 +58,8 @@ main aside{
 }
 
 .filterButton{
-    height: 60px;
-    width: 60px;
+    height: 80px;
+    width: 80px;
     background-color: var(--primary-color);
     border: 2px solid black;
 }
@@ -68,7 +68,7 @@ main aside{
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
-    gap: 8px 20px;
+    gap: 12px 20px;
 }
 
 .infoDesktop{
@@ -89,6 +89,73 @@ main aside{
     justify-content: space-between;
     gap: 20px;
 }
+
+.filterButton i{
+    display: block;
+    background-position: left center;
+    background-size: cover;
+}
+
+.filterButton[data-filter="firstaid"] i{
+    height: 42px;
+    width: 42px;
+    background-image: url(./assets/icons/ehbo.svg);
+}
+
+.filterButton[data-filter="events"] i{
+    height: 42px;
+    width: 42px;
+    background-image: url(./assets/icons/balloon.svg);
+}
+
+.filterButton[data-filter="food"] i{
+    height: 42px;
+    width: 42px;
+    background-image: url(./assets/icons/food.svg);
+}
+
+.filterButton[data-filter="entrance"] i{
+    height: 36px;
+    width: 42px;
+    background-image: url(./assets/icons/entrypoint.svg);
+}
+
+.filterButton[data-filter="toilets"] i{
+    height: 42px;
+    width: 42px;
+    background-image: url(./assets/icons/wc.svg);
+}
+
+.filterButton[data-filter="activities"] i{
+    height: 42px;
+    width: 42px;
+    background-image: url(./assets/icons/sport.svg);
+}
+
+.filterButton[data-filter="dog"] i{
+    height: 36px;
+    width: 42px;
+    background-image: url(./assets/icons/dogpaw.svg);
+}
+
+.filterButton[data-filter="playground"] i{
+    height: 36px;
+    width: 42px;
+    background-image: url(./assets/icons/playground.svg);
+}
+
+.filterButton[data-filter="parking"] i{
+    height: 42px;
+    width: 42px;
+    background-image: url(./assets/icons/parking.svg);
+}
+
+/* .filterButton[data-filter="monument"] i{
+    height: 42px;
+    width: 42px;
+    background-image: url(./assets/icons/);
+} */
+
 
 .hidden{
     display: none;
