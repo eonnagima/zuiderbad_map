@@ -1,9 +1,16 @@
+:root{
+    --primary-color: #FFB949;
+    --secondery-color: #d85026;
+    --off-white: #FEF8E8
+}
+
 *{
     box-sizing: border-box;
 }
 
 body { 
     margin: 0; 
+    background-color: var(--off-white);
 }
 
 header{
@@ -12,6 +19,7 @@ header{
     height: 40px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 main{
@@ -21,12 +29,41 @@ main{
 }
 
 main canvas{
-    width: 60%;
+    width: 61.8%;
     height: calc(100vh - 40px);
 }
 
 main aside{
-    width: 40%;
+    width: 38.2%;
     height: calc(100vh - 40px);
-    background-color: greenyellow;
+    background-color: var(--off-white); 
+    display: flex;
+    flex-direction: column;
+}
+
+.button{
+    border-radius: 16px;
+    padding: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+
+}
+
+.filterButton{
+    height: 60px;
+    width: 60px;
+    background-color: var(--primary-color);
+    border: 2px solid black;
+}
+
+#filterMenuDesktop{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    gap: 8px 20px;
 }
