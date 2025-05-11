@@ -14,10 +14,10 @@ body {
     font-family: Lora;
 }
 
-header{
+#topHeader{
     color: black;
-    background-color: yellow;
-    height: 40px;
+    background-color: var(--off-white);
+    height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,7 +40,7 @@ main aside{
     background-color: var(--off-white); 
     display: flex;
     flex-direction: column;
-    padding: 40px 40px 40px 0;
+    padding: 40px 40px 40px 40px;
 }
 
 .button{
@@ -52,7 +52,8 @@ main aside{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8px;
+    padding: 8px 16px;
+    background-color: var(--primary-color);
 
 }
 
@@ -68,4 +69,27 @@ main aside{
     flex-flow: row wrap;
     justify-content: flex-start;
     gap: 8px 20px;
+}
+
+.infoDesktop{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.infoDesktop header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.infoDesktop .locationButtons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.hidden{
+    display: none;
 }

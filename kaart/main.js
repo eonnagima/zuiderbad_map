@@ -27,14 +27,14 @@ scene.add(mapGroup); //add the group to the scene
 //classes
 
 class locationPin{
-    constructor(id, name, category, position, model, active, scale){
+    constructor(id, category, position, model, active, scale, info = {}){
         this.id = id;
-        this.name = name;
         this.category = category;
         this.position = position;
         this.model = model;
         this.active = active; 
         this.scale = scale;
+        this.info = info; // Initialize info to an empty object
         this.pinObject = null; // Initialize pinObject to null
     }
 
@@ -50,6 +50,12 @@ class locationPin{
 
         group.add(this.pinObject);
         array.push(this);
+
+        if(this.active){
+            this.pinObject.visible = true;
+        }else{
+            this.pinObject.visible = false;
+        }
     }
 
     fadeInOut(){
@@ -75,10 +81,36 @@ loader.load('./assets/models/MapZuiderbadV2.glb', function (gtlf){
 
 //add Pins to map
 
-const firstAidPin = new locationPin(0, "EHBO", "firstaid", new THREE.Vector3(0, 0.1, 0), "./assets/models/firstAidPin.glb", true, 0.3);
+const firstAidPin = new locationPin(
+    0,
+    "firstaid",
+    new THREE.Vector3(0, 0.1, 0),
+    "./assets/models/firstAidPin.glb",
+    true,
+    0.3,
+    {
+        name: "EHBO",
+        openingHours: null,
+        describtion: "Hier kan je terecht voor eerste hulp bij ongevallen. Bij een ongeval, bel 112.",
+        url: null
+    }
+);
 await firstAidPin.initialize(mapGroup, pins);
 
-const zuiderbadPin = new locationPin(1, "Zuiderbad", "food", new THREE.Vector3(0, 0.1, 0.2), "./assets/models/zuiderbadPin.glb", true, 0.3);
+const zuiderbadPin = new locationPin(
+    1, 
+    "food", 
+    new THREE.Vector3(0, 0.1, 0.2), 
+    "./assets/models/zuiderbadPin.glb", 
+    true, 
+    0.3,
+    {
+        name: "Zuiderbad Strandbar",
+        openingHours: {'monday': 'Gesloten', 'tuesday': 'Gesloten', 'wednesday': '12:00 – 23:00', 'thursday': '18:00 – 23:00', 'friday': '18:00 – 23:00', 'saturday': '11:00 – 18:30', 'sunday': '11:00 – 18:30'},
+        describtion: "Welkom in de strandbar op de meest magische plek op het domein van Sport Vlaanderen Hofstade! Op het menu: frisse dranken, beachfood & holiday vibes. De strandbar beschikt over een ruim terras en serre (bij regenweer). Welkom zonder reserveren.",
+        url: null
+    }
+);
 await zuiderbadPin.initialize(mapGroup, pins);
 
 
@@ -95,6 +127,7 @@ filterMenuDesktop.addEventListener('click', function(e){
     e.preventDefault();
     if(e.target.classList.contains('filterButton')){
         let clickedFilter = (e.target.dataset.filter).toLowerCase();
+        let filterName = document.querySelector('.filterName');
         //if clickedFilter is not in activeFilters, add it to activeFilters
         if(!activeFilters.includes(clickedFilter)){
             //if clickedFilter is not in activeFilters, add it to activeFilters
@@ -109,8 +142,11 @@ filterMenuDesktop.addEventListener('click', function(e){
             if(pinCategory === clickedFilter){
                 if(pin.active){
                     pin.active = false;
+                    filterName.innerHTML = "";
                 }else{
                     pin.active = true;
+                    filterName.innerHTML = e.target.dataset.name;
+
                 }
                 pin.fadeInOut();
             }
@@ -142,10 +178,40 @@ canvas.addEventListener('click', function(e){
     
     if(intersects.length > 0){
         let clickedPin = intersects[0].object.userData.pin;
-        console.log(clickedPin.name);
+        console.log(clickedPin.info.name);
+        displayLocationInfo(clickedPin);
     }
 
 })
+
+function displayLocationInfo(pin){
+    let infoContainer = document.querySelector('.infoDesktop');
+    infoContainer.classList.remove('hidden');
+
+    document.querySelector('.infoDesktop .locationName').innerHTML = pin.info.name;
+    document.querySelector('.infoDesktop .locationDescription').innerHTML = pin.info.describtion;
+    document.querySelector('.infoDesktop .shareButton').dataset.locationId = pin.id;
+
+    let moreInfoButton = document.querySelector('.infoDesktop .moreInfoButton');
+
+    if(pin.info.url){
+        moreInfoButton.innerHTML = pin.info.url;
+        moreInfoButton.classList.remove('hidden');
+    }else{
+        moreInfoButton.innerHTML = "";
+        moreInfoButton.classList.add('hidden');
+    }
+
+    let openingHours = document.querySelector('.infoDesktop .openingHours');
+
+    if(pin.info.openingHours){
+        openingHours.innerHTML = pin.info.openingHours;
+        openingHours.classList.remove('hidden');
+    }else{
+        openingHours.innerHTML = "";
+        openingHours.classList.add('hidden');
+    }
+}
 
 function animate() {
     controls.update();

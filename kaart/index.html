@@ -7,28 +7,39 @@
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
-    <header>My header content</header>
+    <header id="topHeader"><h1>Interactieve Kaart Domein Hofstade</h1></header>
     <main>
       <canvas id="canvas"></canvas>
       <aside>
         <div class="filterContainer">
           <div id="filterMenuDesktop">
-          <span href="" class="button filterButton" data-filter="firstaid" data-name="EHBO">A</span>
-          <span href="" class="button filterButton" data-filter="events" data-name="Evenementen">B</span>
-          <span href="" class="button filterButton" data-filter="food" data-name="">C</span>
-          <span href="" class="button filterButton" data-filter="entrance">D</span>
-          <span href="" class="button filterButton" data-filter="toilets">E</span>
-          <span href="" class="button filterButton" data-filter="activities">F</span>
-          <span href="" class="button filterButton" data-filter="dogpark">G</span>
-          <span href="" class="button filterButton" data-filter="playground">H</span>
-          <span href="" class="button filterButton" data-filter="parking">I</span>
-          <span href="" class="button filterButton" data-filter="monument">J</span>
-        </div>
+            <span href="" class="button filterButton" data-filter="firstaid" data-name="EHBO">A</span>
+            <span href="" class="button filterButton" data-filter="events" data-name="Evenementen">B</span>
+            <span href="" class="button filterButton" data-filter="food" data-name="Horeca">C</span>
+            <span href="" class="button filterButton" data-filter="entrance" data-name="Ingangen en Uitgangen">D</span>
+            <span href="" class="button filterButton" data-filter="toilets" data-name="Toiletten">E</span>
+            <span href="" class="button filterButton" data-filter="activities" data-name="Activiteiten en Sporten">F</span>
+            <span href="" class="button filterButton" data-filter="dogpark" data-name="Honden">G</span>
+            <span href="" class="button filterButton" data-filter="playground" data-name="Speeltuinen">H</span>
+            <span href="" class="button filterButton" data-filter="parking" data-name="Parkings">I</span>
+            <span href="" class="button filterButton" data-filter="monument" data-name="Monumenten en Cultuur">J</span>
+          </div>
+          <div class="filterNameContainer"><h4 class="filterName"></h4></div>
         </div>
 
-        <div class="info">
-          <h3 class="locatonName">Zuiderbad</h3>
-          <span class="practicalInfo"></span>
+        <div class="infoDesktop">
+          <header>
+            <h3 class="locationName">Zuiderbad</h3>
+            <span class="openingHours">18:00 – 23:00</span>
+          </header>
+          <p class="locationDescription">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, vitae facilisis enim ligula eget dolor. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
+          </p>
+          <div class="locationButtons">
+              <a href="#" class="button shareButton" data-locationId="">Deel deze Locatie</a>
+              <a href="#" class="button moreInfoButton" data-locationId="">Meer info over Locatie</a>
+          </div>
+
         </div>
       </aside>
     </main>
