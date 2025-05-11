@@ -127,8 +127,11 @@ camera.position.z = 5;
 //filter event listener
 filterMenuDesktop.addEventListener('click', function(e){
     e.preventDefault();
-    if(e.target.classList.contains('filterButton')){
-        let clickedFilter = (e.target.dataset.filter).toLowerCase();
+    let button = e.target.closest('.filterButton');
+    //console.log(button);
+
+    if(button && button.classList.contains('filterButton')){
+        let clickedFilter = (button.dataset.filter).toLowerCase();
         let filterName = document.querySelector('.filterName');
         //if clickedFilter is not in activeFilters, add it to activeFilters
         if(!activeFilters.includes(clickedFilter)){
@@ -147,7 +150,7 @@ filterMenuDesktop.addEventListener('click', function(e){
                     filterName.innerHTML = "";
                 }else{
                     pin.active = true;
-                    filterName.innerHTML = e.target.dataset.name;
+                    filterName.innerHTML = button.dataset.name;
 
                 }
                 pin.fadeInOut();
