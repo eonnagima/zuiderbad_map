@@ -11,11 +11,11 @@
     <main>
       <canvas id="canvas"></canvas>
       <aside>
-        <p>Filter buttons and info after clicking on stuff appears here</p>
-        <div id="filterMenuDesktop">
-          <span href="" class="button filterButton" data-filter="firstaid">A</span>
-          <span href="" class="button filterButton" data-filter="events">B</span>
-          <span href="" class="button filterButton" data-filter="food">C</span>
+        <div class="filterContainer">
+          <div id="filterMenuDesktop">
+          <span href="" class="button filterButton" data-filter="firstaid" data-name="EHBO">A</span>
+          <span href="" class="button filterButton" data-filter="events" data-name="Evenementen">B</span>
+          <span href="" class="button filterButton" data-filter="food" data-name="">C</span>
           <span href="" class="button filterButton" data-filter="entrance">D</span>
           <span href="" class="button filterButton" data-filter="toilets">E</span>
           <span href="" class="button filterButton" data-filter="activities">F</span>
@@ -23,6 +23,12 @@
           <span href="" class="button filterButton" data-filter="playground">H</span>
           <span href="" class="button filterButton" data-filter="parking">I</span>
           <span href="" class="button filterButton" data-filter="monument">J</span>
+        </div>
+        </div>
+
+        <div class="info">
+          <h3 class="locatonName">Zuiderbad</h3>
+          <span class="practicalInfo"></span>
         </div>
       </aside>
     </main>

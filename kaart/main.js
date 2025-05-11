@@ -9,14 +9,26 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const height = canvas.clientHeight; //get the height of the canvas
 const width = canvas.clientWidth; //get the width of the canvas
+const raycaster = new THREE.Raycaster(); //create a raycaster to detect mouse events
+const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true }); //create a WebGL renderer in canvas element
+renderer.setSize(width, height, false); //set the size of the renderer to the size of the canvas
+camera.aspect = width / height; //update the aspect ratio of the camera so it doesnt get distorted
+camera.updateProjectionMatrix();
+
+const controls = new OrbitControls(camera, renderer.domElement); //create controls for user to move the camera
+controls.enableDamping = true; 
+
 const pins = [];
 const activeFilters = []; //make cookie in future
 
 const mapGroup = new THREE.Group(); //create a group to hold the map and pins
 scene.add(mapGroup); //add the group to the scene
 
+//classes
+
 class locationPin{
-    constructor(name, category, position, model, active, scale){
+    constructor(id, name, category, position, model, active, scale){
+        this.id = id;
         this.name = name;
         this.category = category;
         this.position = position;
@@ -49,11 +61,6 @@ class locationPin{
     }
 }
 
-const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true }); //create a WebGL renderer in canvas element
-renderer.setSize(width, height, false); //set the size of the renderer to the size of the canvas
-camera.aspect = width / height; //update the aspect ratio of the camera so it doesnt get distorted
-camera.updateProjectionMatrix();
-
 scene.background = new THREE.Color(0xfef8e8); //set the background color of the scene
 
 const loader = new GLTFLoader();
@@ -68,10 +75,10 @@ loader.load('./assets/models/MapZuiderbadV2.glb', function (gtlf){
 
 //add Pins to map
 
-const firstAidPin = new locationPin("Eerste Hulp", "firstaid", new THREE.Vector3(0, 0.1, 0), "./assets/models/firstAidPin.glb", true, 0.3);
+const firstAidPin = new locationPin(0, "EHBO", "firstaid", new THREE.Vector3(0, 0.1, 0), "./assets/models/firstAidPin.glb", true, 0.3);
 await firstAidPin.initialize(mapGroup, pins);
 
-const zuiderbadPin = new locationPin("Zuiderbad", "food", new THREE.Vector3(0, 0.1, 0.2), "./assets/models/zuiderbadPin.glb", true, 0.3);
+const zuiderbadPin = new locationPin(1, "Zuiderbad", "food", new THREE.Vector3(0, 0.1, 0.2), "./assets/models/zuiderbadPin.glb", true, 0.3);
 await zuiderbadPin.initialize(mapGroup, pins);
 
 
@@ -79,12 +86,9 @@ const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);  // Subtle intensity
 dirLight.position.set(5, 10, 7);  // Angle it so that it doesn't cause harsh shadows
 scene.add(dirLight);
 
-scene.add(new THREE.AmbientLight(0xffffff, 2));
+scene.add(new THREE.AmbientLight(0xffffff, 3));
 
 camera.position.z = 5;
-
-const controls = new OrbitControls(camera, renderer.domElement); //create controls for user to move the camera
-controls.enableDamping = true; 
 
 //filter event listener
 filterMenuDesktop.addEventListener('click', function(e){
@@ -112,6 +116,35 @@ filterMenuDesktop.addEventListener('click', function(e){
             }
         })
     }
+})
+
+canvas.addEventListener('click', function(e){
+    const rect = canvas.getBoundingClientRect();
+    const mouse = new THREE.Vector2(
+        ((e.clientX - rect.left) / rect.width) * 2 - 1,
+        -((e.clientY - rect.top) / rect.height) * 2 + 1
+    );
+
+    raycaster.setFromCamera(mouse, camera); //set the raycaster to the mouse position
+    const intersects = raycaster.intersectObjects(
+        pins.flatMap(pin => {
+            const meshes = [];
+            pin.pinObject?.traverse((child) => {
+                if(child.isMesh){
+                    child.userData.pin = pin;
+                    meshes.push(child);
+                }
+            });
+            return meshes;
+        }),
+        true
+    );
+    
+    if(intersects.length > 0){
+        let clickedPin = intersects[0].object.userData.pin;
+        console.log(clickedPin.name);
+    }
+
 })
 
 function animate() {
