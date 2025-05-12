@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { gsap } from 'gsap';
 
 const canvas = document.querySelector('#canvas'); //fetch the canvas element
 const filterMenuDesktop = document.querySelector('#filterMenuDesktop'); //fetch the filter menu element
@@ -14,6 +15,8 @@ const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true }); /
 renderer.setSize(width, height, false); //set the size of the renderer to the size of the canvas
 camera.aspect = width / height; //update the aspect ratio of the camera so it doesnt get distorted
 camera.updateProjectionMatrix();
+camera.position.set(0, 0, 10);
+
 
 const controls = new OrbitControls(camera, renderer.domElement); //create controls for user to move the camera
 controls.enableDamping = true; 
@@ -70,7 +73,7 @@ class locationPin{
 scene.background = new THREE.Color(0xfef8e8); //set the background color of the scene
 
 
-//
+//map
 const loader = new GLTFLoader();
 loader.load('./assets/models/MapZuiderbadV3.glb', function (gtlf){
     //scale model down to fit in the scene
@@ -80,6 +83,19 @@ loader.load('./assets/models/MapZuiderbadV3.glb', function (gtlf){
 }, undefined, function (error) {
     console.error(error);
 });
+
+//userPin
+
+loader.load('./assets/models/userLocation.glb', function(gltf){
+    let userPin = gltf.scene;
+    userPin.scale.set(0.18, 0.18, 0.18); 
+    userPin.position.set(0.08, 0.08, 1);
+    scene.add(userPin); 
+
+    focusCameraOnObject(camera, controls, userPin, 2);
+}, undefined, function(error){
+    console.error(error);
+})
 
 //add Pins to map
 
@@ -120,10 +136,7 @@ const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);  // Subtle intensity
 dirLight.position.set(5, 10, 7);  // Angle it so that it doesn't cause harsh shadows
 scene.add(dirLight);
 
-scene.add(new THREE.AmbientLight(0xffffff, 3));
-
-camera.position.z = 5;
-
+scene.add(new THREE.AmbientLight(0xffffff, 4));
 //filter event listener
 filterMenuDesktop.addEventListener('click', function(e){
     e.preventDefault();
@@ -212,12 +225,42 @@ function displayLocationInfo(pin){
     let openingHours = document.querySelector('.infoDesktop .openingHours');
 
     if(pin.info.openingHours){
-        openingHours.innerHTML = pin.info.openingHours.monday;
+        openingHours.innerHTML = pin.info.openingHours.wednesday;
         openingHours.classList.remove('hidden');
     }else{
         openingHours.innerHTML = "";
         openingHours.classList.add('hidden');
     }
+}
+
+function focusCameraOnObject(camera, controls, object, duration ){
+    let offset = new THREE.Vector3(0,0.5, 0.5);
+    let newCameraPosition = object.position.clone().add(offset);
+    let newTarget = object.position.clone();
+
+    gsap.to(camera.position, {
+        x: newCameraPosition.x,
+        y: newCameraPosition.y,
+        z: newCameraPosition.z,
+        duration: duration,
+        ease: "power2.inOut",
+        onUpdate: function(){
+            controls.target.copy(object.position);
+            controls.update();
+        }
+    })
+
+    gsap.to(controls.target, {
+        x: newTarget.x,
+        y: newTarget.y,
+        z: newTarget.z,
+        duration: duration,
+        ease: "power2.inOut",
+        onUpdate: function () {
+            controls.target.copy(object.position);
+            controls.update();
+        }
+    });
 }
 
 function animate() {
