@@ -62,16 +62,6 @@ main aside{
     width: 80px;
     background-color: var(--primary-color);
     border: 2px solid black;
-    transition: 0.1s ease-out;
-}
-
-.filterButton.active{
-    background-color: var(--secondery-color);
-}
-
-/* filter button clicked  */
-.filterButton:active{
-    transform: scale(0.9);
 }
 
 #filterMenuDesktop{
@@ -110,10 +100,6 @@ main aside{
     height: 42px;
     width: 42px;
     background-image: url(./assets/icons/ehbo.svg);
-}
-
-.filterButton i.active{
-    background-position: right center;
 }
 
 .filterButton[data-filter="events"] i{

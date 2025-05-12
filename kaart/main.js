@@ -178,15 +178,10 @@ filterMenuDesktop.addEventListener('click', function(e){
     if(button && button.classList.contains('filterButton')){
         let clickedFilter = (button.dataset.filter).toLowerCase();
         let filterName = document.querySelector('.filterName');
-        button.classList.toggle('active');
-        //select i element that's child of button
-        let icon = button.querySelector('i');
-        icon.classList.toggle('active');
         //if clickedFilter is not in activeFilters, add it to activeFilters
         if(!activeFilters.includes(clickedFilter)){
             //if clickedFilter is not in activeFilters, add it to activeFilters
             activeFilters.push(clickedFilter);
-            
         } else {
             //if clickedFilter is in activeFilters, remove it from activeFilters
             activeFilters.splice(activeFilters.indexOf(clickedFilter), 1);
