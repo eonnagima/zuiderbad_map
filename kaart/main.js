@@ -295,6 +295,25 @@ function focusCameraOnObject(camera, controls, object, duration ){
     });
 }
 
+function animatePinsBobbing(pins) {
+    pins.forEach((pin, index) => {
+        if (pin.pinObject) {
+            // Animate the Y position up and down forever
+            gsap.to(pin.pinObject.position, {
+                y: pin.pinObject.position.y + 0.02, // adjust for how floaty you want it
+                duration: 1.5,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+                delay: index * 0.1 // slight stagger so they're not perfectly synced
+            });
+        }
+    });
+}
+
+animatePinsBobbing(pins); // start the bobbing animation
+
+
 function animate() {
     controls.update();
 
