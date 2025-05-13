@@ -15,7 +15,7 @@ const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true }); /
 renderer.setSize(width, height, false); //set the size of the renderer to the size of the canvas
 camera.aspect = width / height; //update the aspect ratio of the camera so it doesnt get distorted
 camera.updateProjectionMatrix();
-camera.position.set(0, 0, 10);
+camera.position.set(0, 0, 20);
 
 
 const controls = new OrbitControls(camera, renderer.domElement); //create controls for user to move the camera
@@ -28,6 +28,8 @@ const mapGroup = new THREE.Group(); //create a group to hold the map and pins
 scene.add(mapGroup); //add the group to the scene
 
 //classes
+
+console.log(metersPerUnit);
 
 class locationPin{
     constructor(id, category, position, model, active, scale, info = {}){
@@ -77,7 +79,8 @@ scene.background = new THREE.Color(0xfef8e8); //set the background color of the 
 const loader = new GLTFLoader();
 loader.load('./assets/models/MapZuiderbadV4.glb', function (gtlf){
     //scale model down to fit in the scene
-    gtlf.scene.scale.set(0.2, 0.2, 0.2); //scale the model down to fit in the scene
+    gtlf.scene.scale.set(1, 1, 1); //scale the model down to fit in the scene
+    gtlf.scene.position.set(0, 0, 0); //position the model in the scene
     //gtlf.scene.rotation.x = Math.PI / 4;
     mapGroup.add(gtlf.scene); //add the loaded model to the scene
 }, undefined, function (error) {
@@ -88,8 +91,8 @@ loader.load('./assets/models/MapZuiderbadV4.glb', function (gtlf){
 
 loader.load('./assets/models/userLocation.glb', function(gltf){
     let userPin = gltf.scene;
-    userPin.scale.set(0.18, 0.18, 0.18); 
-    userPin.position.set(0.08, 0.08, 1);
+    userPin.scale.set(1, 1, 1); 
+    userPin.position.set(0.77, 0.45, 4.11);
     scene.add(userPin); 
 
     focusCameraOnObject(camera, controls, userPin, 2);
@@ -105,7 +108,7 @@ const firstAidPin = new locationPin(
     new THREE.Vector3(0.4, 0.08, 0.25),
     "./assets/models/firstAidPin.glb",
     false,
-    0.3,
+    1,
     {
         name: "EHBO",
         openingHours: null,
@@ -115,13 +118,14 @@ const firstAidPin = new locationPin(
 );
 await firstAidPin.initialize(mapGroup, pins);
 
+const zuiderBadCo = latLonToXz(50.98600655543105, 4.517310378613895);
 const zuiderbadPin = new locationPin(
     1, 
     "food", 
-    new THREE.Vector3(0.5, 0.08, 0.1),
+    new THREE.Vector3(zuiderBadCo.x, 0.45, zuiderBadCo.z),
     "./assets/models/zuiderbadPin.glb", 
     false, 
-    0.3,
+    1,
     {
         name: "Zuiderbad Strandbar",
         openingHours: {
@@ -142,10 +146,10 @@ await zuiderbadPin.initialize(mapGroup, pins);
 const zomerlustPin = new locationPin(
     2,
     'food',
-    new THREE.Vector3(-0.15, 0.08, 0.75),
+    new THREE.Vector3(-0.15, 0.45, 0.75),
     "./assets/models/zuiderbadPin.glb",
     false,
-    0.3,
+    1,
     {
         name: "Zomerlust",
         openingHours: {
@@ -266,7 +270,7 @@ function displayLocationInfo(pin){
 }
 
 function focusCameraOnObject(camera, controls, object, duration ){
-    let offset = new THREE.Vector3(0,0.5, 0.5);
+    let offset = new THREE.Vector3(0,5, 5);
     let newCameraPosition = object.position.clone().add(offset);
     let newTarget = object.position.clone();
 
@@ -300,7 +304,7 @@ function animatePinsBobbing(pins) {
         if (pin.pinObject) {
             // Animate the Y position up and down forever
             gsap.to(pin.pinObject.position, {
-                y: pin.pinObject.position.y + 0.02, // adjust for how floaty you want it
+                y: pin.pinObject.position.y + 0.05, // adjust for how floaty you want it
                 duration: 1.5,
                 ease: "sine.inOut",
                 yoyo: true,
