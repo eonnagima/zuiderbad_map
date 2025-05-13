@@ -102,10 +102,11 @@ loader.load('./assets/models/userLocation.glb', function(gltf){
 
 //add Pins to map
 
+const firstAidCo = latLonToXz(50.985140246874835, 4.515627794721486);
 const firstAidPin = new locationPin(
     0,
     "firstaid",
-    new THREE.Vector3(0.4, 0.08, 0.25),
+    new THREE.Vector3(firstAidCo.x, 0.45, firstAidCo.z),
     "./assets/models/firstAidPin.glb",
     false,
     1,
@@ -118,12 +119,12 @@ const firstAidPin = new locationPin(
 );
 await firstAidPin.initialize(mapGroup, pins);
 
-const zuiderBadCo = latLonToXz(50.98600655543105, 4.517310378613895);
+const zuiderBadCo = latLonToXz(50.98548325417922, 4.516110690361381);
 const zuiderbadPin = new locationPin(
     1, 
     "food", 
     new THREE.Vector3(zuiderBadCo.x, 0.45, zuiderBadCo.z),
-    "./assets/models/zuiderbadPin.glb", 
+    "./assets/models/zuiderBadPin.glb", 
     false, 
     1,
     {
@@ -143,10 +144,11 @@ const zuiderbadPin = new locationPin(
 );
 await zuiderbadPin.initialize(mapGroup, pins);
 
+const zomerlustCo = latLonToXz(50.98275020080574, 4.510684910801831)
 const zomerlustPin = new locationPin(
     2,
     'food',
-    new THREE.Vector3(-0.15, 0.45, 0.75),
+    new THREE.Vector3(zomerlustCo.x, 0.45, zomerlustCo.z),
     "./assets/models/zuiderbadPin.glb",
     false,
     1,
@@ -167,12 +169,12 @@ const zomerlustPin = new locationPin(
 )
 await zomerlustPin.initialize(mapGroup, pins);
 
-
-const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);  // Subtle intensity
+//Lighting
+const dirLight = new THREE.DirectionalLight(0xffffff, 1);  // Subtle intensity
 dirLight.position.set(5, 10, 7);  // Angle it so that it doesn't cause harsh shadows
 scene.add(dirLight);
-
 scene.add(new THREE.AmbientLight(0xffffff, 4));
+
 //filter event listener
 filterMenuDesktop.addEventListener('click', function(e){
     e.preventDefault();
@@ -315,8 +317,17 @@ function animatePinsBobbing(pins) {
     });
 }
 
-animatePinsBobbing(pins); // start the bobbing animation
+function onWindowResize() {
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
 
+  // Update camera
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+
+  // Update renderer
+  renderer.setSize(width, height, false);
+}
 
 function animate() {
     controls.update();
@@ -330,4 +341,6 @@ function animate() {
     renderer.render( scene, camera );
 }
 
+animatePinsBobbing(pins); // start the bobbing animation
+window.addEventListener('resize', onWindowResize, false); //add event listener to resize the canvas when the window is resized
 renderer.setAnimationLoop( animate );
