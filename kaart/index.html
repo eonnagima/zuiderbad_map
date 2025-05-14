@@ -9,9 +9,10 @@
   <body>
     <header id="topHeader"><h1>Interactieve Kaart Domein Hofstade</h1></header>
     <main>
-      <canvas id="canvas">
+      <div class="canvas-container">
+        <canvas id="canvas"></canvas>
         <div class="ui">
-          <!-- <div class="map-controls">
+          <div class="map-controls">
             <div class="center-controls">
               <a href="" class="button button-ui" id="button-center"><i></i></a>
             </div>
@@ -19,9 +20,9 @@
               <a href="" class="button button-ui" id="button-zoom-in"><i></i></a>
               <a href="" class="button button-ui button-zoom-out"><i></i></a>
             </div>
-          </div> -->
+          </div>
         </div>
-      </canvas>
+      </div>
       <aside>
         <div class="filterContainer">
           <div id="filterMenuDesktop">
@@ -41,16 +42,13 @@
 
         <div class="infoDesktop hidden">
           <header>
-            <h3 class="locationName">Zuiderbad</h3>
-            <span class="openingHours">18:00 – 23:00</span>
+            <h3 class="locationName"></h3>
+            <span class="openingHours"></span>
           </header>
-          <p class="locationDescription">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, vitae facilisis enim ligula eget dolor. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
-          </p>
+          <p class="locationDescription"></p>
           <div class="locationButtons">
-              <a href="#" class="button shareButton" data-locationId="">Deel deze Locatie</a>
-              <a href="#" class="button moreInfoButton" data-locationId="">Meer info over Locatie</a>
-          </div>
+              <a href="#" class="button shareButton" data-locationId=""></a>
+              <a href="#" class="button routingButton" id="routingButtonDesk" data-locationId="">Routing</a>
         </div>
       </aside>
     </main>

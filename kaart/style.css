@@ -27,11 +27,22 @@ main{
     display: flex;
     flex-flow: row, wrap;
     width: 100vw;
+    background-color: red;
 }
 
-main canvas{
+main .canvas-container{
     width: 61.8%;
     height: calc(100vh - 40px);
+    position: relative;
+}
+
+#canvas{
+    width: 100%;
+    height: 100%;
+}
+
+#canvas:hover{
+    cursor: grab;
 }
 
 main aside{
@@ -45,7 +56,6 @@ main aside{
 
 .button{
     border-radius: 16px;
-    padding: 10px;
     cursor: pointer;
     text-decoration: none;
     color: black;
@@ -54,7 +64,6 @@ main aside{
     align-items: center;
     padding: 8px 16px;
     background-color: var(--primary-color);
-
 }
 
 .filterButton{
@@ -90,10 +99,26 @@ main aside{
     gap: 20px;
 }
 
-.filterButton i{
+.button i{
     display: block;
-    background-position: left center;
     background-size: cover;
+    background-position: center;
+}
+
+.filterButton.active{
+    background-color: var(--secondery-color);
+}
+
+.filterButton:active{
+    transform: scale(0.9)
+}
+
+.filterButton i{
+    background-position: left center;
+}
+
+.filterButton i.active{
+    background-position: right center;
 }
 
 .filterButton[data-filter="firstaid"] i{
@@ -150,12 +175,28 @@ main aside{
     background-image: url(./assets/icons/parking.svg);
 }
 
-/* .filterButton[data-filter="monument"] i{
-    height: 42px;
-    width: 42px;
-    background-image: url(./assets/icons/);
-} */
+.ui{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 100;;
+}
 
+.map-controls .button{
+    background-color: rgb(128, 128, 128, 0.5);
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#button-center i{
+    height: 32px;
+    width: 32px;
+    background-image: url(./assets/icons/center.svg);
+}
 
 .hidden{
     display: none;

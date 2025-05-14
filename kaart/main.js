@@ -5,6 +5,8 @@ import { gsap } from 'gsap';
 
 const canvas = document.querySelector('#canvas'); //fetch the canvas element
 const filterMenuDesktop = document.querySelector('#filterMenuDesktop'); //fetch the filter menu element
+const routingButtonDesk = document.querySelector('#routingButtonDesk'); //fetch the routing button element
+const routingButtonMobile = document.querySelector('#routingButtonMobile'); //fetch the routing button element
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -22,6 +24,9 @@ const controls = new OrbitControls(camera, renderer.domElement); //create contro
 controls.enableDamping = true; 
 
 const pins = [];
+const graph = [];
+const pathSegments = [];
+//const pathSegments = []; //array to hold the path segments
 const activeFilters = []; //make cookie in future
 
 const mapGroup = new THREE.Group(); //create a group to hold the map and pins
@@ -87,12 +92,52 @@ loader.load('./assets/models/MapZuiderbadV4.glb', function (gtlf){
     console.error(error);
 });
 
-//userPin
 
+//paths
+loader.load('./assets/models/walk.glb', function (gltf){
+    const path = gltf.scene;
+    path.scale.set(1, 1, 1); //scale the model down to fit in the scene
+    path.position.set(0, 0.1, 0); //position the model in the scene
+    mapGroup.add(path); //add the loaded model to the scene
+
+    // path.traverse((child) => {
+    //     if (child.isMesh) {
+    //         child.geometry.computeBoundingBox();
+    //         const bbox = child.geometry.boundingBox;
+    //         const center = new THREE.Vector3();
+    //         bbox.getCenter(center);
+    //         child.userData.center = center;
+
+    //         pathSegments.push(child);
+    //     }
+    // });
+
+    path.traverse((child) => {
+        if (child.isMesh) {
+            child.geometry.computeBoundingBox();
+            const bbox = child.geometry.boundingBox.clone(); // clone to avoid mutation
+            const center = new THREE.Vector3();
+            bbox.getCenter(center);
+            child.updateWorldMatrix(true, false);
+            child.localToWorld(center); // convert to world space
+            child.userData.center = center;
+
+            pathSegments.push(child);
+        }
+    });
+
+
+    console.log("Total path segments found:", pathSegments.length);
+}, undefined, function (error) {
+    console.error(error);
+});
+
+//userPin
+let userPin
 loader.load('./assets/models/userLocation.glb', function(gltf){
-    let userPin = gltf.scene;
+    userPin = gltf.scene;
     userPin.scale.set(1, 1, 1); 
-    userPin.position.set(0.77, 0.45, 4.11);
+    userPin.position.set(0.5, 0.45, 3.5);
     scene.add(userPin); 
 
     focusCameraOnObject(camera, controls, userPin, 2);
@@ -106,9 +151,10 @@ const firstAidCo = latLonToXz(50.985140246874835, 4.515627794721486);
 const firstAidPin = new locationPin(
     0,
     "firstaid",
-    new THREE.Vector3(firstAidCo.x, 0.45, firstAidCo.z),
+    //new THREE.Vector3(firstAidCo.x, 0.45, firstAidCo.z),
+    new THREE.Vector3(-4, 0.45, 2),
     "./assets/models/firstAidPin.glb",
-    false,
+    true,
     1,
     {
         name: "EHBO",
@@ -181,6 +227,9 @@ filterMenuDesktop.addEventListener('click', function(e){
     let button = e.target.closest('.filterButton');
     //console.log(button);
 
+    button.classList.toggle('active');
+    button.querySelector('i').classList.toggle('active');
+
     if(button && button.classList.contains('filterButton')){
         let clickedFilter = (button.dataset.filter).toLowerCase();
         let filterName = document.querySelector('.filterName');
@@ -210,14 +259,17 @@ filterMenuDesktop.addEventListener('click', function(e){
     }
 })
 
+document.querySelector('#button-center').addEventListener('click', function(e){
+    e.preventDefault();
+    focusCameraOnObject(camera, controls, userPin, 2);
+})
+
 canvas.addEventListener('click', function(e){
     const rect = canvas.getBoundingClientRect();
     const mouse = new THREE.Vector2(
         ((e.clientX - rect.left) / rect.width) * 2 - 1,
         -((e.clientY - rect.top) / rect.height) * 2 + 1
     );
-
-    console.log(mouse);
 
     raycaster.setFromCamera(mouse, camera); //set the raycaster to the mouse position
     const intersects = raycaster.intersectObjects(
@@ -255,9 +307,6 @@ function displayLocationInfo(pin){
     if(pin.info.url){
         moreInfoButton.innerHTML = pin.info.url;
         moreInfoButton.classList.remove('hidden');
-    }else{
-        moreInfoButton.innerHTML = "";
-        moreInfoButton.classList.add('hidden');
     }
 
     let openingHours = document.querySelector('.infoDesktop .openingHours');
@@ -329,11 +378,241 @@ function onWindowResize() {
   renderer.setSize(width, height, false);
 }
 
+//attempt to make graph with proximity detection
+
+// function getBoundingBoxCorners(bbox){
+//     const min = bbox.min;
+//     const max = bbox.max;
+//     return [
+//         new THREE.Vector3(min.x, min.y, min.z),
+//         new THREE.Vector3(min.x, min.y, max.z),
+//         new THREE.Vector3(min.x, max.y, min.z),
+//         new THREE.Vector3(min.x, max.y, max.z),
+//         new THREE.Vector3(max.x, min.y, min.z),
+//         new THREE.Vector3(max.x, min.y, max.z),
+//         new THREE.Vector3(max.x, max.y, min.z),
+//         new THREE.Vector3(max.x, max.y, max.z),
+//     ];
+// }
+
+// function checkIfConnected(pathSegmentsArray, threshold){
+//     for (let i = 0; i < pathSegmentsArray.length; i++) {
+//         const a = pathSegmentsArray[i];
+//         const aCorners = getBoundingBoxCorners(a.geometry.boundingBox);
+//         const aWorldCorners = aCorners.map(corner => a.localToWorld(corner.clone()));
+//         graph[a.uuid] = [];
+
+//         for(let j = 0; j < pathSegmentsArray.length; j++){
+//             if(i === j){continue};
+//             const b = pathSegmentsArray[j];
+//             const bCorners = getBoundingBoxCorners(b.geometry.boundingBox);
+//             const bWorldCorners = bCorners.map(corner => b.localToWorld(corner.clone()));
+
+//             let connected = false;
+            
+//             for(const ac of aWorldCorners) {
+//                for(const bc of bWorldCorners) {
+//                    if(ac.distanceTo(bc) < threshold) {
+//                        connected = true;
+//                        break;
+//                    }
+//                }
+//                if (connected) break;
+//             }
+            
+//             if(connected){
+//                 graph[a.uuid].push(b.uuid);
+//             }
+//         }
+//     }
+// }
+
+// checkIfConnected(pathSegments, 0.05); //check if the path segments are connected
+
+// console.log("Graph: ", graph);
+
+// const highlightMaterial = new THREE.MeshStandardMaterial({ color: 0xff4444 });
+
+// for (const [uuid, neighbors] of Object.entries(graph)) {
+//     if (neighbors.length > 0) {
+//         const mesh = pathSegments.find(m => m.uuid === uuid);
+//         if (mesh) {
+//             mesh.material = highlightMaterial;
+//         }
+//     }
+// }
+
+//make graph from naming convention
+
+// Helper to extract prefix and number from mesh name
+function parseName(name) {
+    const match = name.match(/^([a-zA-Z_]+)(\d+)$/);
+    if (!match) return null;
+    return {
+        prefix: match[1],
+        number: parseInt(match[2], 10),
+    };
+}
+
+// Group meshes by prefix
+const pathGroup = {};
+
+pathSegments.forEach(mesh => {
+    const parsed = parseName(mesh.name);
+    if (!parsed) return;
+
+    const { prefix, number } = parsed;
+    if (!pathGroup[prefix]) pathGroup[prefix] = [];
+    pathGroup[prefix].push({ mesh, number });
+});
+
+// Sort and connect consecutive segments
+for (const prefix in pathGroup) {
+    const sorted = pathGroup[prefix].sort((a, b) => a.number - b.number);
+
+    for (let i = 0; i < sorted.length; i++) {
+        const current = sorted[i].mesh;
+        const currentId = current.uuid;
+        if (!graph[currentId]) graph[currentId] = [];
+
+        if (i > 0) {
+            const prev = sorted[i - 1].mesh;
+            graph[currentId].push(prev.uuid);
+        }
+        if (i < sorted.length - 1) {
+            const next = sorted[i + 1].mesh;
+            graph[currentId].push(next.uuid);
+        }
+    }
+}
+
+//add manual connection
+
+
+function addManualConnection(graph, pathSegments, connections) {
+    connections.forEach(([nameA, nameB]) => {
+        const meshA = pathSegments.find(m => m.name === nameA);
+        const meshB = pathSegments.find(m => m.name === nameB);
+
+        if (!meshA || !meshB) {
+            console.warn(`Could not find meshes: ${nameA}, ${nameB}`);
+            return;
+        }
+
+        if (!graph[meshA.uuid]) graph[meshA.uuid] = [];
+        if (!graph[meshB.uuid]) graph[meshB.uuid] = [];
+
+        if (!graph[meshA.uuid].includes(meshB.uuid)) {
+            graph[meshA.uuid].push(meshB.uuid);
+        }
+        if (!graph[meshB.uuid].includes(meshA.uuid)) {
+            graph[meshB.uuid].push(meshA.uuid);
+        }
+
+        console.log(`Manually connected: ${nameA} ↔ ${nameB}`);
+    });
+}
+
+let manualConnections = [
+    ['walk062', 'walk003'],
+    ['walk062', 'walk004']
+]
+
+addManualConnection(graph, pathSegments, manualConnections);
+
+//test the graph
+
+// for (const [uuid, neighbors] of Object.entries(graph)) {
+//     const mesh = pathSegments.find(m => m.uuid === uuid);
+//     const name = mesh ? mesh.name : uuid;
+//     const neighborNames = neighbors.map(nid => {
+//         const neighbor = pathSegments.find(m => m.uuid === nid);
+//         return neighbor ? neighbor.name : nid;
+//     });
+//     console.log(`${name} → [${neighborNames.join(', ')}]`);
+// }
+
+
+function findClosestSegment(position) {
+    let closest = null;
+    let minDistance = Infinity;
+    pathSegments.forEach(segment => {
+        const center = segment.userData.center;
+        const distance = center.distanceTo(position);
+        if (distance < minDistance) {
+            minDistance = distance;
+            closest = segment;
+        }
+    });
+    return closest;
+}
+
+function findShortestPath(startUUID, endUUID) {
+    const queue = [[startUUID]];
+    const visited = new Set();
+
+    while (queue.length > 0) {
+        const path = queue.shift();
+        const node = path[path.length - 1];
+
+        if (node === endUUID) return path;
+
+        if (!visited.has(node)) {
+            visited.add(node);
+            const neighbors = graph[node] || [];
+            neighbors.forEach(neighbor => {
+                if (!visited.has(neighbor)) {
+                    queue.push([...path, neighbor]);
+                }
+            });
+        }
+    }
+
+  return null; // No path found
+}
+
+const highlightMaterial = new THREE.MeshStandardMaterial({ color: 0xff4444 });
+
+
+function highlightPath(pathUUIDs) {
+    pathSegments.forEach(segment => {
+        if (pathUUIDs.includes(segment.uuid)) {
+            if (!segment.material || segment.material === highlightMaterial) {
+                segment.material = highlightMaterial;
+            }
+        }
+    });
+}
+
+
+function findPath(start, end){
+
+    const path = findShortestPath(start.uuid, end.uuid);
+    if (path) {
+        highlightPath(path);
+        console.log("Path found:", path);
+    } else {
+        console.warn("No path found between segments.");
+    }
+}
+
+routingButtonDesk.addEventListener('click', function(e){
+    e.preventDefault();
+
+    const endLocation = new THREE.Vector3(-4, 0.45, 2);
+
+    const startSegment = findClosestSegment(userPin.position);
+    const endSegment = findClosestSegment(endLocation);
+
+    findPath(startSegment, endSegment);
+
+})
+
 function animate() {
     controls.update();
 
     pins.forEach((pin) => {
-        if(pin.pinObject){ // check if the pinObject is loaded
+        if(pin.pinObject){ // conscheck if the pinObject is loaded
             pin.pinObject.lookAt(camera.position); // make the pin look at the camera
         }
     })
