@@ -712,9 +712,10 @@ function startTrackingUser (){
             lat: lat, 
             lon: lon
         };
+        let lastUpdateTime = Date.now();
 
-        console.log("User location updated:", userLocation, "at", new Date().toLocaleTimeString());
-        
+        // console.log("User location updated:", userLocation, "at", new Date().toLocaleTimeString());
+
     }, function(error){
         console.error("Error getting location: ", error);
     }, {
@@ -722,6 +723,27 @@ function startTrackingUser (){
         maximumAge: 3000,
         timeout: 10000
     });
+
+    setInterval(() => {
+        const now = Date.now();
+        if (now - lastLocationUpdate > 5000) {
+            navigator.geolocation.getCurrentPosition(function(position){
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                userLocation = {
+                    lat: lat, 
+                    lon: lon
+                };
+                lastLocationUpdate = Date.now();
+            }, function(error){
+                console.error("Error getting location: ", error);
+            }, {
+                enableHighAccuracy: true,
+                maximumAge: 3000,
+                timeout: 10000
+            });
+        }
+    }, 1000);
 }
 
 //ANIMATION LOOP
