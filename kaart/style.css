@@ -11,6 +11,9 @@
 body { 
     margin: 0; 
     background-color: var(--off-white);
+    background-image: url(../kaart/assets/images/Pattern104.png);
+    background-repeat: repeat;
+    background-size: cover;
     font-family: Lora;
 }
 
@@ -22,6 +25,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 
 main{
     display: flex;
