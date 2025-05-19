@@ -28,7 +28,7 @@ main{
     display: flex;
     flex-flow: row, wrap;
     width: 100vw;
-    background-image: url("/assets/images/Pattern104.png");
+    background-image: url("/assets/images/Pattern104.jpg");
     background-repeat: repeat;
     background-size: 40%;
 }
