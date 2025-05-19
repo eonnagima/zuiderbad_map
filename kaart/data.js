@@ -368,7 +368,7 @@ const locations = [
         }
     ],
     [
-        "activities", //category
+        "playground", //category
         {
            lat: 50.9837789105706, //latitude
            lon: 4.513602807229226 //longitude
@@ -384,7 +384,7 @@ const locations = [
         }
     ],
     [
-        "activities", //category
+        "playground", //category
         {
            lat: 50.98250067836458, //latitude
            lon: 4.511346087312436 //longitude
@@ -400,7 +400,7 @@ const locations = [
         }
     ],
     [
-        "activities", //category
+        "dog", //category
         {
            lat: 50.989256821596854, //latitude
            lon: 4.502164197900196 //longitude
@@ -496,7 +496,7 @@ const locations = [
         }
     ],
     [
-        "entranceExit", //category
+        "entrance", //category
         {
             lat: 50.98761561491742, //latitude
             lon: 4.497159331394608 //longitude
@@ -512,7 +512,7 @@ const locations = [
         }
     ],
     [
-        "entranceExit", //category
+        "entrance", //category
         {
             lat: 50.983642575863506, //latitude
             lon: 4.503382953508312 //longitude
@@ -528,7 +528,7 @@ const locations = [
         }
     ],
     [
-        "entranceExit", //category
+        "entrance", //category
         {
            lat: 50.98216800646788, //latitude
            lon: 4.504478951619294 //longitude
@@ -544,7 +544,7 @@ const locations = [
         }
     ],
     [
-        "entranceExit", //category
+        "entrance", //category
         {
            lat: 50.979563838977995, //latitude
            lon: 4.5064236021895505 //longitude
@@ -560,7 +560,7 @@ const locations = [
         }
     ],
     [
-        "entranceExit", //category
+        "entrance", //category
         {
             lat: 50.98585133313062, //latitude
             lon: 4.519856104838509 //longitude
@@ -576,7 +576,7 @@ const locations = [
         }
     ],
     [
-        "entranceExit", //category
+        "entrance", //category
         {
             lat: 50.98739811101135, //latitude
             lon: 4.512465275365514 //longitude
@@ -592,7 +592,7 @@ const locations = [
         }
     ],
     [
-        "entranceExit", //category
+        "entrance", //category
         {
             lat: 50.98497787283702, //latitude
             lon: 4.515659272881967 //longitude
@@ -608,7 +608,7 @@ const locations = [
         }
     ],
     [
-        "entranceExit", //category
+        "entrance", //category
         {
             lat: 50.9833737556066, //latitude
             lon: 4.514657467797241 //longitude
