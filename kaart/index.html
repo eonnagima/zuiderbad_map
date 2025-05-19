@@ -9,20 +9,7 @@
   <body>
     <header id="topHeader"><h1>Interactieve Kaart Domein Hofstade</h1></header>
     <main>
-      <div class="canvas-container">
-        <canvas id="canvas"></canvas>
-        <div class="ui">
-          <div class="map-controls">
-            <div class="center-controls">
-              <a href="" class="button button-ui" id="button-center"><i></i></a>
-            </div>
-            <div class="zoom-control">
-              <a href="" class="button button-ui" id="button-zoom-in"><i></i></a>
-              <a href="" class="button button-ui button-zoom-out"><i></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
+
       <aside>
         <div class="filterContainer">
           <div id="filterMenuDesktop">
@@ -35,9 +22,11 @@
             <span href="" class="button filterButton" data-filter="dog" data-name="Honden"><i></i></span>
             <span href="" class="button filterButton" data-filter="playground" data-name="Speeltuinen"><i></i></span>
             <span href="" class="button filterButton" data-filter="parking" data-name="Parkings"><i></i></span>
+            <span href="" class="button filterButton" data-filter="other1" data-name="Speeltuinen"><i></i></span>
+            <span href="" class="button filterButton" data-filter="parking" data-name="Parkings"><i></i></span>
             <!-- <span href="" class="button filterButton" data-filter="monument" data-name="Monumenten en Cultuur"><i></i></span> -->
           </div>
-          <div class="filterNameContainer"><h4 class="filterName"></h4></div>
+          <div class="filterNameContainer hidden"><h4 class="filterName"></h4></div>
         </div>
 
         <div class="infoDesktop hidden">
@@ -51,6 +40,20 @@
               <a href="#" class="button routingButton" id="routingButtonDesk" data-locationId="">Routing</a>
         </div>
       </aside>
+            <div class="canvas-container">
+        <canvas id="canvas"></canvas>
+        <div class="ui">
+          <div class="map-controls">
+            <div class="center-controls">
+              <a href="" class="button button-ui" id="button-center"><i></i></a>
+            </div>
+            <div class="zoom-control">
+              <a href="" class="button button-ui" id="button-zoom-in"><i></i></a>
+              <a href="" class="button button-ui button-zoom-out"><i></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
     <script src="gps.js"></script>
     <script type="module" src="/main.js"></script>
