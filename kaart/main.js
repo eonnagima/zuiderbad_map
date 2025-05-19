@@ -2,32 +2,41 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { gsap } from 'gsap';
-
-
+import * as turf from '@turf/turf';
 
 const canvas = document.querySelector('#canvas'); //fetch the canvas element
 const filterMenuDesktop = document.querySelector('#filterMenuDesktop'); //fetch the filter menu element
 const routingButtonDesk = document.querySelector('#routingButtonDesk'); //fetch the routing button element
 const routingButtonMobile = document.querySelector('#routingButtonMobile'); //fetch the routing button element
-let userLocation;
 
-if(navigator.geolocation){
-    //get user's current gps location
-    navigator.geolocation.getCurrentPosition(function(position){
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        userLocation = {
-            lat: lat, 
-            lon: lon
-        };
-    }, function(error){
-        console.error("Error getting location: ", error);
-    }, {
-        enableHighAccuracy: true,
-        maximumAge: 0,
-        timeout: 5000
-    });
-}
+// let userLocation = {
+//     lat: 51.024715681650626, 
+//     lon: 4.484867621683329
+// };
+let userLocation = null;
+let watchId = null;
+let lastLocationUpdate = Date.now();
+
+//50.980203433249606, 4.508468834455758
+//50.980163095147354, 4.5096118525628315
+
+//Kruidtuin
+// const hofstadeArea = turf.polygon([[
+//   [4.4839066489567285, 51.025066903876834], //NW lon lat => turf expects [lon, lat]
+//   [4.4856340447309915, 51.02520835338684], //NE
+//   [4.486282632955668, 51.024080845301015], //SE
+//   [4.484007685313336, 51.02393939235056], //SW
+//   [4.4839066489567285, 51.025066903876834] //close polygon
+// ]]);
+
+//Terhagen
+const hofstadeArea = turf.polygon([[ // Hofstade area
+    [4.371810397596004, 51.08870382424354], //NW
+    [4.4007779739165525, 51.085030392184855], //NE
+    [4.4030002509694075, 51.077829619045545], //SE
+    [4.375007357566778, 51.07978912409367], //SW
+    [4.371810397596004, 51.08870382424354] //close polygon
+]]);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -40,6 +49,39 @@ camera.aspect = width / height; //update the aspect ratio of the camera so it do
 camera.updateProjectionMatrix();
 camera.position.set(0, 0, 20);
 
+//get user location
+window.addEventListener('load',() => {
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(position => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        userLocation = {
+            lat: lat, 
+            lon: lon
+        };
+        console.log("Initial user location:", userLocation);
+        const userPoint = turf.point([lon, lat]); //create a point from the user location
+        const isInside = turf.booleanPointInPolygon(userPoint, hofstadeArea);
+
+        if(isInside){
+            console.log("User is inside Domein Hofstade, tracking location...");
+            startTrackingUser();
+        }else{
+            console.log("User not inside Domein Hofstade");
+        }
+  
+    }, error => {
+      console.error("Permission denied or Error getting location: ", error);
+    },
+    {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 10000
+    });
+  }else{
+    console.log("navigator not supported by browser");
+  }
+})
 
 const controls = new OrbitControls(camera, renderer.domElement); //create controls for user to move the camera
 controls.enableDamping = true; 
@@ -54,9 +96,6 @@ const mapGroup = new THREE.Group(); //create a group to hold the map and pins
 scene.add(mapGroup); //add the group to the scene
 
 //classes
-
-console.log(metersPerUnit);
-
 class locationPin{
     constructor(id, category, position, model, active, scale, info = {}){
         this.id = id;
@@ -103,7 +142,7 @@ scene.background = new THREE.Color(0xfef8e8); //set the background color of the 
 
 //map
 const loader = new GLTFLoader();
-loader.load('./assets/models/MapZuiderbadV4.glb', function (gtlf){
+loader.load('./assets/models/MapZuiderbadV5.glb', function (gtlf){
     //scale model down to fit in the scene
     gtlf.scene.scale.set(1, 1, 1); //scale the model down to fit in the scene
     gtlf.scene.position.set(0, 0, 0); //position the model in the scene
@@ -115,61 +154,75 @@ loader.load('./assets/models/MapZuiderbadV4.glb', function (gtlf){
 
 
 //paths
-loader.load('./assets/models/walk.glb', function (gltf){
-    const path = gltf.scene;
-    path.scale.set(1, 1, 1); //scale the model down to fit in the scene
-    path.position.set(0, 0.1, 0); //position the model in the scene
-    mapGroup.add(path); //add the loaded model to the scene
+// loader.load('./assets/models/walk.glb', function (gltf){
+//     const path = gltf.scene;
+//     path.scale.set(1, 1, 1); //scale the model down to fit in the scene
+//     path.position.set(0, 0.1, 0); //position the model in the scene
+//     mapGroup.add(path); //add the loaded model to the scene
 
-    // path.traverse((child) => {
-    //     if (child.isMesh) {
-    //         child.geometry.computeBoundingBox();
-    //         const bbox = child.geometry.boundingBox;
-    //         const center = new THREE.Vector3();
-    //         bbox.getCenter(center);
-    //         child.userData.center = center;
+//     // path.traverse((child) => {
+//     //     if (child.isMesh) {
+//     //         child.geometry.computeBoundingBox();
+//     //         const bbox = child.geometry.boundingBox;
+//     //         const center = new THREE.Vector3();
+//     //         bbox.getCenter(center);
+//     //         child.userData.center = center;
 
-    //         pathSegments.push(child);
-    //     }
-    // });
+//     //         pathSegments.push(child);
+//     //     }
+//     // });
 
-    path.traverse((child) => {
-        if (child.isMesh) {
-            child.geometry.computeBoundingBox();
-            const bbox = child.geometry.boundingBox.clone(); // clone to avoid mutation
-            const center = new THREE.Vector3();
-            bbox.getCenter(center);
-            child.updateWorldMatrix(true, false);
-            child.localToWorld(center); // convert to world space
-            child.userData.center = center;
+//     path.traverse((child) => {
+//         if (child.isMesh) {
+//             child.geometry.computeBoundingBox();
+//             const bbox = child.geometry.boundingBox.clone(); // clone to avoid mutation
+//             const center = new THREE.Vector3();
+//             bbox.getCenter(center);
+//             child.updateWorldMatrix(true, false);
+//             child.localToWorld(center); // convert to world space
+//             child.userData.center = center;
 
-            pathSegments.push(child);
-        }
-    });
+//             pathSegments.push(child);
+//         }
+//     });
 
 
-    console.log("Total path segments found:", pathSegments.length);
-}, undefined, function (error) {
-    console.error(error);
-});
+//     // console.log("Total path segments found:", pathSegments.length);
+// }, undefined, function (error) {
+//     console.error(error);
+// });
 
 //userPin
 let userPin
 
-if(userLocation){
-    userCo = latLonToXz(userLocation.lat, userLocation.lon);
+// if(userLocation){
+//     const userCo = latLonToXz(userLocation.lat, userLocation.lon);
 
-    loader.load('./assets/models/userLocation.glb', function(gltf){
-    userPin = gltf.scene;
-    userPin.scale.set(1, 1, 1); 
-    userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
-    scene.add(userPin); 
+//     loader.load('./assets/models/userLocation.glb', function(gltf){
+//     userPin = gltf.scene;
+//     userPin.scale.set(1, 1, 1); 
+//     userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+//     scene.add(userPin); 
 
-    focusCameraOnObject(camera, controls, userPin, 2);
-    }, undefined, function(error){
-        console.error(error);
-    })
-}
+//     focusCameraOnObject(camera, controls, userPin, 2);
+//     }, undefined, function(error){
+//         console.error(error);
+//     })
+// }
+
+const userCo = latLonToXz(50.983357965649375, 4.514759220386691);
+
+loader.load('./assets/models/userLocation.glb', function(gltf){
+userPin = gltf.scene;
+userPin.scale.set(1, 1, 1); 
+userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+scene.add(userPin); 
+
+focusCameraOnObject(camera, controls, userPin, 2);
+}, undefined, function(error){
+    console.error(error);
+})
+
 
 //add Pins to map
 
@@ -178,9 +231,9 @@ const firstAidPin = new locationPin(
     0,
     "firstaid",
     new THREE.Vector3(firstAidCo.x, 0.45, firstAidCo.z),
-    new THREE.Vector3(-4, 0.45, 2),
+    //new THREE.Vector3(-4, 0.45, 2),
     "./assets/models/firstAidPin.glb",
-    true,
+    false,
     1,
     {
         name: "EHBO",
@@ -214,6 +267,7 @@ const zuiderbadPin = new locationPin(
         url: null
     }
 );
+
 await zuiderbadPin.initialize(mapGroup, pins);
 
 const zomerlustCo = latLonToXz(50.98275020080574, 4.510684910801831)
@@ -251,7 +305,6 @@ scene.add(new THREE.AmbientLight(0xffffff, 4));
 filterMenuDesktop.addEventListener('click', function(e){
     e.preventDefault();
     let button = e.target.closest('.filterButton');
-    //console.log(button);
 
     button.classList.toggle('active');
     button.querySelector('i').classList.toggle('active');
@@ -315,6 +368,7 @@ canvas.addEventListener('click', function(e){
     if(intersects.length > 0){
         let clickedPin = intersects[0].object.userData.pin;
         console.log(clickedPin.info.name);
+        focusCameraOnObject(camera, controls, clickedPin.pinObject, 2);
         displayLocationInfo(clickedPin);
     }
 
@@ -346,35 +400,49 @@ function displayLocationInfo(pin){
     }
 }
 
-function focusCameraOnObject(camera, controls, object, duration ){
-    let offset = new THREE.Vector3(0,5, 5);
-    let newCameraPosition = object.position.clone().add(offset);
-    let newTarget = object.position.clone();
+function focusCameraOnObject(camera, controls, object, duration) {
+    // Define a 45-degree angle offset (diagonal from above and behind)
+    const distance = 3; // Adjust this to control zoom level
+    const angle = Math.PI / 4; // 45 degrees in radians
 
+    // Calculate offset vector at 45° angle
+    const offset = new THREE.Vector3(
+        distance * Math.sin(angle),
+        distance * Math.sin(angle),
+        distance * Math.cos(angle)
+    );
+
+    const newTarget = object.position.clone();
+    const newCameraPosition = object.position.clone().add(offset);
+
+    // Animate camera position
     gsap.to(camera.position, {
         x: newCameraPosition.x,
         y: newCameraPosition.y,
         z: newCameraPosition.z,
         duration: duration,
         ease: "power2.inOut",
-        onUpdate: function(){
-            controls.target.copy(object.position);
+        onUpdate: () => {
+            camera.lookAt(newTarget);
+            controls.update();
+        },
+        onComplete: () => {
+            controls.target.copy(newTarget);
             controls.update();
         }
-    })
+    });
 
+    // Animate controls target (optional, for smooth transition)
     gsap.to(controls.target, {
         x: newTarget.x,
         y: newTarget.y,
         z: newTarget.z,
         duration: duration,
-        ease: "power2.inOut",
-        onUpdate: function () {
-            controls.target.copy(object.position);
-            controls.update();
-        }
+        ease: "power2.inOut"
     });
 }
+
+
 
 function animatePinsBobbing(pins) {
     pins.forEach((pin, index) => {
@@ -535,7 +603,7 @@ function addManualConnection(graph, pathSegments, connections) {
             graph[meshB.uuid].push(meshA.uuid);
         }
 
-        console.log(`Manually connected: ${nameA} ↔ ${nameB}`);
+        //console.log(`Manually connected: ${nameA} ↔ ${nameB}`);
     });
 }
 
@@ -544,7 +612,7 @@ let manualConnections = [
     ['walk062', 'walk004']
 ]
 
-addManualConnection(graph, pathSegments, manualConnections);
+//addManualConnection(graph, pathSegments, manualConnections);
 
 //test the graph
 
@@ -616,9 +684,9 @@ function findPath(start, end){
     const path = findShortestPath(start.uuid, end.uuid);
     if (path) {
         highlightPath(path);
-        console.log("Path found:", path);
+        //console.log("Path found:", path);
     } else {
-        console.warn("No path found between segments.");
+        //console.warn("No path found between segments.");
     }
 }
 
@@ -633,6 +701,30 @@ routingButtonDesk.addEventListener('click', function(e){
     findPath(startSegment, endSegment);
 
 })
+
+
+function startTrackingUser (){
+    //update user locationif geolocation has changed
+    watchId = navigator.geolocation.watchPosition(function(position){
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        userLocation = {
+            lat: lat, 
+            lon: lon
+        };
+
+        console.log("User location updated:", userLocation, "at", new Date().toLocaleTimeString());
+        
+    }, function(error){
+        console.error("Error getting location: ", error);
+    }, {
+        enableHighAccuracy: true,
+        maximumAge: 3000,
+        timeout: 10000
+    });
+}
+
+//ANIMATION LOOP
 
 function animate() {
     controls.update();
