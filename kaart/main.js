@@ -3,10 +3,31 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { gsap } from 'gsap';
 
+
+
 const canvas = document.querySelector('#canvas'); //fetch the canvas element
 const filterMenuDesktop = document.querySelector('#filterMenuDesktop'); //fetch the filter menu element
 const routingButtonDesk = document.querySelector('#routingButtonDesk'); //fetch the routing button element
 const routingButtonMobile = document.querySelector('#routingButtonMobile'); //fetch the routing button element
+let userLocation;
+
+if(navigator.geolocation){
+    //get user's current gps location
+    navigator.geolocation.getCurrentPosition(function(position){
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        userLocation = {
+            lat: lat, 
+            lon: lon
+        };
+    }, function(error){
+        console.error("Error getting location: ", error);
+    }, {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 5000
+    });
+}
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -134,16 +155,21 @@ loader.load('./assets/models/walk.glb', function (gltf){
 
 //userPin
 let userPin
-loader.load('./assets/models/userLocation.glb', function(gltf){
+
+if(userLocation){
+    userCo = latLonToXz(userLocation.lat, userLocation.lon);
+
+    loader.load('./assets/models/userLocation.glb', function(gltf){
     userPin = gltf.scene;
     userPin.scale.set(1, 1, 1); 
-    userPin.position.set(0.5, 0.45, 3.5);
+    userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
     scene.add(userPin); 
 
     focusCameraOnObject(camera, controls, userPin, 2);
-}, undefined, function(error){
-    console.error(error);
-})
+    }, undefined, function(error){
+        console.error(error);
+    })
+}
 
 //add Pins to map
 
@@ -151,7 +177,7 @@ const firstAidCo = latLonToXz(50.985140246874835, 4.515627794721486);
 const firstAidPin = new locationPin(
     0,
     "firstaid",
-    //new THREE.Vector3(firstAidCo.x, 0.45, firstAidCo.z),
+    new THREE.Vector3(firstAidCo.x, 0.45, firstAidCo.z),
     new THREE.Vector3(-4, 0.45, 2),
     "./assets/models/firstAidPin.glb",
     true,
