@@ -1,6 +1,6 @@
 const locations = [
     {
-        catergory: "firstaid", //catogory
+        category: "firstaid", //catogory
         coordinates: {
             lat: 50.98512230588802, //latitude 
             lon: 4.515648247829347 //longitude
