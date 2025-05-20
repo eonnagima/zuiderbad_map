@@ -4,6 +4,9 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { gsap } from 'gsap';
 import * as turf from '@turf/turf';
 
+setVh();
+window.addEventListener('resize', setVh);
+
 const canvas = document.querySelector('#canvas'); //fetch the canvas element
 const filterMenuDesktop = document.querySelector('#filterMenuDesktop'); //fetch the filter menu element
 // const routingButtonDesk = document.querySelector('#routingButtonDesk'); //fetch the routing button element
@@ -23,13 +26,6 @@ const setVh = () => {
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 };
-
-setVh();
-window.addEventListener('resize', setVh);
-
-
-//50.980203433249606, 4.508468834455758
-//50.980163095147354, 4.5096118525628315
 
 //Hofstade
 const hofstadeArea = turf.polygon([[
@@ -71,52 +67,52 @@ camera.updateProjectionMatrix();
 camera.position.set(0, 0, 20);
 
 //get user location
-// window.addEventListener('load',() => {
-//   if(navigator.geolocation){
-//     navigator.geolocation.getCurrentPosition(position => {
-//         const lat = position.coords.latitude;
-//         const lon = position.coords.longitude;
-//         userLocation = {
-//             lat: lat, 
-//             lon: lon
-//         };
-//         console.log("Initial user location:", userLocation);
-//         const userPoint = turf.point([lon, lat]); //create a point from the user location
-//         const isInside = turf.booleanPointInPolygon(userPoint, hofstadeArea);
+window.addEventListener('load',() => {
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(position => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        userLocation = {
+            lat: lat, 
+            lon: lon
+        };
+        console.log("Initial user location:", userLocation);
+        const userPoint = turf.point([lon, lat]); //create a point from the user location
+        const isInside = turf.booleanPointInPolygon(userPoint, hofstadeArea);
 
-//         if(isInside){
-//             console.log("User is inside Domein Hofstade, tracking location...");
-//             // if(userLocation){
-//             //     const userCo = latLonToXz(userLocation.lat, userLocation.lon);
+        if(isInside){
+            console.log("User is inside Domein Hofstade, tracking location...");
+            // if(userLocation){
+            //     const userCo = latLonToXz(userLocation.lat, userLocation.lon);
 
-//             //     loader.load('./assets/models/userLocation.glb', function(gltf){
-//             //     userPin = gltf.scene;
-//             //     userPin.scale.set(1, 1, 1); 
-//             //     userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
-//             //     scene.add(userPin); 
+            //     loader.load('./assets/models/userLocation.glb', function(gltf){
+            //     userPin = gltf.scene;
+            //     userPin.scale.set(1, 1, 1); 
+            //     userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+            //     scene.add(userPin); 
 
-//             //     focusCameraOnObject(camera, controls, userPin, 2);
-//             //     }, undefined, function(error){
-//             //         console.error(error);
-//             //     })
-//             // }
-//             startTrackingUser();
-//         }else{
-//             console.log("User not inside Domein Hofstade");
-//         }
+            //     focusCameraOnObject(camera, controls, userPin, 2);
+            //     }, undefined, function(error){
+            //         console.error(error);
+            //     })
+            // }
+            startTrackingUser();
+        }else{
+            console.log("User not inside Domein Hofstade");
+        }
   
-//     }, error => {
-//       console.error("Permission denied or Error getting location: ", error);
-//     },
-//     {
-//         enableHighAccuracy: true,
-//         maximumAge: 0,
-//         timeout: 10000
-//     });
-//   }else{
-//     console.log("navigator not supported by browser");
-//   }
-// })
+    }, error => {
+      console.error("Permission denied or Error getting location: ", error);
+    },
+    {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 10000
+    });
+  }else{
+    console.log("navigator not supported by browser");
+  }
+})
 
 const controls = new OrbitControls(camera, renderer.domElement); //create controls for user to move the camera
 controls.enableDamping = true; 
