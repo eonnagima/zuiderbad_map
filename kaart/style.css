@@ -210,16 +210,6 @@ input::placeholder {
     color: var(--primary-pink);
 }
 
-
-.shareButton i{
-    height: 40px;
-    width: 40px;
-    background-color: var(--secondary-salmon);
-    border: 2px solid black;
-    border-radius: 12px;
-
-}
-
 .infoText{
     padding: 0px 20px 20px; /*top - right - bottom - left*/
 }
@@ -237,6 +227,8 @@ input::placeholder {
     display: block;
     background-size: cover;
     background-position: center;
+    height: 48px;
+    width: 48px;
 }
 
 .filterButton.active{
@@ -256,57 +248,95 @@ input::placeholder {
 }
 
 .filterButton[data-filter="firstaid"] i{
-    height: 42px;
-    width: 42px;
-    background-image: url(./assets/icons/ehbo.svg);
+    background-image: url(./assets/icons/firstaidIcon.svg);
 }
 
-.filterButton[data-filter="events"] i{
-    height: 42px;
-    width: 42px;
-    background-image: url(./assets/icons/balloon.svg);
+.filterButton[data-filter="event"] i{
+    background-image: url(./assets/icons/eventIcon.svg);
 }
 
 .filterButton[data-filter="food"] i{
-    height: 42px;
-    width: 42px;
-    background-image: url(./assets/icons/food.svg);
+    background-image: url(./assets/icons/foodIcon.svg);
 }
 
 .filterButton[data-filter="entrance"] i{
-    height: 36px;
-    width: 42px;
-    background-image: url(./assets/icons/entrypoint.svg);
+    background-image: url(./assets/icons/entranceIcon.svg);
 }
 
-.filterButton[data-filter="toilets"] i{
-    height: 42px;
-    width: 42px;
-    background-image: url(./assets/icons/wc.svg);
+.filterButton[data-filter="toilet"] i{
+    background-image: url(./assets/icons/wcIcon.svg);
 }
 
 .filterButton[data-filter="activities"] i{
-    height: 42px;
-    width: 42px;
-    background-image: url(./assets/icons/sport.svg);
+    background-image: url(./assets/icons/sportIcon.svg);
 }
 
 .filterButton[data-filter="dog"] i{
-    height: 36px;
-    width: 42px;
-    background-image: url(./assets/icons/dogpaw.svg);
+    background-image: url(./assets/icons/dogpawIcon.svg);
 }
 
 .filterButton[data-filter="playground"] i{
-    height: 36px;
-    width: 42px;
-    background-image: url(./assets/icons/playground.svg);
+    background-image: url(./assets/icons/playgroundIcon.svg);
 }
 
 .filterButton[data-filter="parking"] i{
-    height: 42px;
-    width: 42px;
-    background-image: url(./assets/icons/parking.svg);
+    background-image: url(./assets/icons/parkingIcon.svg);
+}
+
+.filterButton[data-filter="emergency"] i{
+    background-image: url(./assets/icons/emergencyIcon.svg);
+}
+
+.filterButton[data-filter="activity"] i{
+    background-image: url(./assets/icons/activityIcon.svg);
+}
+
+.filterButton[data-filter="dog"] i{
+    background-image: url(./assets/icons/dogIcon.svg);
+}
+
+.filterButton[data-filter="culture"] i{
+    background-image: url(./assets/icons/cultureIcon.svg);
+}
+
+.filterButton[data-filter="terminal"] i{
+    background-image: url(./assets/icons/terminalIcon.svg);
+}
+
+.filterButton[data-filter="misc"] i{
+    background-image: url(./assets/icons/miscIcon.svg);
+}
+
+.shareButton{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+}
+
+.shareButton span{
+    height: 40px;
+    width: 40px;
+    background-color: var(--secondary-salmon);
+    border: 2px solid black;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shareButton i{
+    display: block;
+    height: 36px;
+    width: 36px;
+    background-image: url(./assets/icons/shareIcon.svg);
+    background-size: cover;
+    background-position: left;
+}
+
+.shareButton .apple{
+    background-image: url(./assets/icons/shareIconApple.svg);
 }
 
 .ui{
