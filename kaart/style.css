@@ -63,6 +63,7 @@ main{
     background-image: url("/assets/images/Pattern104.jpg");
     background-repeat: repeat;
     background-size: 40%;
+    position: relative;
 }
 
 main .canvas-container{
@@ -83,7 +84,7 @@ main .canvas-container{
 main aside{
     width: 38.2%;
     height: calc(100vh);
-    background-color: var(--off-white);
+    /*background-color: var(--off-white);*/
     display: flex;
     flex-direction: column;
     padding: 40px 40px 40px 40px;
@@ -109,11 +110,17 @@ main aside{
 }
 
 #filterMenuDesktop{
+    margin-top: 20px;
     display: flex;
     flex-flow: row wrap;
-    justify-content: flex-start;
+    justify-content: space-between;
+    align-self: stretch;
     gap: 12px 20px;
+    background-color: greenyellow;
 }
+
+.filterContainer{
+    background-color: blue;}
 
 .divider{
     padding: 40px 0px 20px 0px;
@@ -126,15 +133,22 @@ hr.solid {
 .searchBarContainer{
     display: flex;
     align-items: center;
-    background-color: var(--primary-color);
     border-radius: 25px;
-    padding: 8px 12px;
-    width: 95%;
+    padding: 8px 16px;
+    width: 100%;
+    background-color: red;
+    gap: 16px;
 }
 
 .searchBarContainer label{
-    margin-right: 8px;
+    height: 24px;
+    width: 24px;
     cursor: pointer;
+    background-color: var(--primary-color);
+    background-image: url("/assets/images/searchIcon.svg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center;
 }
 
 #searchBar {
@@ -143,6 +157,11 @@ hr.solid {
     border-radius: 20px;
     font-size: 16px;
     background-color: transparent;
+}
+
+input::placeholder {
+  color: var(--maintext-black);
+  opacity: 0.7;
 }
 
 .filterNameContainer{
@@ -303,7 +322,6 @@ hr.solid {
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 #button-center i{
