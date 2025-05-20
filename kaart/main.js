@@ -6,7 +6,7 @@ import * as turf from '@turf/turf';
 
 const canvas = document.querySelector('#canvas'); //fetch the canvas element
 const filterMenuDesktop = document.querySelector('#filterMenuDesktop'); //fetch the filter menu element
-const routingButtonDesk = document.querySelector('#routingButtonDesk'); //fetch the routing button element
+// const routingButtonDesk = document.querySelector('#routingButtonDesk'); //fetch the routing button element
 const routingButtonMobile = document.querySelector('#routingButtonMobile'); //fetch the routing button element
 
 // let userLocation = {
@@ -338,7 +338,6 @@ filterMenuDesktop.addEventListener('click', function(e){
 
     if(button && button.classList.contains('filterButton')){
         let clickedFilter = (button.dataset.filter).toLowerCase();
-        let filterName = document.querySelector('.filterName');
         //if clickedFilter is not in activeFilters, add it to activeFilters
         if(!activeFilters.includes(clickedFilter)){
             //if clickedFilter is not in activeFilters, add it to activeFilters
@@ -347,17 +346,16 @@ filterMenuDesktop.addEventListener('click', function(e){
             //if clickedFilter is in activeFilters, remove it from activeFilters
             activeFilters.splice(activeFilters.indexOf(clickedFilter), 1);
         }
+
+        console.log(clickedFilter);
         
         pins.forEach((pin) => {
             let pinCategory = pin.category.toLowerCase();
             if(pinCategory === clickedFilter){
                 if(pin.active){
                     pin.active = false;
-                    filterName.innerHTML = "";
                 }else{
                     pin.active = true;
-                    filterName.innerHTML = button.dataset.name;
-
                 }
                 pin.fadeInOut();
             }
@@ -717,17 +715,15 @@ function findPath(start, end){
     }
 }
 
-routingButtonDesk.addEventListener('click', function(e){
-    e.preventDefault();
+// routingButtonDesk.addEventListener('click', function(e){
+//     e.preventDefault();
+//     const endLocation = new THREE.Vector3(-4, 0.45, 2);
 
-    const endLocation = new THREE.Vector3(-4, 0.45, 2);
+//     const startSegment = findClosestSegment(userPin.position);
+//     const endSegment = findClosestSegment(endLocation);
 
-    const startSegment = findClosestSegment(userPin.position);
-    const endSegment = findClosestSegment(endLocation);
-
-    findPath(startSegment, endSegment);
-
-})
+//     findPath(startSegment, endSegment);
+// })
 
 
 function startTrackingUser() {
