@@ -194,7 +194,7 @@ input::placeholder {
 
 .locationTitle{
     font-family: "ChunkyMonkey";
-    font-size: 30px;
+    font-size: 2em;
     color: var(--secondary-red);
 }
 
@@ -368,6 +368,52 @@ input::placeholder {
     font-weight: bold;
 }
 
+#mobileControls{
+    display: none;
+}
+
+#mobileScreen{
+    display: none;
+}
+
 .hidden{
     display: none;
+}
+
+@media (max-width: 768px) {
+    #desktopAsside{
+        display: none;
+    }
+    main .canvas-container{
+        width: 100vw;
+        height: 100vh;    }
+    .canvas-container .ui{
+        display: none;
+    }
+    #mobileControls{
+        display: flex;
+        gap: 8px;
+        flex-direction: row;
+        justify-content: center;
+        position: absolute;
+        width: 100vw;
+        left: 0;
+        bottom: 0;
+        padding-bottom: 40px;
+    }
+    #mobileControls .mobileButtons{
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    #mobileControls .button{
+        width: 60px;
+        height: 60px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+    }
+    #mobileScreen{
+        display: none;
+    }
 }

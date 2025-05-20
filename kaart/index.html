@@ -8,7 +8,7 @@
   </head>
   <body>
     <main>
-      <aside>
+      <aside id="desktopAsside">
         <div class="filterContainer">
           <div class="searchBarContainer">
             <label for="searchBar"><i></i></label>
@@ -67,22 +67,21 @@
           </div>
         </div>
       </section>
-      <nav class="mobileControls hidden">
-        <div>
+      <nav id="mobileControls">
+        <div class="mobileButtons">
           <a href="" class="button controlButton" id="button-zoom-in"><i></i></a>
           <a href="" class="button controlButton button-zoom-out"><i></i></a>
           <a href="" class="button controlButton" id="button-center"><i></i></a>
           <a href="" class="button controlButton" id="button-filter"><i></i></a>
         </div>
-        <div>
-          <a href="" class="button controlButton" id="button-search"><i></i></a>
-          <div class="searchBarContainer">
+        <div class="searchBarMobileContainer">
+          <div class="searchBar button">
             <label for="searchBar" id="button-search" class=""><i></i></label>
-            <input type="text" name="searchBar" id="searchBar" placeholder="Search ...">
+            <input class="hidden" type="text" name="searchBar" id="searchBar" placeholder="Search ...">
           </div>
         </div>
       </nav>
-      <section class="mobileScreen hidden">
+      <section id="mobileScreen">
         <header>
           <h2 class="locationTitle">Title</h2>
           <a href="#" id="closeInfoDesktop">x</a>
