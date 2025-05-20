@@ -1,7 +1,15 @@
 :root{
+    --off-white: #FEF8E8;
     --primary-color: #FFB949;
+    --primary-pink: #EE7AAE;
+    --primary-orange: #E8491F;
     --secondery-color: #d85026;
-    --off-white: #FEF8E8
+    --secondary-salmon: #F7B9B3;
+    --secondary-red: #651123;
+    --secondary-skyblue: #BCD5DC;
+    --thirdiary-navy: #2D39E7;
+    --emergency-red: #DC3021;
+    --bathroom-blue: #82B6C5;
 }
 
 *{
@@ -65,7 +73,7 @@ main aside{
     justify-content: center;
     align-items: center;
     padding: 8px 16px;
-    background-color: var(--primary-color);
+    background-color: var(--secondary-salmon);
 }
 
 .filterButton{
@@ -81,11 +89,20 @@ main aside{
     justify-content: flex-start;
     gap: 12px 20px;
 }
+.divider{
+      padding: 40px 0px 30px 0px;
+}
 
-.infoDesktop{
+hr.solid {
+  border-top: 3px solid black;
+}
+
+.infoDesktop{ /*The one that shows up when you click on an icon on the map*/
     display: flex;
     flex-direction: column;
     gap: 20px;
+    border-radius: 16px;
+    background-color: var(--primary-color);
 }
 
 .infoDesktop header{
@@ -101,6 +118,17 @@ main aside{
     gap: 20px;
 }
 
+.locationName{
+    color: var(--secondary-red);
+}
+
+.shareButton, .routingButton{
+    height: calc(56px + 0.5vw);
+    width: calc(56px + 0.5vw);
+    border: 2px solid black;
+    background-color: var(--secondary-salmon);
+}
+
 .button i{
     display: block;
     background-size: cover;
@@ -112,7 +140,7 @@ main aside{
 }
 
 .filterButton:active{
-    transform: scale(0.9)
+    transform: scale(0.9);
 }
 
 .filterButton i{
