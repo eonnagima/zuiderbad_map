@@ -24,7 +24,7 @@ let userPin;
 //Hofstade
 const hofstadeArea = turf.polygon([[
     [4.494088231355489, 50.987722096733144], //West
-    [ 4.5151328588855435, 50.99614496511054], //North
+    [4.5151328588855435, 50.99614496511054], //North
     [4.524228288842734, 50.987741393661466], //East
     [4.511252698399218, 50.97770763775083], //South East
     [4.504577153476509, 50.977681368528245], //South West
@@ -76,20 +76,20 @@ window.addEventListener('load',() => {
 
         if(isInside){
             console.log("User is inside Domein Hofstade, tracking location...");
-            if(userLocation){
-                const userCo = latLonToXz(userLocation.lat, userLocation.lon);
+            // if(userLocation){
+            //     const userCo = latLonToXz(userLocation.lat, userLocation.lon);
 
-                loader.load('./assets/models/userLocation.glb', function(gltf){
-                userPin = gltf.scene;
-                userPin.scale.set(1, 1, 1); 
-                userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
-                scene.add(userPin); 
+            //     loader.load('./assets/models/userLocation.glb', function(gltf){
+            //     userPin = gltf.scene;
+            //     userPin.scale.set(1, 1, 1); 
+            //     userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+            //     scene.add(userPin); 
 
-                focusCameraOnObject(camera, controls, userPin, 2);
-                }, undefined, function(error){
-                    console.error(error);
-                })
-            }
+            //     focusCameraOnObject(camera, controls, userPin, 2);
+            //     }, undefined, function(error){
+            //         console.error(error);
+            //     })
+            // }
             startTrackingUser();
         }else{
             console.log("User not inside Domein Hofstade");
@@ -216,21 +216,18 @@ loader.load('./assets/models/MapZuiderbadV5.glb', function (gtlf){
 //     console.error(error);
 // });
 
-//userPin
+//Manual User Pin
+const userCo = latLonToXz(50.983357965649375, 4.514759220386691);
+loader.load('./assets/models/userLocation.glb', function(gltf){
+userPin = gltf.scene;
+userPin.scale.set(1, 1, 1); 
+userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+scene.add(userPin); 
 
-
-// const userCo = latLonToXz(50.983357965649375, 4.514759220386691);
-
-// loader.load('./assets/models/userLocation.glb', function(gltf){
-// userPin = gltf.scene;
-// userPin.scale.set(1, 1, 1); 
-// userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
-// scene.add(userPin); 
-
-// focusCameraOnObject(camera, controls, userPin, 2);
-// }, undefined, function(error){
-//     console.error(error);
-// })
+focusCameraOnObject(camera, controls, userPin, 2);
+}, undefined, function(error){
+    console.error(error);
+})
 
 
 //add Pins to map
