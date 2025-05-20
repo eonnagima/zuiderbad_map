@@ -122,7 +122,7 @@ scene.add(mapGroup); //add the group to the scene
 
 //classes
 class locationPin{
-    constructor(id, category, position, model, active, scale, info = {}){
+    constructor(id, category, position, model, active, scale, info){
         this.id = id;
         this.category = category;
         this.position = position;
@@ -232,77 +232,98 @@ focusCameraOnObject(camera, controls, userPin, 2);
 
 //add Pins to map
 
-const firstAidCo = latLonToXz(50.985140246874835, 4.515627794721486);
-const firstAidPin = new locationPin(
-    0,
-    "firstaid",
-    new THREE.Vector3(firstAidCo.x, 0.45, firstAidCo.z),
-    //new THREE.Vector3(-4, 0.45, 2),
-    "./assets/models/firstAidPin.glb",
-    false,
-    1,
-    {
-        name: "EHBO",
-        openingHours: null,
-        description: "Hier kan je terecht voor eerste hulp bij ongevallen. Bij een ongeval, bel 112.",
-        url: null
-    }
-);
-await firstAidPin.initialize(mapGroup, pins);
+generatePins(locations);
 
-const zuiderBadCo = latLonToXz(50.98548325417922, 4.516110690361381);
-const zuiderbadPin = new locationPin(
-    1, 
-    "food", 
-    new THREE.Vector3(zuiderBadCo.x, 0.45, zuiderBadCo.z),
-    "./assets/models/zuiderBadPin.glb", 
-    false, 
-    1,
-    {
-        name: "Zuiderbad Strandbar",
-        openingHours: {
-            'monday': 'Gesloten', 
-            'tuesday': 'Gesloten', 
-            'wednesday': '12:00 – 23:00',
-            'thursday': '18:00 – 23:00', 
-            'friday': '18:00 – 23:00', 
-            'saturday': '11:00 – 18:30', 
-            'sunday': '11:00 – 18:30'
-        },
-        description: "Welkom in de strandbar op de meest magische plek op het domein van Sport Vlaanderen Hofstade! Op het menu: frisse dranken, beachfood & holiday vibes. De strandbar beschikt over een ruim terras en serre (bij regenweer). Welkom zonder reserveren.",
-        url: null
-    }
-);
+// const firstAidCo = latLonToXz(50.985140246874835, 4.515627794721486);
+// const firstAidPin = new locationPin(
+//     0,
+//     "firstaid",
+//     new THREE.Vector3(firstAidCo.x, 0.45, firstAidCo.z),
+//     //new THREE.Vector3(-4, 0.45, 2),
+//     "./assets/models/firstAidPin.glb",
+//     true,
+//     1,
+//     {
+//         name: "EHBO",
+//         openingHours: null,
+//         description: "Hier kan je terecht voor eerste hulp bij ongevallen. Bij een ongeval, bel 112.",
+//         url: null
+//     }
+// );
+// await firstAidPin.initialize(mapGroup, pins);
 
-await zuiderbadPin.initialize(mapGroup, pins);
+// let l = locations[1];
 
-const zomerlustCo = latLonToXz(50.98275020080574, 4.510684910801831)
-const zomerlustPin = new locationPin(
-    2,
-    'food',
-    new THREE.Vector3(zomerlustCo.x, 0.45, zomerlustCo.z),
-    "./assets/models/zuiderbadPin.glb",
-    false,
-    1,
-    {
-        name: "Zomerlust",
-        openingHours: {
-            'monday': 'Gesloten', 
-            'tuesday': 'Gesloten', 
-            'wednesday': '13:00 – 18:00',
-            'thursday': 'Gesloten', 
-            'friday': 'Gesloten',
-            'saturday': '10:00 – 18:00', 
-            'sunday': '10:00 – 18:00'
-        },
-        description: 'In deze kleurrijke selfservice-bar met ruim terras & de leukste (én grootste) buitenspeeltuin kan je terecht voor lekkere snacks, zoetigheden en koele dranken. De toonbank wordt voorzien van gebak, smoothies en taart.',
-        url: null
-    }
-)
-await zomerlustPin.initialize(mapGroup, pins);
+// const locationCo = latLonToXz(parseFloat(l.coordinates.lat), parseFloat(l.coordinates.lon));
+// const newPin = new locationPin(
+//     0,
+//     l.category,
+//     new THREE.Vector3(locationCo.x, 0.45, locationCo.z),
+//     l.model,
+//     true,
+//     l.scale,
+//     {
+//         name: l.data.name,
+//         openingHours: l.data.openingHours,
+//         description: l.data.description,
+//         url: l.data.url
+//     }
+// );
+// await newPin.initialize(mapGroup, pins);
+
+// const zuiderBadCo = latLonToXz(50.98548325417922, 4.516110690361381);
+// const zuiderbadPin = new locationPin(
+//     1, 
+//     "food", 
+//     new THREE.Vector3(zuiderBadCo.x, 0.45, zuiderBadCo.z),
+//     "./assets/models/zuiderBadPin.glb", 
+//     false, 
+//     1,
+//     {
+//         name: "Zuiderbad Strandbar",
+//         openingHours: {
+//             'monday': 'Gesloten', 
+//             'tuesday': 'Gesloten', 
+//             'wednesday': '12:00 – 23:00',
+//             'thursday': '18:00 – 23:00', 
+//             'friday': '18:00 – 23:00', 
+//             'saturday': '11:00 – 18:30', 
+//             'sunday': '11:00 – 18:30'
+//         },
+//         description: "Welkom in de strandbar op de meest magische plek op het domein van Sport Vlaanderen Hofstade! Op het menu: frisse dranken, beachfood & holiday vibes. De strandbar beschikt over een ruim terras en serre (bij regenweer). Welkom zonder reserveren.",
+//         url: null
+//     }
+// );
+
+// await zuiderbadPin.initialize(mapGroup, pins);
+
+// const zomerlustCo = latLonToXz(50.98275020080574, 4.510684910801831)
+// const zomerlustPin = new locationPin(
+//     2,
+//     'food',
+//     new THREE.Vector3(zomerlustCo.x, 0.45, zomerlustCo.z),
+//     "./assets/models/zuiderbadPin.glb",
+//     false,
+//     1,
+//     {
+//         name: "Zomerlust",
+//         openingHours: {
+//             'monday': 'Gesloten', 
+//             'tuesday': 'Gesloten', 
+//             'wednesday': '13:00 – 18:00',
+//             'thursday': 'Gesloten', 
+//             'friday': 'Gesloten',
+//             'saturday': '10:00 – 18:00', 
+//             'sunday': '10:00 – 18:00'
+//         },
+//         description: 'In deze kleurrijke selfservice-bar met ruim terras & de leukste (én grootste) buitenspeeltuin kan je terecht voor lekkere snacks, zoetigheden en koele dranken. De toonbank wordt voorzien van gebak, smoothies en taart.',
+//         url: null
+//     }
+// )
+// await zomerlustPin.initialize(mapGroup, pins);
 
 //Lighting
-const dirLight = new THREE.DirectionalLight(0xffffff, 4);  // Subtle intensity
+const dirLight = new THREE.DirectionalLight(0xffffff, 3);  // Subtle intensity
 dirLight.position.set(5, 10, 7);  // Angle it so that it doesn't cause harsh shadows
 scene.add(dirLight);
 scene.add(new THREE.AmbientLight(0xffffff, 1));
@@ -760,6 +781,49 @@ function userPositionUpdate(lat, lon){
         const userCo = latLonToXz(lat, lon);
         userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
         userPin.lookAt(camera.position);
+    }
+}
+
+async function generatePins(locationsArray){
+    // let i = 0
+    // locationsArray.forEach(async function(l){
+    //     const locationCo = latLonToXz(l.lat, l.lon);
+    //     const newPin = new locationPin(
+    //         i,
+    //         l.category,
+    //         new THREE.Vector3(locationCo.x, 0.45, locationCo.z),
+    //         l.model,
+    //         l.active,
+    //         l.size,
+    //         {
+    //             name: l.name,
+    //             openingHours: l.openingHours,
+    //             description: l.description,
+    //             url: l.url
+    //         }
+    //     );
+    //     await newPin.initialize(mapGroup, pins);
+    //     i++;
+    // });
+
+    for(let i = 0; i < locationsArray.length; i++){
+        const l = locationsArray[i];
+        const locationCo = latLonToXz(parseFloat(l.coordinates.lat), parseFloat(l.coordinates.lon));
+        const newPin = new locationPin(
+            i,
+            l.category,
+            new THREE.Vector3(locationCo.x, 0.45, locationCo.z),
+            l.model,
+            l.active,
+            l.scale,
+            {
+                name: l.data.name,
+                openingHours: l.data.openingHours,
+                description: l.data.description,
+                url: l.data.url
+            }
+        );
+        await newPin.initialize(mapGroup, pins);
     }
 }
 

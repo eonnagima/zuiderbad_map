@@ -177,12 +177,12 @@ const locations = [
     },
 
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.98361323301715,
             lon: 4.505498195955115
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -193,12 +193,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.98433931025913,
             lon: 4.5059085739496165
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -209,12 +209,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.98184864915311,
             lon: 4.507804895735719
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -225,12 +225,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.98642945370189,
             lon: 4.51736024345233
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -241,12 +241,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.987322056242014,
             lon: 4.516805882630891
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -257,12 +257,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.986951311613666,
             lon: 4.496932554291879
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -273,12 +273,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.983008929335604,
             lon: 4.50639447033648
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -289,12 +289,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.98771984773038,
             lon: 4.513132179386137
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -305,12 +305,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.98432600845067,
             lon: 4.512206817254621
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -321,12 +321,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.98434692736529,
             lon: 4.504302244086647
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -337,12 +337,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.9831013740483,
             lon: 4.505932100058098
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -353,12 +353,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.98326685493851,
             lon: 4.5058757736673
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -369,12 +369,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.98619572975237,
             lon: 4.518236317632268
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -385,12 +385,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.984002131029364,
             lon: 4.50571373191572
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -401,12 +401,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.98344068665865,
             lon: 4.505889593302249
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -417,12 +417,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.98221139055193,
             lon: 4.507040260973086
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -433,12 +433,12 @@ const locations = [
         }
     },
     {
-        category: "activities",
+        category: "activity",
         coordinates: {
             lat: 50.983475426085185,
             lon: 4.512112646576719
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/activityPin.glb",
         active: false,
         scale: 1,
         data: {
