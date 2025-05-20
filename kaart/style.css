@@ -25,16 +25,19 @@
     src: url('/assets/fonts/monoandfriendsdo-Regular.ttf');
 }
 @font-face{
-    font-family: "SpartanMB-R";
+    font-family: "SpartanMB";
     src: url('/assets/fonts/SpartanMB-Regular.otf');
+    font-weight: 400;
 }
 @font-face{
-    font-family: "SpartanMB-S";
+    font-family: "SpartanMB";
     src: url('/assets/fonts/SpartanMB-SemiBold.otf');
+    font-weight: 500;
 }
 @font-face{
-    font-family: "SpartanMB-B";
+    font-family: "SpartanMB";
     src: url('/assets/fonts/SpartanMB-Bold.otf');
+    font-weight: 600;
 }
 
 *{
@@ -44,7 +47,7 @@
 body { 
     margin: 0; 
     background-color: var(--off-white);
-    font-family: Lora;
+    font-family: "SpartanMB";
 }
 
 #topHeader{
@@ -98,8 +101,7 @@ main aside{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8px 16px;
-    background-color: var(--secondary-salmon);
+
 }
 
 .filterButton{
@@ -123,7 +125,7 @@ main aside{
     background-color: blue;}
 
 .divider{
-    padding: 40px 0px 20px 0px;
+    padding: 0px;
 }
 
 hr.solid {
@@ -133,7 +135,7 @@ hr.solid {
 .searchBarContainer{
     display: flex;
     align-items: center;
-    border-radius: 25px;
+    border-radius: 16px;
     padding: 8px 16px;
     width: 100%;
     background-color: red;
@@ -165,7 +167,6 @@ input::placeholder {
 }
 
 .filterNameContainer{
-    font-family: "SpartanMB-B";
     color: var(--secondary-red);
 }
 
@@ -209,22 +210,22 @@ input::placeholder {
     color: var(--primary-pink);
 }
 
-.shareButton, .routingButton{
-    height: calc(56px + 0.5vw);
-    width: calc(56px + 0.5vw);
-    border: 2px solid black;
-    font-family: "SpartanMB-B";
+
+.shareButton i{
+    height: 40px;
+    width: 40px;
     background-color: var(--secondary-salmon);
+    border: 2px solid black;
+    border-radius: 12px;
+
 }
 
 .infoText{
     padding: 0px 20px 20px; /*top - right - bottom - left*/
-    font-family: "SpartanMB-R";
 }
 
 .infoText a{
     color: var(--link-blue);
-    font-family: "SpartanMB-B";
 }
 
 .infoText a:hover{
@@ -332,7 +333,6 @@ input::placeholder {
 
 .copyright, .copyright a{
     color: var(--maintext-black);
-    font-family: "SpartanMB-B";
     font-size: 12px;
     text-decoration: none;
     font-weight: bold;
