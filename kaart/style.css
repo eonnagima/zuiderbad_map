@@ -1,4 +1,5 @@
 :root{
+/*colors*/
     --off-white: #FEF8E8;
     --primary-color: #FFB949;
     --primary-pink: #EE7AAE;
@@ -10,6 +11,30 @@
     --thirdiary-navy: #2D39E7;
     --emergency-red: #DC3021;
     --bathroom-blue: #82B6C5;
+    --link-blue: #2C798F;
+    --maintext-black: #000000;
+}
+
+/*fonts*/
+@font-face{
+    font-family: "ChunkyMonkey";
+    src: url('/assets/fonts/ChunkyMonkeyFont-Lollipop-Regular.otf');
+}
+@font-face{
+    font-family: "Monoandfriends";
+    src: url('/assets/fonts/monoandfriendsdo-Regular.ttf');
+}
+@font-face{
+    font-family: "SpartanMB-R";
+    src: url('/assets/fonts/SpartanMB-Regular.otf');
+}
+@font-face{
+    font-family: "SpartanMB-S";
+    src: url('/assets/fonts/SpartanMB-SemiBold.otf');
+}
+@font-face{
+    font-family: "SpartanMB-B";
+    src: url('/assets/fonts/SpartanMB-Bold.otf');
 }
 
 *{
@@ -57,8 +82,8 @@ main .canvas-container{
 
 main aside{
     width: 38.2%;
-    height: calc(100vh - 40px);
-    /* background-color: var(--off-white);  */
+    height: calc(100vh);
+    background-color: var(--off-white);
     display: flex;
     flex-direction: column;
     padding: 40px 40px 40px 40px;
@@ -89,15 +114,43 @@ main aside{
     justify-content: flex-start;
     gap: 12px 20px;
 }
+
 .divider{
-      padding: 40px 0px 30px 0px;
+    padding: 40px 0px 20px 0px;
 }
 
 hr.solid {
   border-top: 3px solid black;
 }
 
-.infoDesktop{ /*The one that shows up when you click on an icon on the map*/
+.searchBarContainer{
+    display: flex;
+    align-items: center;
+    background-color: var(--primary-color);
+    border-radius: 25px;
+    padding: 8px 12px;
+    width: 95%;
+}
+
+.searchBarContainer label{
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+#searchBar {
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    font-size: 16px;
+    background-color: transparent;
+}
+
+.filterNameContainer{
+    font-family: "SpartanMB-B";
+    color: var(--secondary-red);
+}
+
+.infoContainer{ /*The one that shows up when you click on an icon on the map*/
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -105,28 +158,59 @@ hr.solid {
     background-color: var(--primary-color);
 }
 
-.infoDesktop header{
+.infoContainer header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
 }
 
-.infoDesktop .locationButtons{
+.infoContainer .locationButtons{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    gap: 20px;
+    padding: 0px 20px;
+    gap: 50px;
 }
 
-.locationName{
+.locationTitle{
+    font-family: "ChunkyMonkey";
+    font-size: 30px;
     color: var(--secondary-red);
+}
+
+#closeInfoDesktop{
+    font-family: "ChunkyMonkey";
+    font-size: 30px;
+    color: var(--secondary-red);
+    text-decoration: none;
+}
+
+#closeInfoDesktop:hover{
+    cursor: pointer;
+    color: var(--primary-pink);
 }
 
 .shareButton, .routingButton{
     height: calc(56px + 0.5vw);
     width: calc(56px + 0.5vw);
     border: 2px solid black;
+    font-family: "SpartanMB-B";
     background-color: var(--secondary-salmon);
+}
+
+.infoText{
+    padding: 0px 20px 20px; /*top - right - bottom - left*/
+    font-family: "SpartanMB-R";
+}
+
+.infoText a{
+    color: var(--link-blue);
+    font-family: "SpartanMB-B";
+}
+
+.infoText a:hover{
+    cursor: pointer;
+    color: var(--primary-pink);
 }
 
 .button i{
@@ -226,6 +310,14 @@ hr.solid {
     height: 32px;
     width: 32px;
     background-image: url(./assets/icons/center.svg);
+}
+
+.copyright, .copyright a{
+    color: var(--maintext-black);
+    font-family: "SpartanMB-B";
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .hidden{
