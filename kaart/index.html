@@ -10,6 +10,10 @@
     <main>
       <aside>
         <div class="filterContainer">
+          <div class="searchBarContainer">
+            <label for="searchBar"><i></i></label>
+            <input type="text" name="searchBar" id="searchBar">
+          </div>
           <div id="filterMenuDesktop">
             <span href="" class="button filterButton filterButton" data-filter="firstaid" data-name="EHBO"><i></i></span>
             <span href="" class="button filterButton" data-filter="events" data-name="Evenementen"><i></i></span>
@@ -29,24 +33,25 @@
 
           <div class="filterNameContainer"><h4 class="filterName"></h4></div>
         </div>
-
-        <div class="infoDesktop"> <!--The more info div-->
-          <p class="locationDescription"></p>
+        <div class="infoContainer"> <!--The more info div-->
+          <header>
+            <h2 class="locationTitle">Title</h2>
+            <a href="#" id="closeInfoDesktop"></a>
+          </header>
           <div class="locationButtons">
             <a href="#" class="button shareButton" data-locationId="">Share</a>
-            <a href="#" class="button routingButton" id="routingButtonDesk" data-locationId="">Routing</a>
+              <a href="#" class="button routingButton" id="routingButtonDesk" data-locationId="">Routing</a>
+          </div>
+          <article class="infoText">
+            <h4>Information</h4>
+            <p></p>
+            <a href="#" class="link" target="_blank">Ga naar onze website</a>
+          </article>
         </div>
-          <header>
-            <h3 class="locationName">Title</h3>
-            <span class="openingHours"></span>
-          </header>
-     
-
-        <div class="copyright">
+        <footer class="copyright">
           <p>© 2025 <a href="#">Zuiderbad</a>- All rights reserved</p>
-        </div>
+        </footer>
       </aside>
-
       <div class="canvas-container">
         <canvas id="canvas"></canvas>
         <div class="ui">
@@ -62,6 +67,7 @@
         </div>
       </div>
     </main>
+    <script src="data.js"></script>
     <script src="gps.js"></script>
     <script type="module" src="/main.js"></script>
   </body>
