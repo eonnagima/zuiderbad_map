@@ -14,33 +14,34 @@
             <label for="searchBar"><i></i></label>
             <input type="text" name="searchBar" id="searchBar" placeholder="Search ...">
           </div>
-          <div id="filterMenuDesktop">
-            <span href="" class="button filterButton filterButton" data-filter="firstaid" data-name="EHBO"><i></i></span>
-            <span href="" class="button filterButton" data-filter="events" data-name="Evenementen"><i></i></span>
-            <span href="" class="button filterButton" data-filter="food" data-name="Horeca"><i></i></span>
-            <span href="" class="button filterButton" data-filter="entrance" data-name="Ingangen en Uitgangen"><i></i></span>
-            <span href="" class="button filterButton" data-filter="toilets" data-name="Toiletten"><i></i></span>
-            <span href="" class="button filterButton" data-filter="activities" data-name="Activiteiten en Sporten"><i></i></span>
-            <span href="" class="button filterButton" data-filter="dog" data-name="Honden"><i></i></span>
-            <span href="" class="button filterButton" data-filter="playground" data-name="Speeltuinen"><i></i></span>
-            <span href="" class="button filterButton" data-filter="parking" data-name="Parkings"><i></i></span>
-            <span href="" class="button filterButton" data-filter="culture" data-name="Monumenten en Cultuur"><i></i></span>
-            <span href="" class="button filterButton" data-filter="terminal" data-name="Betaalautomaat"><i></i></span>
-            <span href="" class="button filterButton" data-filter="misc" data-name="Overig"><i></i></span>
+          <div id="filterMenuDesktop">5
+            <a href="" class="button filterButton filterButton" data-filter="firstaid" data-name="EHBO"><i></i></a>
+            <a href="" class="button filterButton" data-filter="event" data-name="Evenementen"><i></i></a>
+            <a href="" class="button filterButton" data-filter="food" data-name="Horeca"><i></i></a>
+            <a href="" class="button filterButton" data-filter="entrance" data-name="Ingangen en Uitgangen"><i></i></a>
+            <a href="" class="button filterButton" data-filter="toilet" data-name="Toiletten"><i></i></a>
+            <a href="" class="button filterButton" data-filter="activity" data-name="Activiteiten en Sporten"><i></i></a>
+            <a href="" class="button filterButton" data-filter="dog" data-name="Honden"><i></i></a>
+            <a href="" class="button filterButton" data-filter="playground" data-name="Speeltuinen"><i></i></a>
+            <a href="" class="button filterButton" data-filter="parking" data-name="Parkings"><i></i></a>
+            <a href="" class="button filterButton" data-filter="culture" data-name="Monumenten en Cultuur"><i></i></a>
+            <a href="" class="button filterButton" data-filter="terminal" data-name="Betaalautomaat"><i></i></a>
+            <a href="" class="button filterButton" data-filter="misc" data-name="Overig"><i></i></a>
           </div>
-
-          <div class="divider"><hr class="solid"></div>
 
           <div class="filterNameContainer"><h4 class="filterName"></h4></div>
         </div>
         <div class="infoContainer"> <!--The more info div-->
+          <div class="divider"></div>
           <header>
             <h2 class="locationTitle">Title</h2>
             <a href="#" id="closeInfoDesktop">x</a>
           </header>
           <div class="locationButtons">
-            <a href="#" class="button shareButton" data-locationId="">Share</a>
-              <a href="#" class="button routingButton" id="routingButtonDesk" data-locationId="">Routing</a>
+            <a href="#" class="button shareButton" data-locationId="">
+              <i></i>
+              <span>Deel deze locatie</span>
+            </a>
           </div>
           <article class="infoText">
             <h4>Information</h4>
@@ -52,7 +53,7 @@
           <p>© 2025 <a href="#">Zuiderbad</a>- All rights reserved</p>
         </footer>
       </aside>
-      <div class="canvas-container">
+      <section class="canvas-container">
         <canvas id="canvas"></canvas>
         <div class="ui">
           <div class="map-controls">
@@ -65,7 +66,43 @@
             </div>
           </div>
         </div>
-      </div>
+      </section>
+      <nav class="mobileControls">
+        <div>
+          <a href="" class="button controlButton" id="button-zoom-in"><i></i></a>
+          <a href="" class="button controlButton button-zoom-out"><i></i></a>
+          <a href="" class="button controlButton" id="button-center"><i></i></a>
+          <a href="" class="button controlButton" id="button-filter"><i></i></a>
+        </div>
+        <div>
+          <a href="" class="button controlButton" id="button-search"><i></i></a>
+          <div class="searchBarContainer">
+            <label for="searchBar" id="button-search" class=""><i></i></label>
+            <input type="text" name="searchBar" id="searchBar" placeholder="Search ...">
+          </div>
+        </div>
+      </nav>
+      <section class="mobileScreen hidden">
+        <header>
+          <h2 class="locationTitle">Title</h2>
+          <a href="#" id="closeInfoDesktop">x</a>
+        </header>
+        <div class="locationButtons">
+          <a href="#" class="button shareButton" data-locationId="">
+            <i></i>
+            <span>Deel deze locatie</span>
+          </a>
+        </div>
+        <article class="infoText">
+          <h4>Information</h4>
+          <p></p>
+          <a href="#" class="link" target="_blank">Ga naar onze website</a>
+        </article>
+        <div class="notificationOverlay hidden">
+          <span></span>
+          <a href="#" class="closeOverlayButton button">OK</a>
+        </div>
+    </section>
     </main>
     <script src="data.js"></script>
     <script src="gps.js"></script>
