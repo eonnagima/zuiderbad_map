@@ -386,7 +386,8 @@ input::placeholder {
     }
     main .canvas-container{
         width: 100vw;
-        height: 100vh;    }
+        height: calc(100vh - 40px);
+    }
     .canvas-container .ui{
         display: none;
     }
@@ -399,7 +400,7 @@ input::placeholder {
         width: 100vw;
         left: 0;
         bottom: 0;
-        padding-bottom: 40px;
+        padding-bottom: 48px;
     }
     #mobileControls .mobileButtons{
         display: flex;

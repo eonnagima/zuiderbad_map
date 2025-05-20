@@ -18,6 +18,16 @@ let watchId = null;
 let lastLocationUpdate = Date.now();
 let userPin;
 
+// In your main JS file
+const setVh = () => {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+};
+
+setVh();
+window.addEventListener('resize', setVh);
+
+
 //50.980203433249606, 4.508468834455758
 //50.980163095147354, 4.5096118525628315
 
