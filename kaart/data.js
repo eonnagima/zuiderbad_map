@@ -11,7 +11,7 @@ const locations = [
         data: { //data
             name: "EHBO Post",
             openingHours: null,
-            description: "Hier kan je terecht voor eerste hulp bij ongevallen. Bij een ongeval, bel 112.",
+            description: "Hier kan je terecht voor eerste hulp bij ongevallen. Bij nood, bel 112.",
             url: null
         }
     },
@@ -454,7 +454,7 @@ const locations = [
             lat: 50.9837789105706,
             lon: 4.513602807229226
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/playgroundPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -470,7 +470,7 @@ const locations = [
             lat: 50.98250067836458,
             lon: 4.511346087312436
         },
-        model: "./assets/models/activitiesPin.glb",
+        model: "./assets/models/playgroundPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -758,7 +758,7 @@ const locations = [
             lat: 50.983197014068054,
             lon: 4.514638923003463
         },
-        model: "./assets/models/payTerminalPin.glb",
+        model: "./assets/models/terminalPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -774,7 +774,7 @@ const locations = [
             lat: 50.979191529387315,
             lon: 4.507193110805814
         },
-        model: "./assets/models/payTerminalPin.glb",
+        model: "./assets/models/terminalPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -790,7 +790,7 @@ const locations = [
             lat: 50.983636042819796,
             lon: 4.503537259882611
         },
-        model: "./assets/models/payTerminalPin.glb",
+        model: "./assets/models/terminalPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -806,7 +806,7 @@ const locations = [
             lat: 50.98578714553714,
             lon: 4.518978109538798
         },
-        model: "./assets/models/payTerminalPin.glb",
+        model: "./assets/models/terminalPin.glb",
         active: false,
         scale: 1,
         data: {
