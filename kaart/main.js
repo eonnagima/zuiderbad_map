@@ -61,52 +61,52 @@ camera.updateProjectionMatrix();
 camera.position.set(0, 0, 20);
 
 //get user location
-window.addEventListener('load',() => {
-  if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(position => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        userLocation = {
-            lat: lat, 
-            lon: lon
-        };
-        console.log("Initial user location:", userLocation);
-        const userPoint = turf.point([lon, lat]); //create a point from the user location
-        const isInside = turf.booleanPointInPolygon(userPoint, hofstadeArea);
+// window.addEventListener('load',() => {
+//   if(navigator.geolocation){
+//     navigator.geolocation.getCurrentPosition(position => {
+//         const lat = position.coords.latitude;
+//         const lon = position.coords.longitude;
+//         userLocation = {
+//             lat: lat, 
+//             lon: lon
+//         };
+//         console.log("Initial user location:", userLocation);
+//         const userPoint = turf.point([lon, lat]); //create a point from the user location
+//         const isInside = turf.booleanPointInPolygon(userPoint, hofstadeArea);
 
-        if(isInside){
-            console.log("User is inside Domein Hofstade, tracking location...");
-            // if(userLocation){
-            //     const userCo = latLonToXz(userLocation.lat, userLocation.lon);
+//         if(isInside){
+//             console.log("User is inside Domein Hofstade, tracking location...");
+//             // if(userLocation){
+//             //     const userCo = latLonToXz(userLocation.lat, userLocation.lon);
 
-            //     loader.load('./assets/models/userLocation.glb', function(gltf){
-            //     userPin = gltf.scene;
-            //     userPin.scale.set(1, 1, 1); 
-            //     userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
-            //     scene.add(userPin); 
+//             //     loader.load('./assets/models/userLocation.glb', function(gltf){
+//             //     userPin = gltf.scene;
+//             //     userPin.scale.set(1, 1, 1); 
+//             //     userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+//             //     scene.add(userPin); 
 
-            //     focusCameraOnObject(camera, controls, userPin, 2);
-            //     }, undefined, function(error){
-            //         console.error(error);
-            //     })
-            // }
-            startTrackingUser();
-        }else{
-            console.log("User not inside Domein Hofstade");
-        }
+//             //     focusCameraOnObject(camera, controls, userPin, 2);
+//             //     }, undefined, function(error){
+//             //         console.error(error);
+//             //     })
+//             // }
+//             startTrackingUser();
+//         }else{
+//             console.log("User not inside Domein Hofstade");
+//         }
   
-    }, error => {
-      console.error("Permission denied or Error getting location: ", error);
-    },
-    {
-        enableHighAccuracy: true,
-        maximumAge: 0,
-        timeout: 10000
-    });
-  }else{
-    console.log("navigator not supported by browser");
-  }
-})
+//     }, error => {
+//       console.error("Permission denied or Error getting location: ", error);
+//     },
+//     {
+//         enableHighAccuracy: true,
+//         maximumAge: 0,
+//         timeout: 10000
+//     });
+//   }else{
+//     console.log("navigator not supported by browser");
+//   }
+// })
 
 const controls = new OrbitControls(camera, renderer.domElement); //create controls for user to move the camera
 controls.enableDamping = true; 
@@ -651,6 +651,12 @@ let manualConnections = [
 //     console.log(`${name} → [${neighborNames.join(', ')}]`);
 // }
 
+if(checkIfAppleOS()){
+    console.log("Apple OS detected");
+}else{
+    console.log("Not Apple OS detected");
+}
+
 
 function findClosestSegment(position) {
     let closest = null;
@@ -820,6 +826,18 @@ async function generatePins(locationsArray){
             }
         );
         await newPin.initialize(mapGroup, pins);
+    }
+}
+
+function checkIfAppleOS(){
+    let userAgent = window.navigator.userAgent;
+    let platform = window.navigator?.userAgentData?.platform || window.navigator.platform;
+    let applePlatforms = ['macos', 'macintosh', 'macintel', 'macppc', 'mac68k', 'iphone', 'ipad', 'ipod'];
+
+    if(applePlatforms.includes(platform.toLowerCase())){
+        return true;
+    }else{
+        return false;
     }
 }
 
