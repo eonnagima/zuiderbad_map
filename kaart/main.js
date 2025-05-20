@@ -714,6 +714,7 @@ function startTrackingUser() {
             lat: lat,
             lon: lon
         };
+        userPositionUpdate(lat, lon);
         lastLocationUpdate = Date.now(); // Update the timestamp here too
 
         //console.log("User location updated:", userLocation, "at", new Date().toLocaleTimeString());
@@ -736,6 +737,7 @@ function startTrackingUser() {
                     lat: lat,
                     lon: lon
                 };
+                userPositionUpdate(lat, lon);
                 lastLocationUpdate = Date.now();
             }, function(error) {
                 console.error("Error getting location: ", error);
@@ -745,6 +747,14 @@ function startTrackingUser() {
             });
         }
     }, 5000);
+}
+
+function userPositionUpdate(lat, lon){
+    if(userLocation){
+        const userCo = latLonToXz(lat, lon);
+        userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+        userPin.lookAt(camera.position);
+    }
 }
 
 //ANIMATION LOOP
