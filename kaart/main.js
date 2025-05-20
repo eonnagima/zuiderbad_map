@@ -16,18 +16,29 @@ const routingButtonMobile = document.querySelector('#routingButtonMobile'); //fe
 let userLocation = null;
 let watchId = null;
 let lastLocationUpdate = Date.now();
+let userPin;
 
 //50.980203433249606, 4.508468834455758
 //50.980163095147354, 4.5096118525628315
 
-//Kruidtuin
+//Hofstade
 const hofstadeArea = turf.polygon([[
-  [4.4839066489567285, 51.025066903876834], //NW lon lat => turf expects [lon, lat]
-  [4.4856340447309915, 51.02520835338684], //NE
-  [4.486282632955668, 51.024080845301015], //SE
-  [4.484007685313336, 51.02393939235056], //SW
-  [4.4839066489567285, 51.025066903876834] //close polygon
+    [4.494088231355489, 50.987722096733144], //West
+    [ 4.5151328588855435, 50.99614496511054], //North
+    [4.524228288842734, 50.987741393661466], //East
+    [4.511252698399218, 50.97770763775083], //South East
+    [4.504577153476509, 50.977681368528245], //South West
+    [4.494088231355489, 50.987722096733144] //close polygon
 ]]);
+
+//Kruidtuin
+// const hofstadeArea = turf.polygon([[
+//   [4.4839066489567285, 51.025066903876834], //NW lon lat => turf expects [lon, lat]
+//   [4.4856340447309915, 51.02520835338684], //NE
+//   [4.486282632955668, 51.024080845301015], //SE
+//   [4.484007685313336, 51.02393939235056], //SW
+//   [4.4839066489567285, 51.025066903876834] //close polygon
+// ]]);
 
 //Terhagen
 // const hofstadeArea = turf.polygon([[ // Hofstade area
@@ -43,7 +54,7 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const height = canvas.clientHeight; //get the height of the canvas
 const width = canvas.clientWidth; //get the width of the canvas
 const raycaster = new THREE.Raycaster(); //create a raycaster to detect mouse events
-const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true }); //create a WebGL renderer in canvas element
+const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true }); //create a WebGL renderer in canvas element
 renderer.setSize(width, height, false); //set the size of the renderer to the size of the canvas
 camera.aspect = width / height; //update the aspect ratio of the camera so it doesnt get distorted
 camera.updateProjectionMatrix();
@@ -65,6 +76,20 @@ window.addEventListener('load',() => {
 
         if(isInside){
             console.log("User is inside Domein Hofstade, tracking location...");
+            if(userLocation){
+                const userCo = latLonToXz(userLocation.lat, userLocation.lon);
+
+                loader.load('./assets/models/userLocation.glb', function(gltf){
+                userPin = gltf.scene;
+                userPin.scale.set(1, 1, 1); 
+                userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+                scene.add(userPin); 
+
+                focusCameraOnObject(camera, controls, userPin, 2);
+                }, undefined, function(error){
+                    console.error(error);
+                })
+            }
             startTrackingUser();
         }else{
             console.log("User not inside Domein Hofstade");
@@ -137,8 +162,7 @@ class locationPin{
     }
 }
 
-scene.background = new THREE.Color(0xfef8e8); //set the background color of the scene
-
+renderer.setClearColor(0x000000, 0); //set the background color of the renderer
 
 //map
 const loader = new GLTFLoader();
@@ -193,35 +217,20 @@ loader.load('./assets/models/MapZuiderbadV5.glb', function (gtlf){
 // });
 
 //userPin
-let userPin
 
-// if(userLocation){
-//     const userCo = latLonToXz(userLocation.lat, userLocation.lon);
 
-//     loader.load('./assets/models/userLocation.glb', function(gltf){
-//     userPin = gltf.scene;
-//     userPin.scale.set(1, 1, 1); 
-//     userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
-//     scene.add(userPin); 
+// const userCo = latLonToXz(50.983357965649375, 4.514759220386691);
 
-//     focusCameraOnObject(camera, controls, userPin, 2);
-//     }, undefined, function(error){
-//         console.error(error);
-//     })
-// }
+// loader.load('./assets/models/userLocation.glb', function(gltf){
+// userPin = gltf.scene;
+// userPin.scale.set(1, 1, 1); 
+// userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+// scene.add(userPin); 
 
-const userCo = latLonToXz(50.983357965649375, 4.514759220386691);
-
-loader.load('./assets/models/userLocation.glb', function(gltf){
-userPin = gltf.scene;
-userPin.scale.set(1, 1, 1); 
-userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
-scene.add(userPin); 
-
-focusCameraOnObject(camera, controls, userPin, 2);
-}, undefined, function(error){
-    console.error(error);
-})
+// focusCameraOnObject(camera, controls, userPin, 2);
+// }, undefined, function(error){
+//     console.error(error);
+// })
 
 
 //add Pins to map
