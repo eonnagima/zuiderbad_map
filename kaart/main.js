@@ -21,22 +21,22 @@ let lastLocationUpdate = Date.now();
 //50.980163095147354, 4.5096118525628315
 
 //Kruidtuin
-// const hofstadeArea = turf.polygon([[
-//   [4.4839066489567285, 51.025066903876834], //NW lon lat => turf expects [lon, lat]
-//   [4.4856340447309915, 51.02520835338684], //NE
-//   [4.486282632955668, 51.024080845301015], //SE
-//   [4.484007685313336, 51.02393939235056], //SW
-//   [4.4839066489567285, 51.025066903876834] //close polygon
-// ]]);
+const hofstadeArea = turf.polygon([[
+  [4.4839066489567285, 51.025066903876834], //NW lon lat => turf expects [lon, lat]
+  [4.4856340447309915, 51.02520835338684], //NE
+  [4.486282632955668, 51.024080845301015], //SE
+  [4.484007685313336, 51.02393939235056], //SW
+  [4.4839066489567285, 51.025066903876834] //close polygon
+]]);
 
 //Terhagen
-const hofstadeArea = turf.polygon([[ // Hofstade area
-    [4.371810397596004, 51.08870382424354], //NW
-    [4.4007779739165525, 51.085030392184855], //NE
-    [4.4030002509694075, 51.077829619045545], //SE
-    [4.375007357566778, 51.07978912409367], //SW
-    [4.371810397596004, 51.08870382424354] //close polygon
-]]);
+// const hofstadeArea = turf.polygon([[ // Hofstade area
+//     [4.371810397596004, 51.08870382424354], //NW
+//     [4.4007779739165525, 51.085030392184855], //NE
+//     [4.4030002509694075, 51.077829619045545], //SE
+//     [4.375007357566778, 51.07978912409367], //SW
+//     [4.371810397596004, 51.08870382424354] //close polygon
+// ]]);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -369,7 +369,7 @@ canvas.addEventListener('click', function(e){
         let clickedPin = intersects[0].object.userData.pin;
         console.log(clickedPin.info.name);
         focusCameraOnObject(camera, controls, clickedPin.pinObject, 2);
-        displayLocationInfo(clickedPin);
+        //displayLocationInfo(clickedPin);
     }
 
 })
@@ -703,20 +703,21 @@ routingButtonDesk.addEventListener('click', function(e){
 })
 
 
-function startTrackingUser (){
-    //update user locationif geolocation has changed
-    watchId = navigator.geolocation.watchPosition(function(position){
+function startTrackingUser() {
+    let lastLocationUpdate = Date.now(); // Initialize this at the start
+
+    // Update user location if geolocation has changed
+    const watchId = navigator.geolocation.watchPosition(function(position) {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
         userLocation = {
-            lat: lat, 
+            lat: lat,
             lon: lon
         };
-        let lastUpdateTime = Date.now();
+        lastLocationUpdate = Date.now(); // Update the timestamp here too
 
-        // console.log("User location updated:", userLocation, "at", new Date().toLocaleTimeString());
-
-    }, function(error){
+        //console.log("User location updated:", userLocation, "at", new Date().toLocaleTimeString());
+    }, function(error) {
         console.error("Error getting location: ", error);
     }, {
         enableHighAccuracy: true,
@@ -725,25 +726,25 @@ function startTrackingUser (){
     });
 
     setInterval(() => {
-        const now = Date.now();
-        if (now - lastLocationUpdate > 5000) {
-            navigator.geolocation.getCurrentPosition(function(position){
+        const currentTime = Date.now(); // Correct usage
+        if (currentTime - lastLocationUpdate > 5000) {
+            console.log("Manual update at: " + new Date(currentTime).toISOString());
+            navigator.geolocation.getCurrentPosition(function(position) {
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
                 userLocation = {
-                    lat: lat, 
+                    lat: lat,
                     lon: lon
                 };
                 lastLocationUpdate = Date.now();
-            }, function(error){
+            }, function(error) {
                 console.error("Error getting location: ", error);
             }, {
                 enableHighAccuracy: true,
-                maximumAge: 3000,
-                timeout: 10000
+                maximumAge: 0
             });
         }
-    }, 1000);
+    }, 5000);
 }
 
 //ANIMATION LOOP
