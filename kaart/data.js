@@ -753,6 +753,38 @@ const locations = [
         }
     },
     {
+        category: "misc",
+        coordinates: {
+            lat: 50.98569420877726, 
+            lon: 4.517210304870805
+        },
+        model: "./assets/models/firstAidPin.glb",
+        active: false,
+        scale: 1,
+        data: {
+            name: "Verzamelpunt A",
+            openingHours: null,
+            description: "Locatie uitleg",
+            url: null
+        }
+    },
+    {
+        category: "misc",
+        coordinates: {
+            lat: 50.98197816612686, 
+            lon: 4.510728737661302
+        },
+        model: "./assets/models/firstAidPin.glb",
+        active: false,
+        scale: 1,
+        data: {
+            name: "Verzamelpunt B",
+            openingHours: null,
+            description: "Locatie uitleg",
+            url: null
+        }
+    },
+    {
         category: "terminal",
         coordinates: {
             lat: 50.983197014068054,
@@ -811,6 +843,86 @@ const locations = [
         scale: 1,
         data: {
             name: "Betaalautomaat D",
+            openingHours: null,
+            description: "Locatie uitleg",
+            url: null
+        }
+    },
+    {
+        category: "toilet",
+        coordinates: {
+           lat: 50.9850038744516, 
+           lon: 4.515582039492203
+        },
+        model: "./assets/models/wcPin.glb",
+        active: false,
+        scale: 1,
+        data: {
+            name: "Toilet",
+            openingHours: null,
+            description: "Locatie uitleg",
+            url: null
+        }
+    },
+    {
+        category: "toilet",
+        coordinates: {
+           lat: 50.985083386858655, 
+           lon: 4.515426412759036
+        },
+        model: "./assets/models/showerPin.glb",
+        active: false,
+        scale: 1,
+        data: {
+            name: "Openbare douches",
+            openingHours: null,
+            description: "Locatie uitleg",
+            url: null
+        }
+    },
+    {
+        category: "culture",
+        coordinates: {
+            lat: 50.98295389905467, 
+            lon: 4.514065794095727
+        },
+        model: "./assets/models/culture.glb",
+        active: false,
+        scale: 1,
+        data: {
+            name: "Boothuis",
+            openingHours: null,
+            description: "Huidige status; vervallen en niet meer in gebruik. De ontwerper Félix Milan, 1920-2000. Milan zou 19 jaar geweest zijn bij de oplevering. Het werd in 1939 gebouwd aan een inham ten zuiden van de strandzone, aansluitend bij een aanlegsteiger voor bootjes. Het niveauverschil tussen de oever en het water wordt overbrugd door een horizontaliserend, langgerekt volume met aansluitend terras en kiosk, het geheel opgetrokken uit witgepleisterde baksteen. Het 'Bootshuis' bevatte op waterniveau de open loods met aansluitend een kelder, een pompkamer en een bergplaats. Een bescheiden binnentrap leidde naar het tweede niveau met kleedkamers en sanitair, keuken en restaurant. Een volledig beglaasde rotonde vormt de overgang naar het ruime, met metalen borstweringen beveiligde terras. Aan het uiteinde van het terras is een kleine kiosk voorzien, bereikbaar via een trap die tevens voor de verbinding zorgt met de pier, die de inham aan de noordzijde aflijnt. De horizontale, gestroomlijnde vormgeving met plat dak, bandramen ('fenêtres à longueur'), patrijspoorten, afgeronde hoeken en metalen borstweringen, roept onvermijdelijk het beeld op van een gestrande pakketboot. De gelijkenis met het boothotel 'Normandie' (1935) van L. Bruggeman in Oostduinkerke is niet toevallig. In 1953 werd de aanlegsteiger voor roeibootjes overkapt met een betonnen hangar, volgens de oorspronkelijke plannen. In 1963 volgde een tweede verbouwing waarbij het 'Bootshuis' werd uitgebreid en voorzien van een garage.",
+            url: null
+        }
+    },
+    {
+        category: "culture",
+        coordinates: {
+            lat: 50.98572838438112, 
+            lon: 4.516555759932292
+        },
+        model: "./assets/models/culture.glb",
+        active: false,
+        scale: 1,
+        data: {
+            name: "Olympische Fakkel",
+            openingHours: null,
+            description: "Locatie uitleg",
+            url: null
+        }
+    },
+    {
+        category: "culture",
+        coordinates: {
+            lat: 50.98271135797229, 
+            lon: 4.514094108547552
+        },
+        model: "./assets/models/culture.glb",
+        active: false,
+        scale: 1,
+        data: {
+            name: "RAF of RAAF monument",
             openingHours: null,
             description: "Locatie uitleg",
             url: null
