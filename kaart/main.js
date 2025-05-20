@@ -652,9 +652,16 @@ let manualConnections = [
 // }
 
 if(checkIfAppleOS()){
-    console.log("Apple OS detected");
+    // console.log("Apple OS detected");
+    let shareIcons = document.querySelectorAll('.shareButton i');
+    shareIcons.forEach(icon => {
+        icon.classList.add('apple');
+    })
 }else{
-    console.log("Not Apple OS detected");
+    let shareIcons = document.querySelectorAll('.shareButton i');
+    shareIcons.forEach(icon => {
+        icon.classList.remove('apple');
+    })
 }
 
 
