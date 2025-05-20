@@ -1,3 +1,4 @@
 # Ignore the node_modules directory
 /kaart/node_modules/
 /kaart/test.html
+.DS_Store
