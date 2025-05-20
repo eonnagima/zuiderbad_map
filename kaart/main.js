@@ -296,10 +296,10 @@ const zomerlustPin = new locationPin(
 await zomerlustPin.initialize(mapGroup, pins);
 
 //Lighting
-const dirLight = new THREE.DirectionalLight(0xffffff, 1);  // Subtle intensity
+const dirLight = new THREE.DirectionalLight(0xffffff, 4);  // Subtle intensity
 dirLight.position.set(5, 10, 7);  // Angle it so that it doesn't cause harsh shadows
 scene.add(dirLight);
-scene.add(new THREE.AmbientLight(0xffffff, 4));
+scene.add(new THREE.AmbientLight(0xffffff, 1));
 
 //filter event listener
 filterMenuDesktop.addEventListener('click', function(e){
