@@ -4,6 +4,12 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { gsap } from 'gsap';
 import * as turf from '@turf/turf';
 
+// In your main JS file
+const setVh = () => {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+};
+
 setVh();
 window.addEventListener('resize', setVh);
 
@@ -20,12 +26,6 @@ let userLocation = null;
 let watchId = null;
 let lastLocationUpdate = Date.now();
 let userPin;
-
-// In your main JS file
-const setVh = () => {
-  const vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-};
 
 //Hofstade
 const hofstadeArea = turf.polygon([[
