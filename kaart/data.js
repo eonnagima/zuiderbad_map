@@ -625,7 +625,7 @@ export const locations = [
         }
     },
     {
-        category: "parkings",
+        category: "parking",
         coordinates: {
             lat: 50.98643214349996,
             lon: 4.497888915076186
@@ -641,7 +641,7 @@ export const locations = [
         }
     },
     {
-        category: "parkings",
+        category: "parking",
         coordinates: {
             lat: 50.98390318626152,
             lon: 4.503174843520835
@@ -657,7 +657,7 @@ export const locations = [
         }
     },
     {
-        category: "parkings",
+        category: "parking",
         coordinates: {
             lat: 50.98512399500207,
             lon: 4.518216671631152
@@ -673,7 +673,7 @@ export const locations = [
         }
     },
     {
-        category: "parkings",
+        category: "parking",
         coordinates: {
             lat: 50.97955301514079,
             lon: 4.5064678559313975
@@ -689,7 +689,7 @@ export const locations = [
         }
     },
     {
-        category: "parkings",
+        category: "parking",
         coordinates: {
             lat: 50.9837146608202,
             lon: 4.505264885257313
@@ -758,7 +758,7 @@ export const locations = [
             lat: 50.98569420877726, 
             lon: 4.517210304870805
         },
-        model: "./assets/models/firstAidPin.glb",
+        model: "./assets/models/gatherPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -774,7 +774,7 @@ export const locations = [
             lat: 50.98197816612686, 
             lon: 4.510728737661302
         },
-        model: "./assets/models/firstAidPin.glb",
+        model: "./assets/models/gatherPin.glb",
         active: false,
         scale: 1,
         data: {
@@ -880,13 +880,29 @@ export const locations = [
             url: null
         }
     },
+        {
+        category: "toilet",
+        coordinates: {
+           lat: 50.9856589054506,
+           lon: 4.516337122439537
+        },
+        model: "./assets/models/wcPin.glb",
+        active: false,
+        scale: 1,
+        data: {
+            name: "Openbare douches",
+            openingHours: null,
+            description: "Locatie uitleg",
+            url: null
+        }
+    },
     {
         category: "culture",
         coordinates: {
             lat: 50.98295389905467, 
             lon: 4.514065794095727
         },
-        model: "./assets/models/culture.glb",
+        model: "./assets/models/culturePin.glb",
         active: false,
         scale: 1,
         data: {
@@ -902,7 +918,7 @@ export const locations = [
             lat: 50.98572838438112, 
             lon: 4.516555759932292
         },
-        model: "./assets/models/culture.glb",
+        model: "./assets/models/culturePin.glb",
         active: false,
         scale: 1,
         data: {
@@ -918,7 +934,7 @@ export const locations = [
             lat: 50.98271135797229, 
             lon: 4.514094108547552
         },
-        model: "./assets/models/culture.glb",
+        model: "./assets/models/culturePin.glb",
         active: false,
         scale: 1,
         data: {

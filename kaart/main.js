@@ -141,6 +141,9 @@ loader.load('./assets/models/mapZuiderbadV5.glb', function (gtlf){
     console.error(error);
 });
 
+//add Pins to map
+generatePins(locations);
+
 
 //get user location
 let feedback = "";
@@ -180,8 +183,6 @@ if(navigator.geolocation){
     focusCameraOnObject(camera, controls, mapModel, 2);
     feedback = "Kan locatie niet ophalen";
 }
-
-
 
 // window.addEventListener('load',() => {
 //   if(navigator.geolocation){
@@ -283,10 +284,6 @@ if(navigator.geolocation){
 //     console.error(error);
 // })
 
-
-//add Pins to map
-
-//generatePins(locations);
 
 // const firstAidCo = latLonToXz(50.985140246874835, 4.515627794721486);
 // const firstAidPin = new locationPin(
