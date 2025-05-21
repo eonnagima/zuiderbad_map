@@ -31,7 +31,7 @@ const realDist = gpsDistance(originLat, originLon, anchorLat, anchorLon);
 const threeDist = threeDistance(originX, originZ, anchorX, anchorZ);
 const metersPerUnit = realDist / threeDist;
 
-function latLonToXz(lat, lon) {
+export function latLonToXz(lat, lon) {
   const R = 6371000; // Earth's radius in meters
   const toRad = deg => deg * Math.PI / 180;
 

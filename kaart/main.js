@@ -4,6 +4,10 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { gsap } from 'gsap';
 import * as turf from '@turf/turf';
 
+import { locations } from './data.js';
+import { latLonToXz } from './gps.js';
+
+
 // In your main JS file
 const setVh = () => {
   const vh = window.innerHeight * 0.01;
