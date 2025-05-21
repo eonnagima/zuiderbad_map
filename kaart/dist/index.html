@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactieve Kaart — Zuiderbad | Horeca - Catering - Events</title>
+    <!-- <link rel="stylesheet" href="https://use.typekit.net/kup7okg.css"> -->
+    <script type="module" crossorigin src="./assets/index-CApYjuR6.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-LrEuhzWn.css">
+  </head>
+  <body>
+    <main>
+      <aside id="desktopAsside">
+        <div class="filterContainer">
+          <div class="searchBarContainer">
+            <label for="searchBar"><i></i></label>
+            <input type="text" name="searchBar" id="searchBar" placeholder="Search ...">
+          </div>
+          <div id="filterMenuDesktop">
+            <a href="" class="button filterButton filterButton" data-filter="firstaid" data-name="EHBO"><i></i></a>
+            <a href="" class="button filterButton" data-filter="event" data-name="Evenementen"><i></i></a>
+            <a href="" class="button filterButton" data-filter="food" data-name="Horeca"><i></i></a>
+            <a href="" class="button filterButton" data-filter="entrance" data-name="Ingangen en Uitgangen"><i></i></a>
+            <a href="" class="button filterButton" data-filter="toilet" data-name="Toiletten"><i></i></a>
+            <a href="" class="button filterButton" data-filter="activity" data-name="Activiteiten en Sporten"><i></i></a>
+            <a href="" class="button filterButton" data-filter="dog" data-name="Honden"><i></i></a>
+            <a href="" class="button filterButton" data-filter="playground" data-name="Speeltuinen"><i></i></a>
+            <a href="" class="button filterButton" data-filter="parking" data-name="Parkings"><i></i></a>
+            <a href="" class="button filterButton" data-filter="culture" data-name="Monumenten en Cultuur"><i></i></a>
+            <a href="" class="button filterButton" data-filter="terminal" data-name="Betaalautomaat"><i></i></a>
+            <a href="" class="button filterButton" data-filter="misc" data-name="Overig"><i></i></a>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="infoContainer"> <!--The more info div-->
+          <header>
+            <h2 class="locationTitle">Title</h2>
+            <a href="#" id="closeInfoDesktop">x</a>
+          </header>
+          <div class="locationButtons">
+            <a href="#" class="button shareButton" data-locationId="">
+              <span><i></i></span>
+              <p>Deel deze locatie</p>
+            </a>
+          </div>
+          <article class="infoText">
+            <h4>Information</h4>
+            <p></p>
+            <a href="#" class="link" target="_blank">Ga naar onze website</a>
+          </article>
+        </div>
+        <footer class="copyright">
+          <p>© 2025 <a href="#">Zuiderbad</a>- All rights reserved</p>
+        </footer>
+      </aside>
+      <section class="canvas-container">
+        <canvas id="canvas"></canvas>
+        <div class="ui">
+          <div class="map-controls">
+            <div class="center-controls">
+              <a href="" class="button button-ui" id="button-center"><i></i></a>
+            </div>
+            <div class="zoom-control">
+              <a href="" class="button button-ui" id="button-zoom-in"><i></i></a>
+              <a href="" class="button button-ui button-zoom-out"><i></i></a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <nav id="mobileControls">
+        <div class="mobileButtons">
+          <!-- <a href="" class="button controlButton" id="button-zoom-in"><i></i></a>
+          <a href="" class="button controlButton button-zoom-out"><i></i></a>
+          <a href="" class="button controlButton" id="button-center"><i></i></a>
+          <a href="" class="button controlButton" id="button-filter"><i></i></a> -->
+          <span id="test"></span>
+        </div>
+        <div class="searchBarMobileContainer">
+          <div class="searchBar button">
+            <label for="searchBar" id="button-search" class=""><i></i></label>
+            <input class="hidden" type="text" name="searchBar" id="searchBar" placeholder="Search ...">
+          </div>
+        </div>
+      </nav>
+      <section id="mobileScreen">
+        <header>
+          <h2 class="locationTitle">Title</h2>
+          <a href="#" id="closeInfoDesktop">x</a>
+        </header>
+        <div class="locationButtons">
+          <a href="#" class="button shareButton" data-locationId="">
+            <i></i>
+            <span>Deel deze locatie</span>
+          </a>
+        </div>
+        <article class="infoText">
+          <h4>Information</h4>
+          <p></p>
+          <a href="#" class="link" target="_blank">Ga naar onze website</a>
+        </article>
+        <div class="notificationOverlay hidden">
+          <span></span>
+          <a href="#" class="closeOverlayButton button">OK</a>
+        </div>
+    </section>
+    </main>
+    <script src="./data.js"></script>
+    <script src="./gps.js"></script>
+  </body>
+</html>
