@@ -68,15 +68,15 @@
       </section>
       <nav id="mobileControls">
         <div class="mobileButtons">
-          <!-- <a href="" class="button controlButton" id="button-zoom-in"><i></i></a>
-          <a href="" class="button controlButton button-zoom-out"><i></i></a>
-          <a href="" class="button controlButton" id="button-center"><i></i></a>
-          <a href="" class="button controlButton" id="button-filter"><i></i></a> -->
-          <span id="test"></span>
+          <a href="" class="button controlButton" id="button-zoom-in" data-function="zoomIn"><i></i></a>
+          <a href="" class="button controlButton button-zoom-out" data-function="zoomOut"><i></i></a>
+          <a href="" class="button controlButton" data-function="centerUser"><i></i></a>
+          <a href="" class="button controlButton" id="button-filter" data-function="filterToggle"><i></i></a>
+          <!-- <span id="test"></span> -->
         </div>
         <div class="searchBarMobileContainer">
-          <div class="searchBar button">
-            <label for="searchBar" id="button-search" class=""><i></i></label>
+          <div class="searchBar button controlButton controlButton-search">
+            <label for="searchBar" id="button-search"><i></i></label>
             <input class="hidden" type="text" name="searchBar" id="searchBar" placeholder="Search ...">
           </div>
         </div>

@@ -146,14 +146,12 @@ loader.load('./assets/models/mapZuiderbadV5.glb', function (gtlf){
 let feedback = "";
 if(navigator.geolocation){
     feedback = "test";
-    document.querySelector('#test').innerHTML = feedback;
     console.log(feedback);
 
     navigator.geolocation.getCurrentPosition(function(position){
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
         feedback = "User location: " + lat + ", " + lon;
-        // document.querySelector('#test').innerHTML = feedback;
         console.log(feedback);
 
         const userPoint = turf.point([lon, lat]); //create a point from the user location
@@ -836,10 +834,9 @@ function startTrackingUser() {
 function userPositionUpdate(lat, lon){
     const userCo = latLonToXz(lat, lon);
     userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
-    focusCameraOnObject(camera, controls, userPin, 2);
+    //focusCameraOnObject(camera, controls, userPin, 2);
     console.log("updated user location: "+lat, lon);
-    let timestamp = new Date(Date.now()).toLocaleTimeString();
-    document.querySelector('#test').innerHTML = "update user location: "+lat, lon+" "+timestamp;
+    // let timestamp = new Date(Date.now()).toLocaleTimeString();
 }
 
 async function generatePins(locationsArray){

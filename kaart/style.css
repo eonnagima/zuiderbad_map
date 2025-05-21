@@ -151,7 +151,7 @@ hr.solid {
     width: 24px;
     cursor: pointer;
     background-color: var(--primary-color);
-    background-image: url("/assets/images/searchIcon.svg");
+    background-image: url("/assets/icons/searchIcon.svg");
     background-repeat: no-repeat;
     background-size:cover;
     background-position: center;
@@ -304,6 +304,39 @@ input::placeholder {
     background-image: url(./assets/icons/miscIcon.svg);
 }
 
+
+
+.controlButton i{
+    height: 48px;
+    width: 48px;
+    background-size: cover;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+.controlButton[data-function="zoomIn"] i{
+    background-image: url("./assets/icons/zoomInIcon.svg");
+}
+
+.controlButton[data-function="zoomOut"] i{
+    background-image: url("./assets/icons/zoomOutIcon.svg");
+}
+
+.controlButton[data-function="centerUser"] i{
+    background-image: url("./assets/icons/centerIcon.svg");
+}
+
+.controlButton[data-function="filterToggle"] i{
+    background-image: url("./assets/icons/filterIcon.svg");
+}
+
+.controlButton-search i{
+    background-image: url("./assets/icons/searchIcon.svg");
+    height: 30px;
+    width: 30px;
+}
+
+
 .shareButton{
     display: flex;
     flex-direction: row;
@@ -410,6 +443,9 @@ input::placeholder {
         height: 60px;
         background-color: var(--primary-color);
         border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     #mobileScreen{
         display: none;
