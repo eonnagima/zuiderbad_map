@@ -126,10 +126,11 @@ class locationPin{
 
 renderer.setClearColor(0x000000, 0); //set the background color of the renderer
 
+
 let mapModel;
 //map
 const loader = new GLTFLoader();
-loader.load('./assets/models/MapZuiderbadV5.glb', function (gtlf){
+loader.load('./assets/models/mapZuiderbadV5.glb', function (gtlf){
     //scale model down to fit in the scene
     mapModel = gtlf.scene;
     mapModel.scale.set(1, 1, 1); //scale the model down to fit in the scene
@@ -139,6 +140,7 @@ loader.load('./assets/models/MapZuiderbadV5.glb', function (gtlf){
 }, undefined, function (error) {
     console.error(error);
 });
+
 
 //get user location
 let feedback = "";
