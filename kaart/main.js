@@ -288,7 +288,7 @@ if(navigator.geolocation){
 
 //add Pins to map
 
-generatePins(locations);
+//generatePins(locations);
 
 // const firstAidCo = latLonToXz(50.985140246874835, 4.515627794721486);
 // const firstAidPin = new locationPin(
@@ -834,11 +834,12 @@ function startTrackingUser() {
 }
 
 function userPositionUpdate(lat, lon){
-    if(userLocation){
-        const userCo = latLonToXz(lat, lon);
-        userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
-        userPin.lookAt(camera.position);
-    }
+    const userCo = latLonToXz(lat, lon);
+    userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+    focusCameraOnObject(camera, controls, userPin, 2);
+    console.log("updated user location: "+lat, lon);
+    let timestamp = new Date(Date.now()).toLocaleTimeString();
+    document.querySelector('#test').innerHTML = "update user location: "+lat, lon+" "+timestamp;
 }
 
 async function generatePins(locationsArray){
