@@ -140,6 +140,7 @@ hr.solid {
 .searchBarContainer{
     display: flex;
     align-items: center;
+    background-color: var(--primary-color);
     border-radius: 16px;
     padding: 8px 16px;
     width: 100%;
@@ -147,22 +148,25 @@ hr.solid {
 }
 
 .searchBarContainer label{
+    display: inline-flex;
+    flex-shrink: 0;
     height: 24px;
     width: 24px;
     cursor: pointer;
-    background-color: var(--primary-color);
     background-image: url("/assets/icons/searchIcon.svg");
     background-repeat: no-repeat;
     background-size:cover;
     background-position: center;
 }
 
-#searchBar {
+#searchBar{
     border: none;
     outline: none;
     border-radius: 20px;
     font-size: 16px;
     background-color: transparent;
+    color: var(--maintext-black);
+    width: 100%;
 }
 
 input::placeholder {
@@ -315,23 +319,23 @@ input::placeholder {
 }
 
 .controlButton[data-function="zoomIn"] i{
-    background-image: url("./assets/icons/zoomInIcon.svg");
+    background-image: url("/assets/icons/zoomInIcon.svg");
 }
 
 .controlButton[data-function="zoomOut"] i{
-    background-image: url("./assets/icons/zoomOutIcon.svg");
+    background-image: url("/assets/icons/zoomOutIcon.svg");
 }
 
 .controlButton[data-function="centerUser"] i{
-    background-image: url("./assets/icons/centerIcon.svg");
+    background-image: url("/assets/icons/centerIcon.svg");
 }
 
 .controlButton[data-function="filterToggle"] i{
-    background-image: url("./assets/icons/filterIcon.svg");
+    background-image: url("/assets/icons/filterIcon.svg");
 }
 
 .controlButton-search i{
-    background-image: url("./assets/icons/searchIcon.svg");
+    background-image: url("/assets/icons/searchIcon.svg");
     height: 30px;
     width: 30px;
 }
@@ -360,13 +364,13 @@ input::placeholder {
     display: block;
     height: 36px;
     width: 36px;
-    background-image: url(./assets/icons/shareIcon.svg);
+    background-image: url(/assets/icons/shareIcon.svg);
     background-size: cover;
     background-position: left;
 }
 
 .shareButton .apple{
-    background-image: url(./assets/icons/shareIconApple.svg);
+    background-image: url(/assets/icons/shareIconApple.svg);
 }
 
 .ui{
@@ -388,7 +392,7 @@ input::placeholder {
 #button-center i{
     height: 32px;
     width: 32px;
-    background-image: url(./assets/icons/center.svg);
+    background-image: url(/assets/icons/center.svg);
 }
 
 .copyright, .copyright a{
