@@ -66,54 +66,6 @@ camera.aspect = width / height; //update the aspect ratio of the camera so it do
 camera.updateProjectionMatrix();
 camera.position.set(0, 0, 20);
 
-//get user location
-window.addEventListener('load',() => {
-  if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(position => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        userLocation = {
-            lat: lat, 
-            lon: lon
-        };
-        console.log("Initial user location:", userLocation);
-        const userPoint = turf.point([lon, lat]); //create a point from the user location
-        const isInside = turf.booleanPointInPolygon(userPoint, hofstadeArea);
-
-        if(isInside){
-            console.log("User is inside Domein Hofstade, tracking location...");
-            // if(userLocation){
-            //     const userCo = latLonToXz(userLocation.lat, userLocation.lon);
-
-            //     loader.load('./assets/models/userLocation.glb', function(gltf){
-            //     userPin = gltf.scene;
-            //     userPin.scale.set(1, 1, 1); 
-            //     userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
-            //     scene.add(userPin); 
-
-            //     focusCameraOnObject(camera, controls, userPin, 2);
-            //     }, undefined, function(error){
-            //         console.error(error);
-            //     })
-            // }
-            startTrackingUser();
-        }else{
-            console.log("User not inside Domein Hofstade");
-        }
-  
-    }, error => {
-      console.error("Permission denied or Error getting location: ", error);
-    },
-    {
-        enableHighAccuracy: true,
-        maximumAge: 0,
-        timeout: 10000
-    });
-  }else{
-    console.log("navigator not supported by browser");
-  }
-})
-
 const controls = new OrbitControls(camera, renderer.domElement); //create controls for user to move the camera
 controls.enableDamping = true; 
 
@@ -170,17 +122,109 @@ class locationPin{
 
 renderer.setClearColor(0x000000, 0); //set the background color of the renderer
 
+let mapModel;
 //map
 const loader = new GLTFLoader();
 loader.load('./assets/models/MapZuiderbadV5.glb', function (gtlf){
     //scale model down to fit in the scene
-    gtlf.scene.scale.set(1, 1, 1); //scale the model down to fit in the scene
-    gtlf.scene.position.set(0, 0, 0); //position the model in the scene
+    mapModel = gtlf.scene;
+    mapModel.scale.set(1, 1, 1); //scale the model down to fit in the scene
+    mapModel.position.set(0, 0, 0); //position the model in the scene
     //gtlf.scene.rotation.x = Math.PI / 4;
     mapGroup.add(gtlf.scene); //add the loaded model to the scene
 }, undefined, function (error) {
     console.error(error);
 });
+
+//get user location
+let feedback = "";
+if(navigator.geolocation){
+    feedback = "test";
+    document.querySelector('#test').innerHTML = feedback;
+    console.log(feedback);
+
+    navigator.geolocation.getCurrentPosition(function(position){
+        let lat = position.coords.latitude;
+        let lon = position.coords.longitude;
+        feedback = "User location: " + lat + ", " + lon;
+        // document.querySelector('#test').innerHTML = feedback;
+        console.log(feedback);
+
+        const userPoint = turf.point([lon, lat]); //create a point from the user location
+        const isInside = turf.booleanPointInPolygon(userPoint, hofstadeArea);
+
+        if(isInside){
+            console.log("User is inside Domein Hofstade, tracking location...");
+            const userCo = latLonToXz(lat, lon);
+            loader.load('./assets/models/userLocation.glb', function(gltf){
+            userPin = gltf.scene;
+            userPin.scale.set(1, 1, 1); 
+            userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+            scene.add(userPin); 
+
+            focusCameraOnObject(camera, controls, userPin, 2);
+            }, undefined, function(error){
+                console.error(error);
+            })
+
+            startTrackingUser();
+        }else{
+            console.log("User not inside Domein Hofstade");
+        }
+    })
+}else{
+    focusCameraOnObject(camera, controls, mapModel, 2);
+    feedback = "Kan locatie niet ophalen";
+}
+
+
+
+// window.addEventListener('load',() => {
+//   if(navigator.geolocation){
+//     navigator.geolocation.getCurrentPosition(position => {
+//         const lat = position.coords.latitude;
+//         const lon = position.coords.longitude;
+//         userLocation = {
+//             lat: lat, 
+//             lon: lon
+//         };
+//         console.log("Initial user location:", userLocation);
+//         const userPoint = turf.point([lon, lat]); //create a point from the user location
+//         const isInside = turf.booleanPointInPolygon(userPoint, hofstadeArea);
+
+//         if(isInside){
+//             console.log("User is inside Domein Hofstade, tracking location...");
+//             // if(userLocation){
+//             //     const userCo = latLonToXz(userLocation.lat, userLocation.lon);
+
+//             //     loader.load('./assets/models/userLocation.glb', function(gltf){
+//             //     userPin = gltf.scene;
+//             //     userPin.scale.set(1, 1, 1); 
+//             //     userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+//             //     scene.add(userPin); 
+
+//             //     focusCameraOnObject(camera, controls, userPin, 2);
+//             //     }, undefined, function(error){
+//             //         console.error(error);
+//             //     })
+//             // }
+//             startTrackingUser();
+//         }else{
+//             console.log("User not inside Domein Hofstade");
+//         }
+  
+//     }, error => {
+//       console.error("Permission denied or Error getting location: ", error);
+//     },
+//     {
+//         enableHighAccuracy: true,
+//         maximumAge: 0,
+//         timeout: 10000
+//     });
+//   }else{
+//     console.log("navigator not supported by browser");
+//   }
+// })
 
 
 //paths
@@ -223,17 +267,17 @@ loader.load('./assets/models/MapZuiderbadV5.glb', function (gtlf){
 // });
 
 //Manual User Pin
-const userCo = latLonToXz(50.983357965649375, 4.514759220386691);
-loader.load('./assets/models/userLocation.glb', function(gltf){
-userPin = gltf.scene;
-userPin.scale.set(1, 1, 1); 
-userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
-scene.add(userPin); 
+// const userCo = latLonToXz(50.983357965649375, 4.514759220386691);
+// loader.load('./assets/models/userLocation.glb', function(gltf){
+// userPin = gltf.scene;
+// userPin.scale.set(1, 1, 1); 
+// userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+// scene.add(userPin); 
 
-focusCameraOnObject(camera, controls, userPin, 2);
-}, undefined, function(error){
-    console.error(error);
-})
+// focusCameraOnObject(camera, controls, userPin, 2);
+// }, undefined, function(error){
+//     console.error(error);
+// })
 
 
 //add Pins to map
@@ -750,12 +794,8 @@ function startTrackingUser() {
 
     // Update user location if geolocation has changed
     const watchId = navigator.geolocation.watchPosition(function(position) {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        userLocation = {
-            lat: lat,
-            lon: lon
-        };
+        let lat = position.coords.latitude;
+        let lon = position.coords.longitude;
         userPositionUpdate(lat, lon);
         lastLocationUpdate = Date.now(); // Update the timestamp here too
 
@@ -773,12 +813,8 @@ function startTrackingUser() {
         if (currentTime - lastLocationUpdate > 5000) {
             console.log("Manual update at: " + new Date(currentTime).toISOString());
             navigator.geolocation.getCurrentPosition(function(position) {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                userLocation = {
-                    lat: lat,
-                    lon: lon
-                };
+                let lat = position.coords.latitude;
+                let lon = position.coords.longitude;
                 userPositionUpdate(lat, lon);
                 lastLocationUpdate = Date.now();
             }, function(error) {
@@ -868,6 +904,15 @@ function animate() {
     renderer.render( scene, camera );
 }
 
-animatePinsBobbing(pins); // start the bobbing animation
+//start animating pins if window loaded
+window.addEventListener('load', () => {
+    //delays start of animation to ensure all pins are loaded
+    setTimeout(function(){
+        animatePinsBobbing(pins);
+    }, 1000);
+    
+    console.log(pins);
+});
+
 window.addEventListener('resize', onWindowResize, false); //add event listener to resize the canvas when the window is resized
 renderer.setAnimationLoop( animate );
