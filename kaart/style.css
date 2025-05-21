@@ -245,63 +245,63 @@ input::placeholder {
 }
 
 .filterButton[data-filter="firstaid"] i{
-    background-image: url(./assets/icons/firstaidIcon.svg);
+    background-image: url(/assets/icons/firstaidIcon.svg);
 }
 
 .filterButton[data-filter="event"] i{
-    background-image: url(./assets/icons/eventIcon.svg);
+    background-image: url(/assets/icons/eventIcon.svg);
 }
 
 .filterButton[data-filter="food"] i{
-    background-image: url(./assets/icons/foodIcon.svg);
+    background-image: url(/assets/icons/foodIcon.svg);
 }
 
 .filterButton[data-filter="entrance"] i{
-    background-image: url(./assets/icons/entranceIcon.svg);
+    background-image: url(/assets/icons/entranceIcon.svg);
 }
 
 .filterButton[data-filter="toilet"] i{
-    background-image: url(./assets/icons/wcIcon.svg);
+    background-image: url(/assets/icons/wcIcon.svg);
 }
 
 .filterButton[data-filter="activities"] i{
-    background-image: url(./assets/icons/sportIcon.svg);
+    background-image: url(/assets/icons/sportIcon.svg);
 }
 
 .filterButton[data-filter="dog"] i{
-    background-image: url(./assets/icons/dogpawIcon.svg);
+    background-image: url(/assets/icons/dogpawIcon.svg);
 }
 
 .filterButton[data-filter="playground"] i{
-    background-image: url(./assets/icons/playgroundIcon.svg);
+    background-image: url(/assets/icons/playgroundIcon.svg);
 }
 
 .filterButton[data-filter="parking"] i{
-    background-image: url(./assets/icons/parkingIcon.svg);
+    background-image: url(/assets/icons/parkingIcon.svg);
 }
 
 .filterButton[data-filter="emergency"] i{
-    background-image: url(./assets/icons/emergencyIcon.svg);
+    background-image: url(/assets/icons/emergencyIcon.svg);
 }
 
 .filterButton[data-filter="activity"] i{
-    background-image: url(./assets/icons/activityIcon.svg);
+    background-image: url(/assets/icons/activityIcon.svg);
 }
 
 .filterButton[data-filter="dog"] i{
-    background-image: url(./assets/icons/dogIcon.svg);
+    background-image: url(/assets/icons/dogIcon.svg);
 }
 
 .filterButton[data-filter="culture"] i{
-    background-image: url(./assets/icons/cultureIcon.svg);
+    background-image: url(/assets/icons/cultureIcon.svg);
 }
 
 .filterButton[data-filter="terminal"] i{
-    background-image: url(./assets/icons/terminalIcon.svg);
+    background-image: url(/assets/icons/terminalIcon.svg);
 }
 
 .filterButton[data-filter="misc"] i{
-    background-image: url(./assets/icons/miscIcon.svg);
+    background-image: url(/assets/icons/miscIcon.svg);
 }
 
 
