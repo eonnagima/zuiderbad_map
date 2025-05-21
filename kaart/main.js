@@ -73,7 +73,7 @@ camera.position.set(0, 0, 20);
 const controls = new OrbitControls(camera, renderer.domElement); //create controls for user to move the camera
 controls.enableDamping = true; 
 
-const pins = [];
+let pins = [];
 const graph = [];
 const pathSegments = [];
 //const pathSegments = []; //array to hold the path segments
@@ -144,6 +144,24 @@ loader.load('./assets/models/mapZuiderbadV5.glb', function (gtlf){
 //add Pins to map
 generatePins(locations);
 
+window.addEventListener('DOMContentLoaded', () => {
+    // Add event listeners for the routing button
+    console.log("window loaded");
+    const params = new URLSearchParams(window.location.search);
+    const pinId = params.get('location');
+    console.log("Pin ID: ", pinId);
+    console.log(pins, locations.length);
+    if(pinId){
+        for(let i = 0; i < locations.length; i++){
+            console.log(pins[i]);
+            if(pins[i].id == pinId){
+                focusCameraOnObject(camera, controls, pins[i].pinObject, 2);
+                console.log("Pin found: ", pins[i].info.name);
+                break;
+            }
+        }
+    }
+})
 
 //get user location
 let feedback = "";
@@ -837,27 +855,6 @@ function userPositionUpdate(lat, lon){
 }
 
 async function generatePins(locationsArray){
-    // let i = 0
-    // locationsArray.forEach(async function(l){
-    //     const locationCo = latLonToXz(l.lat, l.lon);
-    //     const newPin = new locationPin(
-    //         i,
-    //         l.category,
-    //         new THREE.Vector3(locationCo.x, 0.45, locationCo.z),
-    //         l.model,
-    //         l.active,
-    //         l.size,
-    //         {
-    //             name: l.name,
-    //             openingHours: l.openingHours,
-    //             description: l.description,
-    //             url: l.url
-    //         }
-    //     );
-    //     await newPin.initialize(mapGroup, pins);
-    //     i++;
-    // });
-
     for(let i = 0; i < locationsArray.length; i++){
         const l = locationsArray[i];
         const locationCo = latLonToXz(parseFloat(l.coordinates.lat), parseFloat(l.coordinates.lon));
@@ -890,6 +887,23 @@ function checkIfAppleOS(){
         return false;
     }
 }
+
+function shareLocation(locationId){
+    const url = `${window.location.origin}${window.location.pathname}?location=${locationId}`;
+
+    navigator.clipboard.writeText(url).then(() => { 
+        console.log("URL copied to clipboard: " + url);
+        //toggle hidden class on pop up
+    })
+}
+
+document.querySelectorAll('.shareButton').forEach(button => {
+    button.addEventListener('click', function(e){
+        e.preventDefault();
+        let locationId = button.dataset.locationId = button.dataset.locationId;
+        shareLocation(0);
+    })
+})
 
 //ANIMATION LOOP
 
