@@ -708,8 +708,6 @@ function closeLocationInfo() {
 }
 
 
-
-
 function focusCameraOnObject(camera, controls, object, duration, zoom) {
     // Define a 45-degree angle offset (diagonal from above and behind)
     const distance = zoom; // Adjust this to control zoom level
