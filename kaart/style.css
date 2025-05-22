@@ -4,7 +4,7 @@
     --primary-color: #FFB949;
     --primary-pink: #EE7AAE;
     --primary-orange: #E8491F;
-    --secondery-color: #d85026;
+    --secondary-color: #d85026;
     --secondary-salmon: #F7B9B3;
     --secondary-red: #651123;
     --secondary-skyblue: #BCD5DC;
@@ -212,6 +212,7 @@ input::placeholder {
     font-family: "ChunkyMonkey";
     font-size: 2em;
     color: var(--secondary-red);
+    margin: 0;
 }
 
 #closeInfoDesktop{
@@ -244,7 +245,7 @@ input::placeholder {
 }
 
 .filterButton.active{
-    background-color: var(--secondery-color);
+    background-color: var(--secondary-color);
 }
 
 .filterButton:active{
@@ -382,6 +383,18 @@ input::placeholder {
 
 .shareButton .apple{
     background-image: url(/assets/icons/shareIconApple.svg);
+}
+
+.shareButton:active{
+    transform: scale(0.9);
+}
+
+.shareButton:active span{
+    background-color: var(--secondary-color);
+}
+
+.shareButton:active i{
+    background-position: right center;
 }
 
 .ui{
