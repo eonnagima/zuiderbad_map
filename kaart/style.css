@@ -215,12 +215,36 @@ input::placeholder {
     align-items: center;
 }
 
-.infoContainer .locationButtons{
+.locationButtons{
     display: flex;
+    font-weight: 500;
+}
+
+.locationButtons .link{
+    display: flex;
+    font-weight: 500;
+    color: var(--link-blue);
+    justify-content: center;
+    text-align: left;
+    
+}
+
+.link:hover{
+    text-shadow: 0px 10px 20px var(--dropshadow);
+    transform: translateY(-4px);
+    transition: ease-out 0.2s;
+}
+
+.locationButtons a:hover{
+    cursor: pointer;
+    text-shadow: 0px 10px 20px var(--dropshadow);
+    transform: translateY(-4px);
+    transition: ease-out 0.2s;
 }
 
 .locationTitle{
     font-family: "ChunkyMonkey";
+    letter-spacing: 2px;
     font-size: 2em;
     color: var(--secondary-red);
     margin: 0;
@@ -262,7 +286,6 @@ input::placeholder {
     font-weight: 500;
     color: var(--link-blue);
     transition: ease-out 0.2s;
-
 }
 
 .infoText a:hover{
@@ -411,6 +434,7 @@ input::placeholder {
 
 .shareButton:active i{
     background-position: right center;
+    
 }
 
 .shareButton .apple{
@@ -418,12 +442,6 @@ input::placeholder {
 }
 
 .shareButton:active{
-    transition: ease-out 0.2s;
-}
-
-.shareButton i:hover{
-    box-shadow: 0px 10px 20px var(--dropshadow);
-    transform: translateY(-4px);
     transition: ease-out 0.2s;
 }
 
