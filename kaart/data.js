@@ -27,7 +27,7 @@ export const locations = [
         data: { //data
             name: "Sportimonium",
             openingHours: null,
-            description: "uitleg locatie",
+            description: "Bij dit museum kan u naar verhalen luisteren over beweging. Verhalen die doen bewegen. Over sportende lichamen, sporttechniek en over emoties. Over hoe sport samenbrengt en verdeelt.",
             url: null
         }
     },
@@ -59,8 +59,8 @@ export const locations = [
         data: {
             name: "De Serre",
             openingHours: null,
-            description: "Locatie uitleg",
-            url: null
+            description: "In de zomer kun je hier genieten van cocktails, ijsjes en een ontspannen sfeer. Tijdens de winter transformeert de serre tot een gezellige winterbar genaamd Noorderlicht, waar warme dranken en winterse lekkernijen worden geserveerd.",
+            url: "https://www.zuiderbad.be/"
         }
     },
     {
@@ -75,8 +75,8 @@ export const locations = [
         data: {
             name: "Het Strandhuis",
             openingHours: null,
-            description: "Locatie uitleg",
-            url: null
+            description: "Voor groepen van 25 tot 75 personen biedt het Zuiderbad een strandhuis met terras aan, perfect voor privéfeesten met uitzicht op het water. Let op: trouw- en dansfeesten zijn hier niet toegestaan.",
+            url: "https://www.zuiderbad.be/"
         }
     },
     {
@@ -91,8 +91,8 @@ export const locations = [
         data: {
             name: "De Strandzone",
             openingHours: null,
-            description: "Locatie uitleg",
-            url: null
+            description: "Tijdens het zomerseizoen, van 30 april tot midden september, is de toegang tot de strandzone betalend. In deze periode kun je genieten van zwemmen in open water, mits de redders aanwezig zijn en de groene vlag gehesen is. Er zijn ook faciliteiten zoals beachvolleybalvelden en een piratenspeeltuin voor kinderen. Buiten het zomerseizoen, van midden september tot april, is de strandzone vrij toegankelijk. In deze periode zijn honden welkom, mits aangelijnd en op het wandelpad blijvend.",
+            url: "https://www.zuiderbad.be/"
         }
     },
     {
@@ -107,7 +107,7 @@ export const locations = [
         data: {
             name: "De Eventweide",
             openingHours: null,
-            description: "120m x 70m",
+            description: "De eventweide is een ruime, groene locatie die zich uitstekend leent voor allerlei evenementen, van bedrijfsevenementen tot festivals en sportactiviteiten. ",
             url: null
         }
     },
@@ -123,7 +123,7 @@ export const locations = [
         data: {
             name: "Oud Voetbalveld - Eventweide",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Het oude voetbalveld werd aangelegd in 1950, samen met bijbehorende kleedkamers. Dit initiatief maakte deel uit van de bredere ontwikkeling van het domein als sport- en recreatiecentrum, bedoeld om betaalbare ontspanningsmogelijkheden te bieden aan het publiek.",
             url: null
         }
     },
@@ -140,7 +140,7 @@ export const locations = [
             name: "Zuiderbad Strandbar",
             openingHours: null,
             description: "Welkom in de strandbar op de meest magische plek op het domein van Sport Vlaanderen Hofstade! Op het menu: frisse dranken, beachfood & holiday vibes. De strandbar beschikt over een ruim terras en serre (bij regenweer). Welkom zonder reserveren.",
-            url: null
+            url: "https://www.zuiderbad.be/"
         }
     },
     {
@@ -156,7 +156,7 @@ export const locations = [
             name: "Zuiderbad Zomerlust",
             openingHours: null,
             description: "In deze kleurrijke selfservice-bar met ruim terras & de leukste (én grootste) buitenspeeltuin kan je terecht voor lekkere snacks, zoetigheden en koele dranken. De toonbank wordt voorzien van gebak, smoothies en taart. ",
-            url: null
+            url: "https://www.zuiderbad.be/"
         }
     },
     {
@@ -172,7 +172,7 @@ export const locations = [
             name: "Zuiderbad Strandkiosk",
             openingHours: null,
             description: "Take-away kiosk voor strandbezoekers.",
-            url: null
+            url: "https://www.zuiderbad.be/"
         }
     },
 
@@ -188,7 +188,7 @@ export const locations = [
         data: {
             name: "Sportverblijf",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Het sportverblijf is een veelzijdige accommodatie, ideaal voor sportstages, sportklassen, teambuildings en recreatieve groepsverblijven. Gelegen in een groen domein van 172 hectare, biedt het verblijf een combinatie van comfortabele faciliteiten en een uitgebreid sportaanbod.",
             url: null
         }
     },
@@ -204,7 +204,7 @@ export const locations = [
         data: {
             name: "Zeilclub",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "De Hofstade Zeilclub vzw is een actieve zeilvereniging. De club is erkend door Wind & Watersport Vlaanderen (WWSV) en richt zich zowel op recreatief als competitief zeilen voor alle leeftijden.",
             url: null
         }
     },
@@ -220,7 +220,7 @@ export const locations = [
         data: {
             name: "Sportweide",
             openingHours: null,
-            description: "150m x 65m",
+            description: "Deze ruime grasvlakte van 150m x 65m is ontworpen voor een breed scala aan sportieve en recreatieve activiteiten en vormt een belangrijk onderdeel van het sportaanbod op het domein.",
             url: null
         }
     },
@@ -236,7 +236,7 @@ export const locations = [
         data: {
             name: "Documentatiecentrum Sport Vlaanderen",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Het Documentatiecentrum Sport Vlaanderen bevindt zich op het Provinciaal Domein Hofstade en maakt deel uit van het Sportimonium, het Vlaamse sportmuseum. Dit centrum is een belangrijke bron voor onderzoek en educatie rond sport en bewegingscultuur in Vlaanderen.",
             url: null
         }
     },
@@ -252,7 +252,7 @@ export const locations = [
         data: {
             name: "Uitleendienst Sport Vlaanderen",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "De Uitleendienst biedt organisaties de mogelijkheid om gratis sportmateriaal te ontlenen voor niet-commerciële activiteiten die sport en beweging bevorderen. Deze dienst is beschikbaar in elke provincie, met het meest uitgebreide aanbod in de centrale uitleendienst in Hofstade.",
             url: null
         }
     },
@@ -268,7 +268,7 @@ export const locations = [
         data: {
             name: "Sportcomplex: Sporthal + Gymnastiekhal",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Het sportcomplex biedt uitgebreide faciliteiten voor zowel recreatieve als competitieve sportbeoefening. Het complex omvat onder andere een moderne sporthal en een volledig uitgeruste gymnastiekhal, die beide beschikbaar zijn voor verhuur aan sportclubs, scholen en andere organisaties.",
             url: null
         }
     },
@@ -284,7 +284,7 @@ export const locations = [
         data: {
             name: "Skateramp",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "De skatehal is een moderne overdekte skate-infrastructuur, gelegen op de plaats van het voormalige zwembad. Deze hal is volledig gericht op de discipline street skateboarding en biedt een hoogwaardige omgeving voor zowel recreatieve skaters als topsporters.",
             url: null
         }
     },
@@ -300,7 +300,7 @@ export const locations = [
         data: {
             name: "Zensportplatform",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Dit platform is een unieke buitenlocatie waar je in alle rust en stilte kunt genieten van zensporten zoals yoga, pilates, tai chi en yogalates. Het platform is gelegen in een natuurlijke omgeving en biedt een ideale setting voor ontspanning en beweging.",
             url: null
         }
     },
@@ -316,7 +316,7 @@ export const locations = [
         data: {
             name: "Openwaterzwemmen",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Het domein Hofstade heeft een open waterzone waar je veilig in natuurwater kunt zwemmen. Dit is ideaal voor liefhebbers van openwaterzwemmen, een sport die in open natuurlijke wateren plaatsvindt in plaats van in een zwembad.",
             url: null
         }
     },
@@ -332,7 +332,7 @@ export const locations = [
         data: {
             name: "Hoogtouwenparcours",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Het hoogtouwenparcours biedt een avontuurlijke uitdaging voor zowel beginners als ervaren klimmers. Het parcours is gelegen in het groene hart van het domein en bestaat uit vijf klimroutes met in totaal 69 klimelementen. De routes variëren in hoogte van 3 tot 8 meter en zijn ontworpen om grenzen te verleggen en zelfvertrouwen op te bouwen.",
             url: null
         }
     },
@@ -348,7 +348,7 @@ export const locations = [
         data: {
             name: "Boogschieten",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Er is een boogschietzone waar je onder begeleiding of zelfstandig kunt oefenen met boogschieten. Dit is een populaire activiteit voor groepen en verenigingen, vaak gecombineerd met andere outdoor sporten. Veiligheid staat voorop en er zijn meestal instructeurs aanwezig bij georganiseerde sessies.",
             url: null
         }
     },
@@ -364,7 +364,7 @@ export const locations = [
         data: {
             name: "Muurklimmen",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Het domein beschikt over een muurkliminstallatie, waar zowel beginners als gevorderden kunnen klimmen. De muur varieert in hoogte en moeilijkheidsgraad en is ideaal voor wie wil oefenen met klimmen zonder de risico’s van natuurlijke rotsen. Er is ook begeleiding mogelijk voor groepen en scholen.",
             url: null
         }
     },
@@ -380,7 +380,7 @@ export const locations = [
         data: {
             name: "Finse piste",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "De Finse piste is een wandel- en looproute met natuurlijke ondergrond, geïnspireerd op de Finse traditie van natuurwandelingen. Het is ideaal voor hardlopers en wandelaars die willen trainen in een bosrijke, rustige omgeving. De piste biedt een zachte, schokabsorberende ondergrond die gewrichten spaart.",
             url: null
         }
     },
@@ -396,7 +396,7 @@ export const locations = [
         data: {
             name: "Voetbalveldje",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Er is een klein voetbalveldje beschikbaar voor recreatief gebruik. Dit veldje is ideaal voor kinderen en jongeren om vrij te spelen of kleine wedstrijden te organiseren.",
             url: null
         }
     },
@@ -412,7 +412,7 @@ export const locations = [
         data: {
             name: "Pingpongtafel",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Op het domein zijn meerdere pingpongtafels aanwezig waar bezoekers gratis gebruik van kunnen maken. Deze tafels zijn populair bij jong en oud als een leuke en actieve pauze tussen andere activiteiten.",
             url: null
         }
     },
@@ -428,7 +428,7 @@ export const locations = [
         data: {
             name: "Basket- en voetbalplein",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Naast het voetbalveldje is er ook een multifunctioneel plein waar je zowel kunt basketballen als voetballen. Dit plein is voorzien van een basketbalring en markeringen voor voetbal, geschikt voor informele wedstrijden en training.",
             url: null
         }
     },
@@ -444,7 +444,7 @@ export const locations = [
         data: {
             name: "Waterpretpark",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Het waterpretpark is een speciaal gedeelte met waterattracties en speelelementen, perfect voor kinderen om te spetteren en af te koelen tijdens warme dagen. Denk aan fonteintjes, waterkanonnen en kleine glijbanen.",
             url: null
         }
     },
@@ -460,7 +460,7 @@ export const locations = [
         data: {
             name: "Piratenspeeltuin",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "De piratenspeeltuin is een speciaal thema-gedeelte binnen de speeltuin, met piratenbootjes, touwen, netten en andere avontuurlijke toestellen die kinderen meenemen op een fantasierijke speeltocht.",
             url: null
         }
     },
@@ -476,7 +476,7 @@ export const locations = [
         data: {
             name: "Mega-speeltuin",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Hier is een grote en uitgebreide speelzone met een combinatie van klimtoestellen, glijbanen, schommels en interactieve speelelementen. Deze speeltuin is ontworpen om kinderen van verschillende leeftijden en interesses aan te spreken, met veel ruimte voor avontuur en creatief spel.",
             url: null
         }
     },
@@ -492,7 +492,7 @@ export const locations = [
         data: {
             name: "Hondenlosloopweide",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "De hondenlosloopweide is een speciaal aangelegde speelzone waar honden vrij kunnen rondlopen en spelen zonder leiband.",
             url: null
         }
     },
@@ -508,7 +508,7 @@ export const locations = [
         data: {
             name: "Ingang A",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Ingang A. Deze ligt het dichtste bij de hondenlosloopweide.",
             url: null
         }
     },
@@ -524,7 +524,7 @@ export const locations = [
         data: {
             name: "Ingang B",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Ingang B",
             url: null
         }
     },
@@ -540,7 +540,7 @@ export const locations = [
         data: {
             name: "Ingang C",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Ingang C",
             url: null
         }
     },
@@ -556,7 +556,7 @@ export const locations = [
         data: {
             name: "Ingang D",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Ingang D. Dit is de hoofd ingang.",
             url: null
         }
     },
@@ -572,7 +572,7 @@ export const locations = [
         data: {
             name: "Ingang E",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Ingang E. Deze ligt het dichtste bij het strand. Leveranciers kunnen ook langs deze weg op het domein.",
             url: null
         }
     },
@@ -588,7 +588,7 @@ export const locations = [
         data: {
             name: "Uitgang Strand A",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Via deze weg kunt u het strand verlaten.",
             url: null
         }
     },
@@ -604,7 +604,7 @@ export const locations = [
         data: {
             name: "Uitgang Strand B",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Via deze weg kunt u het strand verlaten.",
             url: null
         }
     },
@@ -620,7 +620,7 @@ export const locations = [
         data: {
             name: "Ingang strand + Infopunt + kassa strand",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Hier is de kasse voor het strand.",
             url: null
         }
     },
@@ -636,7 +636,7 @@ export const locations = [
         data: {
             name: "Parking A",
             openingHours: null,
-            description: "Gratis",
+            description: "Gratis. Ligt het dichtste bij de hondenlosloopweide.",
             url: null
         }
     },
@@ -652,7 +652,7 @@ export const locations = [
         data: {
             name: "Parking B",
             openingHours: null,
-            description: "Betalend",
+            description: "Betalend vanaf 30 minuten.",
             url: null
         }
     },
@@ -668,7 +668,7 @@ export const locations = [
         data: {
             name: "Parking E",
             openingHours: null,
-            description: "Betalend",
+            description: "Betalend vanaf 30 minuten.",
             url: null
         }
     },
@@ -684,7 +684,7 @@ export const locations = [
         data: {
             name: "Parking D",
             openingHours: null,
-            description: "Uitleg locatie",
+            description: "Betalend vanaf 30 minuten.",
             url: null
         }
     },
@@ -700,7 +700,7 @@ export const locations = [
         data: {
             name: "Parking Sportcomplex",
             openingHours: null,
-            description: "Betalend",
+            description: "Betalend vanaf 30 minuten..",
             url: null
         }
     },
@@ -716,7 +716,7 @@ export const locations = [
         data: {
             name: "Rookzone A",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Rookzone A",
             url: null
         }
     },
@@ -732,7 +732,7 @@ export const locations = [
         data: {
             name: "Rookzone B",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Rookzone B",
             url: null
         }
     },
@@ -748,7 +748,7 @@ export const locations = [
         data: {
             name: "Rookzone C",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Rookzone C",
             url: null
         }
     },
@@ -764,7 +764,7 @@ export const locations = [
         data: {
             name: "Verzamelpunt A",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Dit verzamelpunt is het dichtste bij het strand.",
             url: null
         }
     },
@@ -780,7 +780,7 @@ export const locations = [
         data: {
             name: "Verzamelpunt B",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Dit verzamelpunt is het dichste bij de speeltuin.",
             url: null
         }
     },
@@ -796,7 +796,7 @@ export const locations = [
         data: {
             name: "Betaalautomaat A",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Betaalterminal A",
             url: null
         }
     },
@@ -812,7 +812,7 @@ export const locations = [
         data: {
             name: "Betaalautomaat B",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Betaalterminal B",
             url: null
         }
     },
@@ -828,7 +828,7 @@ export const locations = [
         data: {
             name: "Betaalautomaat C",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Betaalterminal C",
             url: null
         }
     },
@@ -844,7 +844,7 @@ export const locations = [
         data: {
             name: "Betaalautomaat D",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Betaalterminal D",
             url: null
         }
     },
@@ -860,7 +860,7 @@ export const locations = [
         data: {
             name: "Toilet",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "wc",
             url: null
         }
     },
@@ -876,7 +876,7 @@ export const locations = [
         data: {
             name: "Openbare douches",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Hier zijn de openbare douches.",
             url: null
         }
     },
@@ -892,7 +892,7 @@ export const locations = [
         data: {
             name: "Openbare douches",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Hier zijn de openbare douches.",
             url: null
         }
     },
@@ -924,7 +924,7 @@ export const locations = [
         data: {
             name: "Olympische Fakkel",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "De Olympische fakkel is een bijzonder erfgoedstuk dat te bewonderen is in het Sportimonium, het sport- en olympisch museum van Vlaanderen. Dit museum, gelegen op het domein, herbergt een uitgebreide collectie die de rijke geschiedenis van sport en de Olympische Spelen belicht.",
             url: null
         }
     },
@@ -940,7 +940,7 @@ export const locations = [
         data: {
             name: "RAF of RAAF monument",
             openingHours: null,
-            description: "Locatie uitleg",
+            description: "Het RAF-RAAF-monument is een gedenkteken ter nagedachtenis aan de bemanningsleden van twee geallieerde vliegtuigen die tijdens de Tweede Wereldoorlog in de omgeving van Hofstade zijn neergestort. Het monument bevindt zich nabij het Bootshuis op het terrein van Sport Vlaanderen Hofstade.",
             url: null
         }
     }
