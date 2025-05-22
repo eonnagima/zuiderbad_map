@@ -596,23 +596,24 @@ input::placeholder {
     }
 
     #filterMenuMobile{
-    margin-top: 20px;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 12px 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px 8px;
+    padding: 0px 32px;
     justify-items: center;
     align-items: center;
     position: absolute;
     width: 100%;
     bottom: 0;
     left: 50%;
-    transform: translate(-50%, 100%);
+    transform: translate(-50%, 80%);
     opacity: 0;
+    background-color: var(--primary-orange);
 }
 
     #filterMenuMobile.active{
-        opacity: 1;
-        transform: translate(-50%, -100%);
-        transition: ease-out 0.3s;}
+    opacity: 1;
+    transform: translate(-50%, -100%);
+    transition: ease-out 0.3s;}
 
 }
