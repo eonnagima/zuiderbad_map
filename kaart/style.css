@@ -220,7 +220,7 @@ input::placeholder {
     font-weight: 500;
 }
 
-.locationButtons .link{
+.websiteLink{
     display: flex;
     font-weight: 500;
     color: var(--link-blue);
@@ -312,6 +312,7 @@ input::placeholder {
 
 .filterButton i{
     background-position: left center;
+
 }
 
 .filterButton i.active{
@@ -384,10 +385,13 @@ input::placeholder {
     background-size: cover;
     background-position: left center;
     background-repeat: no-repeat;
+    
 }
 
 .zoomInButton i{
     background-image: url("/assets/icons/zoomInIcon.svg");    
+        background-position: left center;
+
 }
 
 .zoomOutButton i{
@@ -404,7 +408,7 @@ input::placeholder {
 
 .controlButton-search i{
     background-image: url("/assets/icons/searchIcon.svg");
-   
+    
 }
 
 .shareButton{
@@ -526,6 +530,9 @@ input::placeholder {
     display: none;
 }
 
+.mobileNavContainer{
+    display: none;}
+
 .hidden{
     display: none;
 }
@@ -541,15 +548,21 @@ input::placeholder {
     .canvas-container .ui{
         display: none;
     }
+    .mobileNavContainer{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100vw
+    }
+
     #mobileControls{
         display: flex;
         gap: 8px;
         flex-direction: row;
         justify-content: center;
-        position: absolute;
-        width: 100vw;
-        left: 0;
-        bottom: 0;
+        width: 100%;
         padding-bottom: 48px;
     }
     #mobileControls .mobileButtons{
@@ -567,7 +580,36 @@ input::placeholder {
         justify-content: center;
         align-items: center;
     }
+
+    .controlButton-search i:active{
+        cursor: pointer;
+    }
+
+
+    #mobileControls .button:active{
+        transform: translateY(-8px);
+        box-shadow: 0px 4px 10px var(--dropshadow);
+        transition: ease-out 0.2s;
+    }
+
     #mobileScreen{
         display: none;
     }
+
+    #filterMenuMobile{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px 20px;
+    justify-items: center;
+    align-items: center;
+    background-color: yellow;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    opacity: 0;
+}
+
 }
