@@ -105,6 +105,7 @@ main aside{
     left: 0;
     top: 0;
     z-index: 100;
+    border-bottom-right-radius: 16px;
 }
 
 .button{
@@ -499,6 +500,7 @@ input::placeholder {
     justify-content: center;
     gap: 24px;
     width: 38.2%;
+    z-index: 1000;
 }
 
 .notificationOverlay span{
@@ -510,8 +512,7 @@ input::placeholder {
 }
 
 .notificationOverlay a{
-    display: block;
-    width: 50%;
+    display: inline-block;
     padding: 20px 20px;
     background-color: var(--primary-orange);
     font-weight: 600;
@@ -568,7 +569,8 @@ input::placeholder {
         position: absolute;
         bottom: 0;
         left: 0;
-        width: 100vw
+        width: 100vw;
+        padding-bottom: env(safe-area-inset-bottom);
     }
 
     #mobileControls{
@@ -577,7 +579,7 @@ input::placeholder {
         flex-direction: row;
         justify-content: center;
         width: 100%;
-        padding-bottom: 48px;
+        padding-bottom: calc(48px + env(safe-area-inset-bottom));
     }
     #mobileControls .mobileButtons{
         display: flex;
@@ -625,7 +627,6 @@ input::placeholder {
 
     #mobileScreen.active{
         transform: translate(-50%, 0%);
-
     }   
 
 
@@ -656,11 +657,11 @@ input::placeholder {
     transition: ease-out 0.3s;
 }
 
-#filterMobileMenu .filterToggle.active{
+#mobileControls .filterToggle.active{
     background-color: var(--primary-orange);
 }
 
-.filterToggle.active i{
+#mobileControls .filterToggle.active i{
     background-position: center right;
 }
 
