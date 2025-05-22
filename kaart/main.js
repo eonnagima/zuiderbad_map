@@ -199,6 +199,19 @@ setTimeout(function(){
                 pins[i].fadeInOut();
                 displayLocationInfo(pins[i]);
                 focusCameraOnObject(camera, controls, pins[i].pinObject, 2, 3);
+
+                            // Remove existing pulse if any
+                if (activePulse){
+                    scene.remove(activePulse);
+                    activePulse.geometry.dispose();
+                    activePulse.material.dispose();
+                    activePulse = null;
+                }
+
+                // Add new pulse
+                activePulse = pinActivePulse(pins[i].pinObject.position.clone());
+                scene.add(activePulse);
+
                 pinFound = true;
             }
         }
