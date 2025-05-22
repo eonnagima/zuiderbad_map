@@ -72,6 +72,10 @@ camera.position.set(0, 0, 20);
 
 const controls = new OrbitControls(camera, renderer.domElement); //create controls for user to move the camera
 controls.enableDamping = true; 
+controls.minPolarAngle = 0; // looking straight down from above
+controls.maxPolarAngle = Math.PI / 2; // looking straight at thnpe horizon
+controls.minDistance = 1; // Adjust this based on your model's size
+
 
 let pins = [];
 const graph = [];
@@ -130,7 +134,7 @@ renderer.setClearColor(0x000000, 0); //set the background color of the renderer
 let mapModel;
 //map
 const loader = new GLTFLoader();
-loader.load('./assets/models/mapZuiderbadV6.glb', function (gtlf){
+loader.load('./assets/models/mapZuiderbadV9.glb', function (gtlf){
     //scale model down to fit in the scene
     mapModel = gtlf.scene;
     mapModel.scale.set(1, 1, 1); //scale the model down to fit in the scene
@@ -439,10 +443,7 @@ filterMenuDesktop.addEventListener('click', function(e){
     }
 })
 
-document.querySelector('#button-center').addEventListener('click', function(e){
-    e.preventDefault();
-    focusCameraOnObject(camera, controls, userPin, 2, 3);
-})
+
 
 canvas.addEventListener('click', function(e){
     const rect = canvas.getBoundingClientRect();
@@ -916,6 +917,53 @@ function shareLocation(locationId){
     })
 }
 
+document.querySelectorAll('.zoomInButton').forEach(button => {
+    button.addEventListener('click', function(e){
+        e.preventDefault();
+        zoomCamera(0.8, 1.5);
+        console.log(pins[0]);
+    })
+})
+
+
+document.querySelectorAll('.zoomOutButton').forEach(button => {
+    button.addEventListener('click', function(e){
+        e.preventDefault();
+        zoomCamera(1.2, 1.5);
+    })
+})
+
+document.querySelectorAll('.centerButton').forEach(button => {
+    button.addEventListener('click', function(e){
+        e.preventDefault();
+        if(userPin){
+            focusCameraOnObject(camera, controls, userPin, 2, 3);
+        }else{
+            focusCameraOnObject(camera, controls, mapModel, 2, 10);
+        }
+    })
+})
+
+function zoomCamera(distance, speed){
+    const direction = new THREE.Vector3();
+    direction.subVectors(camera.position, controls.target);
+
+    const targetPosition = new THREE.Vector3()
+        .copy(controls.target)
+        .add(direction.multiplyScalar(distance));
+
+    gsap.to(camera.position, { 
+        x: targetPosition.x,
+        y: targetPosition.y,
+        z: targetPosition.z,
+        duration: speed,
+        ease: "power2.inOut",
+        onUpdate: () => {
+            controls.update();
+        }
+    });
+}
+
 document.querySelectorAll('.shareButton').forEach(button => {
     button.addEventListener('click', function(e){
         e.preventDefault();
@@ -951,8 +999,6 @@ window.addEventListener('load', () => {
     setTimeout(function(){
         animatePinsBobbing(pins);
     }, 1000);
-    
-    console.log(pins);
 });
 
 window.addEventListener('resize', onWindowResize, false); //add event listener to resize the canvas when the window is resized
