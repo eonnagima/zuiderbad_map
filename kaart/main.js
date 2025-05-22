@@ -605,13 +605,13 @@ function displayLocationInfo(pin) {
     const desktopTitle = desktopContainer.querySelector('.locationTitle');
     const desktopDescription = desktopContainer.querySelector('.locationDescription');
     const desktopShareButton = desktopContainer.querySelector('.shareButton');
-    const desktopMoreInfoButton = desktopContainer.querySelector('.moreInfoButton');
+    const desktopMoreInfoButton = desktopContainer.querySelector('#desktopAsside .websiteLink');
 
     // Mobile elements
     const mobileScreen = document.querySelector('#mobileScreen');
     const mobileTitle = mobileScreen.querySelector('.locationTitle');
     const mobileDescription = mobileScreen.querySelector('article.infoText p');
-    const mobileMoreInfoButton = mobileScreen.querySelector('a.link');
+    const mobileMoreInfoButton = mobileScreen.querySelector('#mobileScreen .websiteLink');
 
     if (isMobile) {
         // Show mobile info
