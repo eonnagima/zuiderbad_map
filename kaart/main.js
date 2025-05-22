@@ -462,10 +462,12 @@ canvas.addEventListener('click', function(e){
     
     if(intersects.length > 0){
         let clickedPin = intersects[0].object.userData.pin;
-        focusCameraOnObject(camera, controls, clickedPin.pinObject, 2);
-        displayLocationInfo(clickedPin);
-    }
+        if(clickedPin.active){
+            focusCameraOnObject(camera, controls, clickedPin.pinObject, 2);
+            displayLocationInfo(clickedPin);
+        }
 
+    }
 })
 
 document.querySelectorAll('.closeInfo').forEach(button => {
