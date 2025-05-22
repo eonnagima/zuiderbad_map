@@ -389,25 +389,28 @@ input::placeholder {
 
 .zoomInButton i{
     background-image: url("/assets/icons/zoomInIcon.svg");    
-        background-position: left center;
+    background-position: left center;
 
 }
 
 .zoomOutButton i{
     background-image: url("/assets/icons/zoomOutIcon.svg");
+        background-position: left center;
 }
 
 .centerButton i{
     background-image: url("/assets/icons/centerIcon.svg");
+        background-position: left center;
 }
 
 .filterToggle i{
     background-image: url("/assets/icons/filterIcon.svg");
+        background-position: left center;
 }
 
 .controlButton-search i{
     background-image: url("/assets/icons/searchIcon.svg");
-    
+    background-position: left center;
 }
 
 .shareButton{
@@ -449,18 +452,30 @@ input::placeholder {
 
 .ui{
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: 24px;
+    bottom: 24px;
     z-index: 100;;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: flex-end;
+    align-items: flex-end;
+
 }
 
-.map-controls .button{
+.ui .button{
     background-color: rgb(128, 128, 128, 0.5);
     width: 64px;
     height: 64px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.ui .zoomControl{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
 }
 
 #button-center i{
@@ -596,23 +611,24 @@ input::placeholder {
     }
 
     #filterMenuMobile{
-    margin-top: 20px;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 12px 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px 8px;
+    padding: 0px 32px;
     justify-items: center;
     align-items: center;
     position: absolute;
     width: 100%;
     bottom: 0;
     left: 50%;
-    transform: translate(-50%, 100%);
+    transform: translate(-50%, 80%);
     opacity: 0;
+    background-color: var(--primary-orange);
 }
 
     #filterMenuMobile.active{
-        opacity: 1;
-        transform: translate(-50%, -100%);
-        transition: ease-out 0.3s;}
+    opacity: 1;
+    transform: translate(-50%, -100%);
+    transition: ease-out 0.3s;}
 
 }
