@@ -421,7 +421,6 @@ input::placeholder {
     transition: ease-out 0.2s;
 }
 
-.shareButton:hover{
 .shareButton i:hover{
     box-shadow: 0px 10px 20px var(--dropshadow);
     transform: translateY(-4px);
