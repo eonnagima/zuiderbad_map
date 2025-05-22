@@ -130,7 +130,7 @@ renderer.setClearColor(0x000000, 0); //set the background color of the renderer
 let mapModel;
 //map
 const loader = new GLTFLoader();
-loader.load('./assets/models/mapZuiderbadV5.glb', function (gtlf){
+loader.load('./assets/models/mapZuiderbadV6.glb', function (gtlf){
     //scale model down to fit in the scene
     mapModel = gtlf.scene;
     mapModel.scale.set(1, 1, 1); //scale the model down to fit in the scene
@@ -144,24 +144,24 @@ loader.load('./assets/models/mapZuiderbadV5.glb', function (gtlf){
 //add Pins to map
 generatePins(locations);
 
-window.addEventListener('DOMContentLoaded', () => {
-    // Add event listeners for the routing button
-    console.log("window loaded");
-    const params = new URLSearchParams(window.location.search);
-    const pinId = params.get('location');
-    console.log("Pin ID: ", pinId);
-    console.log(pins, locations.length);
-    if(pinId){
-        for(let i = 0; i < locations.length; i++){
-            console.log(pins[i]);
-            if(pins[i].id == pinId){
-                focusCameraOnObject(camera, controls, pins[i].pinObject, 2);
-                console.log("Pin found: ", pins[i].info.name);
-                break;
-            }
-        }
-    }
-})
+// window.addEventListener('DOMContentLoaded', () => {
+//     // Add event listeners for the routing button
+//     console.log("window loaded");
+//     const params = new URLSearchParams(window.location.search);
+//     const pinId = params.get('location');
+//     console.log("Pin ID: ", pinId);
+//     console.log(pins, locations.length);
+//     if(pinId){
+//         for(let i = 0; i < locations.length; i++){
+//             console.log(pins[i]);
+//             if(pins[i].id == pinId){
+//                 focusCameraOnObject(camera, controls, pins[i].pinObject, 2);
+//                 console.log("Pin found: ", pins[i].info.name);
+//                 break;
+//             }
+//         }
+//     }
+// })
 
 //get user location
 let feedback = "";
@@ -195,11 +195,12 @@ if(navigator.geolocation){
             startTrackingUser();
         }else{
             console.log("User not inside Domein Hofstade");
+
+            //focusCameraOnObject(camera, controls, mapModel, 2);
         }
     })
 }else{
-    focusCameraOnObject(camera, controls, mapModel, 2);
-    feedback = "Kan locatie niet ophalen";
+
 }
 
 // window.addEventListener('load',() => {
@@ -463,35 +464,29 @@ canvas.addEventListener('click', function(e){
         let clickedPin = intersects[0].object.userData.pin;
         console.log(clickedPin.info.name);
         focusCameraOnObject(camera, controls, clickedPin.pinObject, 2);
-        //displayLocationInfo(clickedPin);
+       displayLocationInfo(clickedPin);
     }
 
 })
 
 function displayLocationInfo(pin){
-    let infoContainer = document.querySelector('.infoDesktop');
+    let infoContainer = document.querySelector('.infoContainer');
     infoContainer.classList.remove('hidden');
+    document.querySelector('#desktopAsside').classList.add('active');
 
-    document.querySelector('.infoDesktop .locationName').innerHTML = pin.info.name;
-    document.querySelector('.infoDesktop .locationDescription').innerHTML = pin.info.description;
-    document.querySelector('.infoDesktop .shareButton').dataset.locationId = pin.id;
+    document.querySelector('.infoContainer .locationTitle').innerHTML = pin.data.name;
+    document.querySelector('.infoContainer .locationDescription').innerHTML = pin.data.description;
+    document.querySelector('.infoContainer .shareButton').dataset.locationId = pin.id;
 
-    let moreInfoButton = document.querySelector('.infoDesktop .moreInfoButton');
+    let moreInfoButton = document.querySelector('.infoContainer .moreInfoButton');
 
-    if(pin.info.url){
-        moreInfoButton.innerHTML = pin.info.url;
+    if(pin.data.url){
         moreInfoButton.classList.remove('hidden');
+        moreInfoButton.href = pin.data.url;
     }
 
-    let openingHours = document.querySelector('.infoDesktop .openingHours');
-
-    if(pin.info.openingHours){
-        openingHours.innerHTML = pin.info.openingHours.wednesday;
-        openingHours.classList.remove('hidden');
-    }else{
-        openingHours.innerHTML = "";
-        openingHours.classList.add('hidden');
-    }
+    let shareButton = document.querySelector('.infoContainer .shareButton');
+    shareButton.dataset.locationId = pin.id;
 }
 
 function focusCameraOnObject(camera, controls, object, duration) {
