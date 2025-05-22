@@ -97,7 +97,6 @@ main .canvas-container{
 
 main aside{
     width: 400px;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 40px 40px 40px 40px;
@@ -603,7 +602,6 @@ input::placeholder {
     gap: 12px 20px;
     justify-items: center;
     align-items: center;
-    background-color: yellow;
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -611,5 +609,10 @@ input::placeholder {
     transform: translate(-50%, 100%);
     opacity: 0;
 }
+
+    #filterMenuMobile.active{
+        opacity: 1;
+        transform: translate(-50%, -100%);
+        transition: ease-out 0.3s;}
 
 }
