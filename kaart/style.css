@@ -238,6 +238,11 @@ input::placeholder {
     color: var(--off-white);
 }
 
+.infoText h4{
+    font-family: "SpartanMB";
+    color: var(--secondary-red);
+}
+
 .infoText a{
     color: var(--link-blue);
 }
@@ -438,7 +443,13 @@ input::placeholder {
     border-radius: 8px;
     background-color: var(--off-white);
     box-shadow: 0px 10px 20px var(--dropshadow);
-    padding: 40px 64px;
+    padding: 40px 104px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    width: 38.2%;
 }
 
 .notificationOverlay span{
@@ -447,12 +458,12 @@ input::placeholder {
     font-weight: 500;
     text-align: center;
     font-size: 1.5em;
+    background-color: var(--primary-orange);
 }
 
 .notificationOverlay a{
     display: block;
     width: 50%;
-    margin: 20px auto;
     padding: 20px 20px;
     background-color: var(--primary-orange);
     font-weight: 600;
