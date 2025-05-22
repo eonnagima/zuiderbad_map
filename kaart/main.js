@@ -19,8 +19,8 @@ window.addEventListener('resize', setVh);
 
 const canvas = document.querySelector('#canvas'); //fetch the canvas element
 const filterMenuDesktop = document.querySelector('#filterMenuDesktop'); //fetch the filter menu element
-// const routingButtonDesk = document.querySelector('#routingButtonDesk'); //fetch the routing button element
-const routingButtonMobile = document.querySelector('#routingButtonMobile'); //fetch the routing button element
+const searchInputDesktop = document.querySelector('#searchBarDesktop'); //fetch the search input element
+const searchInputMobile = document.querySelector('#searchBarMobile'); //fetch the search input element
 
 // let userLocation = {
 //     lat: 51.024715681650626, 
@@ -129,7 +129,6 @@ class locationPin{
 }
 
 renderer.setClearColor(0x000000, 0); //set the background color of the renderer
-
 
 let mapModel;
 //map
@@ -921,7 +920,6 @@ document.querySelectorAll('.zoomInButton').forEach(button => {
     button.addEventListener('click', function(e){
         e.preventDefault();
         zoomCamera(0.8, 1.5);
-        console.log(pins[0]);
     })
 })
 
@@ -969,7 +967,7 @@ document.querySelectorAll('.shareButton').forEach(button => {
         e.preventDefault();
         let locationId = button.dataset.locationId = button.dataset.locationId;
         shareLocation(locationId);
-         document.querySelector('.notificationOverlay span').innerHTML = "Huidige locatie gekopieerd naar klipbord!";
+        document.querySelector('.notificationOverlay span').innerHTML = "Huidige locatie gekopieerd naar klipbord!";
         document.querySelector('.notificationOverlay').classList.remove('hidden');
     })
 })
@@ -978,6 +976,60 @@ document.querySelector('.notificationOverlay .closeOverlayButton').addEventListe
     e.preventDefault();
     document.querySelector('.notificationOverlay').classList.add('hidden');
 })
+
+searchInputDesktop.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+        e.preventDefault();
+        let searchValue = searchInputDesktop.value;
+        let results = searchQuery(searchValue, pins);
+        if(results.length > 0){
+            for(let i = 0; i < results.length; i++){
+                let pin = results[i];
+                pin.active = true;
+                pin.fadeInOut();
+            }
+        }else{
+            console.log("No results found");
+        }
+    }
+})
+
+document.querySelectorAll('.searchButton').forEach(button => {
+    button.addEventListener('click', function(e){
+        e.preventDefault();
+        let searchValue = searchInputDesktop.value;
+        let results = searchQuery(searchValue, pins);
+        if(results.length > 0){
+            for(let i = 0; i < results.length; i++){
+                let pin = results[i];
+                pin.active = true;
+                pin.fadeInOut();
+            }
+        }else{
+            console.log("No results found");
+        }
+    })
+})
+
+function searchQuery(needle, haystack) {
+    needle = needle.toLowerCase();
+    let result = [];
+    for (let i = 0; i < haystack.length; i++) {
+        const hay = haystack[i];
+        const name = hay?.data?.name?.toLowerCase() || '';
+        const description = hay?.data?.description?.toLowerCase() || '';
+        const category = hay?.category?.toLowerCase() || '';
+        if (name.includes(needle)) {
+            result.push(haystack[i]);
+        }else if (description.includes(needle)) {
+            result.push(haystack[i]);
+        }else if (category.includes(needle)) {
+            result.push(haystack[i]);
+        }
+    }
+
+    return result;
+}
 
 //ANIMATION LOOP
 
