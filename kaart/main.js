@@ -921,7 +921,14 @@ document.querySelectorAll('.shareButton').forEach(button => {
         e.preventDefault();
         let locationId = button.dataset.locationId = button.dataset.locationId;
         shareLocation(locationId);
+         document.querySelector('.notificationOverlay span').innerHTML = "Huidige locatie gekopieerd naar klipbord!";
+        document.querySelector('.notificationOverlay').classList.remove('hidden');
     })
+})
+
+document.querySelector('.notificationOverlay .closeOverlayButton').addEventListener('click', function(e){
+    e.preventDefault();
+    document.querySelector('.notificationOverlay').classList.add('hidden');
 })
 
 //ANIMATION LOOP
