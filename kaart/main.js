@@ -982,7 +982,6 @@ searchInputDesktop.addEventListener('keydown', function(e){
         e.preventDefault();
         let searchValue = searchInputDesktop.value;
         let results = searchQuery(searchValue, pins);
-        console.log("Search results: ", results);
         if(results.length > 0){
             for(let i = 0; i < results.length; i++){
                 let pin = results[i];
@@ -998,6 +997,17 @@ searchInputDesktop.addEventListener('keydown', function(e){
 document.querySelectorAll('.searchButton').forEach(button => {
     button.addEventListener('click', function(e){
         e.preventDefault();
+        let searchValue = searchInputDesktop.value;
+        let results = searchQuery(searchValue, pins);
+        if(results.length > 0){
+            for(let i = 0; i < results.length; i++){
+                let pin = results[i];
+                pin.active = true;
+                pin.fadeInOut();
+            }
+        }else{
+            console.log("No results found");
+        }
     })
 })
 
