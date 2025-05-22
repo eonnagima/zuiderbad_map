@@ -136,6 +136,7 @@ main aside{
 } */
 
 .divider{
+    display: block;
     padding: 0px;
     height: 2px;
     background-color: black;
