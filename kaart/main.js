@@ -468,6 +468,15 @@ canvas.addEventListener('click', function(e){
 
 })
 
+document.querySelectorAll('.closeInfo').forEach(button => {
+    button.addEventListener('click', function(e){
+        e.preventDefault();
+        //console.log("close button clicked");
+        closeLocationInfo();
+    })
+})
+
+
 function displayLocationInfo(pin){
     let infoContainer = document.querySelector('.infoContainer');
     infoContainer.classList.remove('hidden');
@@ -490,6 +499,14 @@ function displayLocationInfo(pin){
     let shareButton = document.querySelector('.infoContainer .shareButton');
     shareButton.dataset.locationId = pin.id;
 }
+
+function closeLocationInfo(){
+    let infoContainer = document.querySelector('.infoContainer');
+    infoContainer.classList.add('hidden');
+    document.querySelector('#desktopAsside').classList.remove('active');
+    document.querySelector('#desktopAsside .divider').classList.add('hidden');
+}
+
 
 function focusCameraOnObject(camera, controls, object, duration) {
     // Define a 45-degree angle offset (diagonal from above and behind)
