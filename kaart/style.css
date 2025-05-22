@@ -215,16 +215,21 @@ input::placeholder {
     margin: 0;
 }
 
-#closeInfoDesktop{
+.closeInfo{
     font-family: "ChunkyMonkey";
-    font-size: 30px;
+    font-size: 40px;
     color: var(--secondary-red);
     text-decoration: none;
 }
 
-#closeInfoDesktop:hover{
+.closeInfo:hover{
     cursor: pointer;
-    /*color: var(--primary-pink);*/
+    color: var(--primary-pink);
+}
+
+.closeInfo:active{
+    cursor: pointer;
+    color: var(--off-white);
 }
 
 .infoText a{
