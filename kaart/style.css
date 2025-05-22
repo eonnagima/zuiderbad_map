@@ -98,7 +98,6 @@ main .canvas-container{
 main aside{
     width: 400px;
     height: 100vh;
-    /*background-color: var(--off-white);*/
     display: flex;
     flex-direction: column;
     padding: 40px 40px 40px 40px;
@@ -163,6 +162,7 @@ hr.solid {
     display: flex;
     align-items: center;
     background-color: var(--primary-color);
+    border: 2px solid black;
     border-radius: 16px;
     padding: 8px 16px;
     width: 100%;
@@ -386,26 +386,25 @@ input::placeholder {
     background-repeat: no-repeat;
 }
 
-.controlButton[data-function="zoomIn"] i{
-    background-image: url("/assets/icons/zoomInIcon.svg");
+.zoomInButton i{
+    background-image: url("/assets/icons/zoomInIcon.svg");    
 }
 
-.controlButton[data-function="zoomOut"] i{
+.zoomOutButton i{
     background-image: url("/assets/icons/zoomOutIcon.svg");
 }
 
-.controlButton[data-function="centerUser"] i{
+.centerButton i{
     background-image: url("/assets/icons/centerIcon.svg");
 }
 
-.controlButton[data-function="filterToggle"] i{
+.filterToggle i{
     background-image: url("/assets/icons/filterIcon.svg");
 }
 
 .controlButton-search i{
     background-image: url("/assets/icons/searchIcon.svg");
-    height: 30px;
-    width: 30px;
+   
 }
 
 .shareButton{
