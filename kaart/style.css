@@ -78,6 +78,7 @@ main .canvas-container{
 
 #desktopAsside{
     background-color: none;
+    transition: ease-out 0.3s;
 }
 
 #desktopAsside.active{
