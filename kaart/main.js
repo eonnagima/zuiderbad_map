@@ -461,7 +461,39 @@ filterMenuDesktop.addEventListener('click', function(e){
     }
 })
 
+filterMenuMobile.addEventListener('click', function(e){
+    e.preventDefault();
+    let button = e.target.closest('.filterButton');
 
+    button.classList.toggle('active');
+    button.querySelector('i').classList.toggle('active');
+
+    if(button && button.classList.contains('filterButton')){
+        let clickedFilter = (button.dataset.filter).toLowerCase();
+        //if clickedFilter is not in activeFilters, add it to activeFilters
+        if(!activeFilters.includes(clickedFilter)){
+            //if clickedFilter is not in activeFilters, add it to activeFilters
+            activeFilters.push(clickedFilter);
+        } else {
+            //if clickedFilter is in activeFilters, remove it from activeFilters
+            activeFilters.splice(activeFilters.indexOf(clickedFilter), 1);
+        }
+
+        console.log(clickedFilter);
+        
+        pins.forEach((pin) => {
+            let pinCategory = pin.category.toLowerCase();
+            if(pinCategory === clickedFilter){
+                if(pin.active){
+                    pin.active = false;
+                }else{
+                    pin.active = true;
+                }
+                pin.fadeInOut();
+            }
+        })
+    }
+})
 
 canvas.addEventListener('click', function(e){
     const rect = canvas.getBoundingClientRect();
@@ -522,6 +554,13 @@ document.querySelectorAll('.closeInfo').forEach(button => {
     })
 })
 
+const mobileFilterToggle = document.querySelector('.filterToggle');
+
+mobileFilterToggle.addEventListener('click', function(e){
+    e.preventDefault();
+    mobileFilterToggle.classList.toggle('active');
+    document.querySelector('#filterMenuMobile').classList.toggle('active');
+})
 
 // function displayLocationInfo(pin){
 //     let infoContainer = document.querySelector('.infoContainer');
