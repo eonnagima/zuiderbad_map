@@ -144,64 +144,70 @@ loader.load('./assets/models/mapZuiderbadV6.glb', function (gtlf){
 //add Pins to map
 generatePins(locations);
 
-// window.addEventListener('DOMContentLoaded', () => {
-//     // Add event listeners for the routing button
-//     console.log("window loaded");
-//     const params = new URLSearchParams(window.location.search);
-//     const pinId = params.get('location');
-//     console.log("Pin ID: ", pinId);
-//     console.log(pins, locations.length);
-//     if(pinId){
-//         for(let i = 0; i < locations.length; i++){
-//             console.log(pins[i]);
-//             if(pins[i].id == pinId){
-//                 focusCameraOnObject(camera, controls, pins[i].pinObject, 2);
-//                 console.log("Pin found: ", pins[i].info.name);
-//                 break;
-//             }
-//         }
-//     }
-// })
+setTimeout(function(){
+    const params = new URLSearchParams(window.location.search);
+    const pinId = params.get('location');
+    let isInside;
 
-//get user location
-let feedback = "";
-if(navigator.geolocation){
-    feedback = "test";
-    console.log(feedback);
+    //get user location
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(function(position){
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
 
-    navigator.geolocation.getCurrentPosition(function(position){
-        let lat = position.coords.latitude;
-        let lon = position.coords.longitude;
-        feedback = "User location: " + lat + ", " + lon;
-        console.log(feedback);
+            const userPoint = turf.point([lon, lat]); //create a point from the user location
+            isInside = turf.booleanPointInPolygon(userPoint, hofstadeArea);
 
-        const userPoint = turf.point([lon, lat]); //create a point from the user location
-        const isInside = turf.booleanPointInPolygon(userPoint, hofstadeArea);
+            if(isInside){
+                console.log("User is inside Domein Hofstade, tracking location...");
+                const userCo = latLonToXz(lat, lon);
+                loader.load('./assets/models/userLocation.glb', function(gltf){
+                    userPin = gltf.scene;
+                    userPin.scale.set(1, 1, 1); 
+                    userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
+                    scene.add(userPin); 
+                    
+                    if(!pinId){
+                        focusCameraOnObject(camera, controls, userPin, 2, 3);
+                    }
+                }, undefined, function(error){
+                    console.error(error);
+                })
 
-        if(isInside){
-            console.log("User is inside Domein Hofstade, tracking location...");
-            const userCo = latLonToXz(lat, lon);
-            loader.load('./assets/models/userLocation.glb', function(gltf){
-            userPin = gltf.scene;
-            userPin.scale.set(1, 1, 1); 
-            userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
-            scene.add(userPin); 
-
-            focusCameraOnObject(camera, controls, userPin, 2);
-            }, undefined, function(error){
-                console.error(error);
-            })
-
-            startTrackingUser();
-        }else{
-            console.log("User not inside Domein Hofstade");
-
-            //focusCameraOnObject(camera, controls, mapModel, 2);
+                startTrackingUser();
+            }else{
+                console.log("User not inside Domein Hofstade");
+                console.log(mapModel);
+                if(!pinId){
+                    focusCameraOnObject(camera, controls, mapModel, 2, 10);
+                }
+            }
+        })
+    }
+    
+    //focus camera on shared pin
+    if(pinId){
+        let pinFound = false;
+        for(let i = 0; i < pins.length; i++){
+            if(pins[i].id == pinId){
+                pins[i].active = true;
+                pins[i].fadeInOut();
+                displayLocationInfo(pins[i]);
+                focusCameraOnObject(camera, controls, pins[i].pinObject, 2, 3);
+                pinFound = true;
+            }
         }
-    })
-}else{
+        if(!pinFound){
+            if(isInside){
+                focusCameraOnObject(camera, controls, userPin, 2, 3);
+            }else{
+                focusCameraOnObject(camera, controls, mapModel, 2, 10);
+            }
+        }
 
-}
+
+    }
+}, 1000);
 
 // window.addEventListener('load',() => {
 //   if(navigator.geolocation){
@@ -227,7 +233,7 @@ if(navigator.geolocation){
 //             //     userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
 //             //     scene.add(userPin); 
 
-//             //     focusCameraOnObject(camera, controls, userPin, 2);
+//             //     focusCameraOnObject(camera, controls, userPin, 2, 3);
 //             //     }, undefined, function(error){
 //             //         console.error(error);
 //             //     })
@@ -298,7 +304,7 @@ if(navigator.geolocation){
 // userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
 // scene.add(userPin); 
 
-// focusCameraOnObject(camera, controls, userPin, 2);
+// focusCameraOnObject(camera, controls, userPin, 2, 3);
 // }, undefined, function(error){
 //     console.error(error);
 // })
@@ -435,7 +441,7 @@ filterMenuDesktop.addEventListener('click', function(e){
 
 document.querySelector('#button-center').addEventListener('click', function(e){
     e.preventDefault();
-    focusCameraOnObject(camera, controls, userPin, 2);
+    focusCameraOnObject(camera, controls, userPin, 2, 3);
 })
 
 canvas.addEventListener('click', function(e){
@@ -463,7 +469,7 @@ canvas.addEventListener('click', function(e){
     if(intersects.length > 0){
         let clickedPin = intersects[0].object.userData.pin;
         if(clickedPin.active){
-            focusCameraOnObject(camera, controls, clickedPin.pinObject, 2);
+            focusCameraOnObject(camera, controls, clickedPin.pinObject, 2, 3);
             displayLocationInfo(clickedPin);
         }
 
@@ -510,9 +516,9 @@ function closeLocationInfo(){
 }
 
 
-function focusCameraOnObject(camera, controls, object, duration) {
+function focusCameraOnObject(camera, controls, object, duration, zoom) {
     // Define a 45-degree angle offset (diagonal from above and behind)
-    const distance = 3; // Adjust this to control zoom level
+    const distance = zoom; // Adjust this to control zoom level
     const angle = Math.PI / 4; // 45 degrees in radians
 
     // Calculate offset vector at 45° angle
@@ -865,9 +871,6 @@ function startTrackingUser() {
 function userPositionUpdate(lat, lon){
     const userCo = latLonToXz(lat, lon);
     userPin.position.set(userCo.x, 0.45, userCo.z); //position the model in the scene
-    //focusCameraOnObject(camera, controls, userPin, 2);
-    console.log("updated user location: "+lat, lon);
-    // let timestamp = new Date(Date.now()).toLocaleTimeString();
 }
 
 async function generatePins(locationsArray){
@@ -917,8 +920,15 @@ document.querySelectorAll('.shareButton').forEach(button => {
     button.addEventListener('click', function(e){
         e.preventDefault();
         let locationId = button.dataset.locationId = button.dataset.locationId;
-        shareLocation(0);
+        shareLocation(locationId);
+         document.querySelector('.notificationOverlay span').innerHTML = "Huidige locatie gekopieerd naar klipbord!";
+        document.querySelector('.notificationOverlay').classList.remove('hidden');
     })
+})
+
+document.querySelector('.notificationOverlay .closeOverlayButton').addEventListener('click', function(e){
+    e.preventDefault();
+    document.querySelector('.notificationOverlay').classList.add('hidden');
 })
 
 //ANIMATION LOOP
