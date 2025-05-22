@@ -84,14 +84,14 @@ scene.add(mapGroup); //add the group to the scene
 
 //classes
 class locationPin{
-    constructor(id, category, position, model, active, scale, info){
+    constructor(id, category, position, model, active, scale, data){
         this.id = id;
         this.category = category;
         this.position = position;
         this.model = model;
         this.active = active; 
         this.scale = scale;
-        this.info = info; // Initialize info to an empty object
+        this.data = data; // Initialize info to an empty object
         this.pinObject = null; // Initialize pinObject to null
     }
 
@@ -462,9 +462,8 @@ canvas.addEventListener('click', function(e){
     
     if(intersects.length > 0){
         let clickedPin = intersects[0].object.userData.pin;
-        console.log(clickedPin.info.name);
         focusCameraOnObject(camera, controls, clickedPin.pinObject, 2);
-       displayLocationInfo(clickedPin);
+        displayLocationInfo(clickedPin);
     }
 
 })
@@ -473,6 +472,9 @@ function displayLocationInfo(pin){
     let infoContainer = document.querySelector('.infoContainer');
     infoContainer.classList.remove('hidden');
     document.querySelector('#desktopAsside').classList.add('active');
+    document.querySelector('#desktopAsside .divider').classList.remove('hidden');
+
+    //console.log(pin.data.name);
 
     document.querySelector('.infoContainer .locationTitle').innerHTML = pin.data.name;
     document.querySelector('.infoContainer .locationDescription').innerHTML = pin.data.description;
