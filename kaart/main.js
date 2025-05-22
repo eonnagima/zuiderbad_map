@@ -71,6 +71,8 @@ renderer.setSize(width, height, false); //set the size of the renderer to the si
 camera.aspect = width / height; //update the aspect ratio of the camera so it doesnt get distorted
 camera.updateProjectionMatrix();
 camera.position.set(0, 0, 20);
+camera.layers.enable(1); // 👈 Allow the camera to render pins on layer 1
+
 
 const controls = new OrbitControls(camera, renderer.domElement); //create controls for user to move the camera
 controls.enableDamping = true; 
@@ -105,21 +107,23 @@ class locationPin{
         const loader = new GLTFLoader();
         const gltf = await new Promise((resolve, reject) => {
             loader.load(this.model, resolve, undefined, reject);
-        })
-
+        });
         this.pinObject = gltf.scene;
         this.pinObject.scale.set(this.scale, this.scale, this.scale);
-        this.pinObject.position.set(...this.position); // unpack the position array
+        this.pinObject.position.set(...this.position);
+
+        // 👇 Add this block
+        this.pinObject.traverse(child => {
+            if (child.isMesh) {
+                child.layers.set(1); // Assign to layer 1
+            }
+        });
 
         group.add(this.pinObject);
         array.push(this);
-
-        if(this.active){
-            this.pinObject.visible = true;
-        }else{
-            this.pinObject.visible = false;
-        }
+        this.pinObject.visible = this.active;
     }
+
 
     fadeInOut(){
         if(this.active){
@@ -466,12 +470,14 @@ canvas.addEventListener('click', function(e){
         -((e.clientY - rect.top) / rect.height) * 2 + 1
     );
 
-    raycaster.setFromCamera(mouse, camera); //set the raycaster to the mouse position
+    raycaster.layers.set(1); // ✅ Only raycast against pins
+    raycaster.setFromCamera(mouse, camera); // ✅ Use camera as-is
+
     const intersects = raycaster.intersectObjects(
         pins.flatMap(pin => {
             const meshes = [];
             pin.pinObject?.traverse((child) => {
-                if(child.isMesh){
+                if (child.isMesh && child.layers.test(raycaster.layers)) {
                     child.userData.pin = pin;
                     meshes.push(child);
                 }
@@ -480,27 +486,26 @@ canvas.addEventListener('click', function(e){
         }),
         true
     );
-    
+
     if(intersects.length > 0){
         let clickedPin = intersects[0].object.userData.pin;
         if(clickedPin.active){
             focusCameraOnObject(camera, controls, clickedPin.pinObject, 2, 3);
             displayLocationInfo(clickedPin);
-            
-            // Remove existing pulse if any
-            if (activePulse){
-                scene.remove(activePulse);
-                activePulse.geometry.dispose();
-                activePulse.material.dispose();
-                activePulse = null;
-            }
 
-            // Add new pulse
-            activePulse = pinActivePulse(clickedPin.pinObject.position.clone());
-            scene.add(activePulse);
+            if (activePulse){
+                scene.remove(activePulse);
+                activePulse.geometry.dispose();
+                activePulse.material.dispose();
+                activePulse = null;
+            }
+
+            activePulse = pinActivePulse(clickedPin.pinObject.position.clone());
+            scene.add(activePulse);
         }
     }
-})
+});
+
 
 document.querySelectorAll('.closeInfo').forEach(button => {
     button.addEventListener('click', function(e){
