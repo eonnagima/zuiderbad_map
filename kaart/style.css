@@ -8,6 +8,7 @@
     --secondary-salmon: #F7B9B3;
     --secondary-red: #651123;
     --secondary-skyblue: #BCD5DC;
+    --secondary-yellow: #ffebb8;
     --thirdiary-navy: #2D39E7;
     --emergency-red: #DC3021;
     --bathroom-blue: #82B6C5;
@@ -73,6 +74,14 @@ main .canvas-container{
     width: 61.8%;
     height: calc(100vh - 40px);
     position: relative;
+}
+
+#desktopAsside{
+    background-color: none;
+}
+
+#desktopAsside.active{
+    background-color: var(--secondary-yellow);
 }
 
 #canvas{
@@ -212,7 +221,7 @@ input::placeholder {
 
 #closeInfoDesktop:hover{
     cursor: pointer;
-    color: var(--primary-pink);
+    /*color: var(--primary-pink);*/
 }
 
 .infoText a{
