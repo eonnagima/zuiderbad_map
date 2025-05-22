@@ -181,7 +181,7 @@ hr.solid {
     background-position: center;
 }
 
-#searchBar{
+#searchBarDesktop, #searchBarMobile{
     border: none;
     outline: none;
     border-radius: 20px;
