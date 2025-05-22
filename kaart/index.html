@@ -70,16 +70,15 @@
               <a href="" class="button controlButton zoomOutButton"><i></i></a>
               <a href="" class="button controlButton centerButton"><i></i></a>
               <a href="" class="button controlButton filterToggle"><i></i></a>
-              <!-- <span id="test"></span> -->
             </div>
-            <div class="searchBarMobileContainer">
+            <!-- <div class="searchBarMobileContainer">
               <div class="searchBar button controlButton controlButton-search">
                 <label for="searchBarMobile" id="button-search"><i></i></label>
                 <input class="hidden" type="text" name="searchBar" id="searchInputDesktop" placeholder="Zoeken...">
               </div>
-            </div>
+            </div> -->
           </nav>
-          <div id="filterMenuMobile" class="active">
+          <div id="filterMenuMobile" class="">
             <a href="" class="button filterButton filterButton" data-filter="firstaid" data-name="EHBO"><i></i></a>
             <a href="" class="button filterButton" data-filter="event" data-name="Evenementen"><i></i></a>
             <a href="" class="button filterButton" data-filter="food" data-name="Horeca"><i></i></a>
@@ -94,15 +93,23 @@
             <a href="" class="button filterButton" data-filter="misc" data-name="Overig"><i></i></a>
           </div>
       </section>
-      <section id="mobileScreen">
-        <header>
-          <h2 class="locationTitle">Title</h2>
-          <a href="#" class="closeinfo">x</a>
-        </header>
-        <article class="infoText">
-          <p></p>
-          <a href="#" class="websiteLink" target="_blank">Ga naar onze website</a>
-        </article>
+      <section id="mobileScreen" class="">
+       <div class="infoContainer"> <!--The more info div-->
+          <header>
+            <h2 class="locationTitle"></h2>
+            <a href="#" class="closeInfo">x</a>
+          </header>
+          <article class="infoText">
+            <p class="locationDescription"></p>
+          </article>
+          <div class="locationButtons">
+            <a href="#" class="button shareButton" data-locationId="">
+              <i></i>
+              <span>Deel deze locatie</span>
+            </a>
+            <a href="" class="websiteLink hidden" target="_blank">Ga naar onze website</a>
+          </div>
+        </div>
       </section>
       <div class="notificationOverlay hidden">
           <span></span>

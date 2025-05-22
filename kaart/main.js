@@ -589,60 +589,61 @@ mobileFilterToggle.addEventListener('click', function(e){
 // }
 
 function displayLocationInfo(pin) {
-    const isMobile = window.innerWidth <= 768; // Adjust breakpoint as needed
+  const isMobile = window.innerWidth <= 768; // Adjust breakpoint as needed
 
-    // Shared data
-    const name = pin.data.name;
-    const description = pin.data.description;
-    const url = pin.data.url;
+  // Shared data
+  const name = pin.data.name;
+  const description = pin.data.description;
+  const url = pin.data.url;
 
-    console.log("Pin", pin);
+  // Desktop elements
+  const desktopContainer = document.querySelector('#desktopAsside .infoContainer');
+  const desktopAside = document.querySelector('#desktopAsside');
+  const desktopDivider = desktopAside.querySelector('.divider');
+  const desktopTitle = desktopContainer.querySelector('.locationTitle');
+  const desktopDescription = desktopContainer.querySelector('.locationDescription');
+  const desktopShareButton = desktopContainer.querySelector('.shareButton');
+  const desktopMoreInfoButton = desktopContainer.querySelector('.websiteLink');
 
-    // Desktop elements
-    const desktopContainer = document.querySelector('.infoContainer');
-    const desktopAside = document.querySelector('#desktopAsside');
-    const desktopDivider = desktopAside.querySelector('.divider');
-    const desktopTitle = desktopContainer.querySelector('.locationTitle');
-    const desktopDescription = desktopContainer.querySelector('.locationDescription');
-    const desktopShareButton = desktopContainer.querySelector('.shareButton');
-    const desktopMoreInfoButton = desktopContainer.querySelector('#desktopAsside .websiteLink');
+  // Mobile elements
+  const mobileScreen = document.querySelector('#mobileScreen');
+  const mobileTitle = mobileScreen.querySelector('.locationTitle');
+  const mobileDescription = mobileScreen.querySelector('article.infoText p');
+  const mobileMoreInfoButton = mobileScreen.querySelector('.websiteLink');
+  const mobileShareButton = mobileScreen.querySelector('.shareButton');
 
-    // Mobile elements
-    const mobileScreen = document.querySelector('#mobileScreen');
-    const mobileTitle = mobileScreen.querySelector('.locationTitle');
-    const mobileDescription = mobileScreen.querySelector('article.infoText p');
-    const mobileMoreInfoButton = mobileScreen.querySelector('#mobileScreen .websiteLink');
+  if (isMobile) {
+    // Show mobile info
+    mobileScreen.classList.add('active');
+    mobileScreen.classList.remove('hidden');
+    mobileTitle.textContent = name;
+    mobileDescription.textContent = description;
+    mobileShareButton.dataset.locationId = pin.id;
 
-    if (isMobile) {
-        // Show mobile info
-        mobileScreen.classList.remove('hidden');
-        mobileTitle.textContent = name;
-        mobileDescription.textContent = description;
-
-        if(url) {
-            mobileMoreInfoButton.classList.remove('hidden');
-            mobileMoreInfoButton.href = url;
-        }else {
-            mobileMoreInfoButton.classList.add('hidden');
-        }
+    if (url) {
+      mobileMoreInfoButton.classList.remove('hidden');
+      mobileMoreInfoButton.href = url;
     } else {
-        // Show desktop info
-        desktopContainer.classList.remove('hidden');
-        desktopAside.classList.add('active');
-        desktopDivider.classList.remove('hidden');
-
-        desktopTitle.textContent = name;
-        desktopDescription.textContent = description;
-        desktopShareButton.dataset.locationId = pin.id;
-
-        if (url) {
-            desktopMoreInfoButton.classList.remove('hidden');
-            desktopMoreInfoButton.href = url;
-        } else {
-            desktopMoreInfoButton.classList.add('hidden');
-        }
+      mobileMoreInfoButton.classList.add('hidden');
     }
+  } else {
+    // Show desktop info
+    desktopContainer.classList.remove('hidden');
+    desktopAside.classList.add('active');
+    desktopDivider.classList.remove('hidden');
+    desktopTitle.textContent = name;
+    desktopDescription.textContent = description;
+    desktopShareButton.dataset.locationId = pin.id;
+
+    if (url) {
+      desktopMoreInfoButton.classList.remove('hidden');
+      desktopMoreInfoButton.href = url;
+    } else {
+      desktopMoreInfoButton.classList.add('hidden');
+    }
+  }
 }
+
 
 window.addEventListener('resize', () => {
     const isMobile = window.innerWidth <= 768;
@@ -684,27 +685,28 @@ window.addEventListener('resize', () => {
 // }
 
 function closeLocationInfo() {
-    // Desktop elements
-    const desktopContainer = document.querySelector('.infoContainer');
-    const desktopAside = document.querySelector('#desktopAsside');
-    const desktopDivider = desktopAside.querySelector('.divider');
+  // Desktop elements
+  const desktopContainer = document.querySelector('#desktopAsside .infoContainer');
+  const desktopAside = document.querySelector('#desktopAsside');
+  const desktopDivider = desktopAside.querySelector('.divider');
 
-    // Mobile elements
-    const mobileScreen = document.querySelector('#mobileScreen');
+  // Mobile elements
+  const mobileScreen = document.querySelector('#mobileScreen');
 
-    // Hide both containers
-    desktopContainer.classList.add('hidden');
-    desktopAside.classList.remove('active');
-    desktopDivider.classList.add('hidden');
+  // Hide both containers
+  desktopContainer.classList.add('hidden');
+  desktopAside.classList.remove('active');
+  desktopDivider.classList.add('hidden');
+  mobileScreen.classList.remove('active');
+  mobileScreen.classList.add('hidden');
 
-    mobileScreen.classList.add('hidden');
-
-    // Optionally clear content (optional cleanup)
-    desktopContainer.querySelector('.locationTitle').textContent = '';
-    desktopContainer.querySelector('.locationDescription').textContent = '';
-    mobileScreen.querySelector('.locationTitle').textContent = '';
-    mobileScreen.querySelector('article.infoText p').textContent = '';
+  // Optionally clear content
+  desktopContainer.querySelector('.locationTitle').textContent = '';
+  desktopContainer.querySelector('.locationDescription').textContent = '';
+  mobileScreen.querySelector('.locationTitle').textContent = '';
+  mobileScreen.querySelector('article.infoText p').textContent = '';
 }
+
 
 
 
