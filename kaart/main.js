@@ -30,6 +30,8 @@ let userLocation = null;
 let watchId = null;
 let lastLocationUpdate = Date.now();
 let userPin;
+let clock = new THREE.Clock();
+let activePulse = null;
 
 //Hofstade
 const hofstadeArea = turf.polygon([[
@@ -133,7 +135,7 @@ renderer.setClearColor(0x000000, 0); //set the background color of the renderer
 let mapModel;
 //map
 const loader = new GLTFLoader();
-loader.load('./assets/models/mapZuiderbadV9.glb', function (gtlf){
+loader.load('./assets/models/mapZuiderbadV10.glb', function (gtlf){
     //scale model down to fit in the scene
     mapModel = gtlf.scene;
     mapModel.scale.set(1, 1, 1); //scale the model down to fit in the scene
@@ -197,6 +199,19 @@ setTimeout(function(){
                 pins[i].fadeInOut();
                 displayLocationInfo(pins[i]);
                 focusCameraOnObject(camera, controls, pins[i].pinObject, 2, 3);
+
+                            // Remove existing pulse if any
+                if (activePulse){
+                    scene.remove(activePulse);
+                    activePulse.geometry.dispose();
+                    activePulse.material.dispose();
+                    activePulse = null;
+                }
+
+                // Add new pulse
+                activePulse = pinActivePulse(pins[i].pinObject.position.clone());
+                scene.add(activePulse);
+
                 pinFound = true;
             }
         }
@@ -471,16 +486,34 @@ canvas.addEventListener('click', function(e){
         if(clickedPin.active){
             focusCameraOnObject(camera, controls, clickedPin.pinObject, 2, 3);
             displayLocationInfo(clickedPin);
-        }
+            
+            // Remove existing pulse if any
+            if (activePulse){
+                scene.remove(activePulse);
+                activePulse.geometry.dispose();
+                activePulse.material.dispose();
+                activePulse = null;
+            }
 
+            // Add new pulse
+            activePulse = pinActivePulse(clickedPin.pinObject.position.clone());
+            scene.add(activePulse);
+        }
     }
 })
 
 document.querySelectorAll('.closeInfo').forEach(button => {
     button.addEventListener('click', function(e){
         e.preventDefault();
-        //console.log("close button clicked");
         closeLocationInfo();
+
+        // Remove pulse when info is closed
+        if (activePulse) {
+            scene.remove(activePulse);
+            activePulse.geometry.dispose();
+            activePulse.material.dispose();
+            activePulse = null;
+        }
     })
 })
 
@@ -1031,16 +1064,63 @@ function searchQuery(needle, haystack) {
     return result;
 }
 
+function pinActivePulse(position) {
+    const geometry = new THREE.CircleGeometry(1, 64);
+    const material = new THREE.ShaderMaterial({
+        transparent: true,
+        uniforms: {
+            uTime: { value: 0.0 },
+            uColor: { value: new THREE.Color(0xFDC759) }
+        },
+        vertexShader: `
+            varying vec2 vUv;
+            void main() {
+                vUv = uv;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `,
+        fragmentShader: `
+            uniform float uTime;
+            uniform vec3 uColor;
+            varying vec2 vUv;
+            void main() {
+                float alpha = 1.0 - uTime;
+                gl_FragColor = vec4(uColor, alpha);
+            }
+        `
+    });
+
+    const circle = new THREE.Mesh(geometry, material);
+    circle.position.copy(position); // Now this works
+    circle.rotation.x = -Math.PI / 2;
+    let size = 0.05
+    circle.scale.set(size, size, size);
+
+    return circle;
+}
+
 //ANIMATION LOOP
 
 function animate() {
+    //orbital controls update
     controls.update();
 
+    //pins animation
     pins.forEach((pin) => {
         if(pin.pinObject){ // conscheck if the pinObject is loaded
             pin.pinObject.lookAt(camera.position); // make the pin look at the camera
         }
     })
+
+    //pulse animation
+    let elapsed = clock.getElapsedTime();
+    let t = (elapsed % 1.5) / 1.5; // Loop every 1.5 seconds
+
+    if(activePulse){
+            activePulse.material.uniforms.uTime.value = t;
+        let scale =  + t * 1
+        activePulse.scale.set(scale, scale, scale);
+    }
 
     renderer.render( scene, camera );
 }
