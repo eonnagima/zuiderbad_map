@@ -518,35 +518,150 @@ document.querySelectorAll('.closeInfo').forEach(button => {
 })
 
 
-function displayLocationInfo(pin){
-    let infoContainer = document.querySelector('.infoContainer');
-    infoContainer.classList.remove('hidden');
-    document.querySelector('#desktopAsside').classList.add('active');
-    document.querySelector('#desktopAsside .divider').classList.remove('hidden');
+// function displayLocationInfo(pin){
+//     let infoContainer = document.querySelector('.infoContainer');
+//     infoContainer.classList.remove('hidden');
+//     document.querySelector('#desktopAsside').classList.add('active');
+//     document.querySelector('#desktopAsside .divider').classList.remove('hidden');
 
-    //console.log(pin.data.name);
+//     //console.log(pin.data.name);
 
-    document.querySelector('.infoContainer .locationTitle').innerHTML = pin.data.name;
-    document.querySelector('.infoContainer .locationDescription').innerHTML = pin.data.description;
-    document.querySelector('.infoContainer .shareButton').dataset.locationId = pin.id;
+//     document.querySelector('.infoContainer .locationTitle').innerHTML = pin.data.name;
+//     document.querySelector('.infoContainer .locationDescription').innerHTML = pin.data.description;
+//     document.querySelector('.infoContainer .shareButton').dataset.locationId = pin.id;
 
-    let moreInfoButton = document.querySelector('.infoContainer .moreInfoButton');
+//     let moreInfoButton = document.querySelector('.infoContainer .moreInfoButton');
 
-    if(pin.data.url){
-        moreInfoButton.classList.remove('hidden');
-        moreInfoButton.href = pin.data.url;
+//     console.log(pin.data.url);
+//     if(pin.data.url){
+//         moreInfoButton.classList.remove('hidden');
+//         moreInfoButton.href = pin.data.url;
+//     }else{
+//         moreInfoButton.classList.add('hidden');
+//     }
+
+//     let shareButton = document.querySelector('.infoContainer .shareButton');
+//     shareButton.dataset.locationId = pin.id;
+// }
+
+function displayLocationInfo(pin) {
+    const isMobile = window.innerWidth <= 768; // Adjust breakpoint as needed
+
+    // Shared data
+    const name = pin.data.name;
+    const description = pin.data.description;
+    const url = pin.data.url;
+
+    console.log("Pin", pin);
+
+    // Desktop elements
+    const desktopContainer = document.querySelector('.infoContainer');
+    const desktopAside = document.querySelector('#desktopAsside');
+    const desktopDivider = desktopAside.querySelector('.divider');
+    const desktopTitle = desktopContainer.querySelector('.locationTitle');
+    const desktopDescription = desktopContainer.querySelector('.locationDescription');
+    const desktopShareButton = desktopContainer.querySelector('.shareButton');
+    const desktopMoreInfoButton = desktopContainer.querySelector('.moreInfoButton');
+
+    // Mobile elements
+    const mobileScreen = document.querySelector('#mobileScreen');
+    const mobileTitle = mobileScreen.querySelector('.locationTitle');
+    const mobileDescription = mobileScreen.querySelector('article.infoText p');
+    const mobileMoreInfoButton = mobileScreen.querySelector('a.link');
+
+    if (isMobile) {
+        // Show mobile info
+        mobileScreen.classList.remove('hidden');
+        mobileTitle.textContent = name;
+        mobileDescription.textContent = description;
+
+        if(url) {
+            mobileMoreInfoButton.classList.remove('hidden');
+            mobileMoreInfoButton.href = url;
+        }else {
+            mobileMoreInfoButton.classList.add('hidden');
+        }
+    } else {
+        // Show desktop info
+        desktopContainer.classList.remove('hidden');
+        desktopAside.classList.add('active');
+        desktopDivider.classList.remove('hidden');
+
+        desktopTitle.textContent = name;
+        desktopDescription.textContent = description;
+        desktopShareButton.dataset.locationId = pin.id;
+
+        if (url) {
+            desktopMoreInfoButton.classList.remove('hidden');
+            desktopMoreInfoButton.href = url;
+        } else {
+            desktopMoreInfoButton.classList.add('hidden');
+        }
     }
-
-    let shareButton = document.querySelector('.infoContainer .shareButton');
-    shareButton.dataset.locationId = pin.id;
 }
 
-function closeLocationInfo(){
-    let infoContainer = document.querySelector('.infoContainer');
-    infoContainer.classList.add('hidden');
-    document.querySelector('#desktopAsside').classList.remove('active');
-    document.querySelector('#desktopAsside .divider').classList.add('hidden');
+window.addEventListener('resize', () => {
+    const isMobile = window.innerWidth <= 768;
+
+    const desktopContainer = document.querySelector('.infoContainer');
+    const desktopAside = document.querySelector('#desktopAsside');
+    const mobileScreen = document.querySelector('#mobileScreen');
+
+    if (isMobile) {
+        // Hide desktop info if visible
+        desktopContainer.classList.add('hidden');
+        desktopAside.classList.remove('active');
+
+        // Show mobile info if it has content
+        const hasContent = mobileScreen.querySelector('.locationTitle').textContent.trim() !== '';
+        if (hasContent) {
+            mobileScreen.classList.remove('hidden');
+        }
+    } else {
+        // Hide mobile info if visible
+        mobileScreen.classList.add('hidden');
+
+        // Show desktop info if it has content
+        const hasContent = desktopContainer.querySelector('.locationTitle').textContent.trim() !== '';
+        if (hasContent) {
+            desktopContainer.classList.remove('hidden');
+            desktopAside.classList.add('active');
+        }
+    }
+});
+
+
+
+// function closeLocationInfo(){
+//     let infoContainer = document.querySelector('.infoContainer');
+//     infoContainer.classList.add('hidden');
+//     document.querySelector('#desktopAsside').classList.remove('active');
+//     document.querySelector('#desktopAsside .divider').classList.add('hidden');
+// }
+
+function closeLocationInfo() {
+    // Desktop elements
+    const desktopContainer = document.querySelector('.infoContainer');
+    const desktopAside = document.querySelector('#desktopAsside');
+    const desktopDivider = desktopAside.querySelector('.divider');
+
+    // Mobile elements
+    const mobileScreen = document.querySelector('#mobileScreen');
+
+    // Hide both containers
+    desktopContainer.classList.add('hidden');
+    desktopAside.classList.remove('active');
+    desktopDivider.classList.add('hidden');
+
+    mobileScreen.classList.add('hidden');
+
+    // Optionally clear content (optional cleanup)
+    desktopContainer.querySelector('.locationTitle').textContent = '';
+    desktopContainer.querySelector('.locationDescription').textContent = '';
+    mobileScreen.querySelector('.locationTitle').textContent = '';
+    mobileScreen.querySelector('article.infoText p').textContent = '';
 }
+
 
 
 function focusCameraOnObject(camera, controls, object, duration, zoom) {
